@@ -1,0 +1,29 @@
+{
+  "nombre": "banco_monto_con_signo",
+  "rol": "banco",
+  "descripcion": "Cartolas con un solo monto con signo (negativo = cargo), separador ',', fechas aaaa-mm-dd.",
+  "deteccion": {
+    "encabezado_contiene": [
+      "Fecha",
+      "Glosa",
+      "Monto"
+    ]
+  },
+  "separador": ",",
+  "formato_fecha": [
+    "%Y-%m-%d"
+  ],
+  "numeros": "chileno",
+  "columnas": {
+    "fecha": [
+      "Fecha Movimiento",
+      "Fecha"
+    ],
+    "descripcion": "Glosa",
+    "monto_con_signo": "Monto",
+    "saldo": [
+      "Saldo Disponible",
+      "Saldo"
+    ]
+  }
+}

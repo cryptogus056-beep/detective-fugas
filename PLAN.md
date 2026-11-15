@@ -102,14 +102,14 @@ Cada fase cierra con: pruebas en verde, este plan actualizado, entrada en `BITAC
 
 ### Fase 1 · Base: lectores, normalización y plantillas
 
-- [ ] 1.1 Instalar dependencias (`pip install -r requirements.txt`) y crear la estructura de `detective/` y `tests/`
-- [ ] 1.2 `normalizar.py`: números (`1.234.567`, `$ 1.234.567`, `-34400`, `65000.00`), fechas (`dd/mm/aaaa`, `dd-mm-aaaa`, `aaaa-mm-dd`, ISO con hora y zona, fechas de Excel), RUT (formato `12.345.678-9` y dígito verificador), glosas (mayúsculas, sin códigos ni números de tarjeta)
-- [ ] 1.3 `lectores.py`: detecta codificación (UTF-8 con y sin BOM, Latin-1) y separador (`;` o `,`), encuentra el encabezado aunque haya preámbulo, y guarda la línea física real de cada fila (también cuando un campo trae saltos de línea). Lee XLSX con `openpyxl`
-- [ ] 1.4 `plantillas.py` y las 10 plantillas de la sección 5.3. Si ninguna calza, el error dice qué columnas encontró y cómo copiar `plantillas/_ejemplo.json`
-- [ ] 1.5 `modelo.py` y `config.py` (umbrales con valores por defecto si falta `config.json`)
-- [ ] 1.6 CLI: `python -m detective version` y `python -m detective plantilla --archivo ...`
+- [x] 1.1 Instalar dependencias (`pip install -r requirements.txt`) y crear la estructura de `detective/` y `tests/`
+- [x] 1.2 `normalizar.py`: números (`1.234.567`, `$ 1.234.567`, `-34400`, `65000.00`), fechas (`dd/mm/aaaa`, `dd-mm-aaaa`, `aaaa-mm-dd`, ISO con hora y zona, fechas de Excel), RUT (formato `12.345.678-9` y dígito verificador), glosas (mayúsculas, sin códigos ni números de tarjeta)
+- [x] 1.3 `lectores.py`: detecta codificación (UTF-8 con y sin BOM, Latin-1) y separador (`;` o `,`), encuentra el encabezado aunque haya preámbulo, y guarda la línea física real de cada fila (también cuando un campo trae saltos de línea). Lee XLSX con `openpyxl`
+- [x] 1.4 `plantillas.py` y las 10 plantillas de la sección 5.3. Si ninguna calza, el error dice qué columnas encontró y cómo copiar `plantillas/_ejemplo.json`
+- [x] 1.5 `modelo.py` y `config.py` (umbrales con valores por defecto si falta `config.json`)
+- [x] 1.6 CLI: `python -m detective version` y `python -m detective plantilla --archivo ...`
 - [ ] 1.7 Regla de archivos repetidos: si `cotizaciones.xlsx` y `cotizaciones.csv` traen lo mismo, usar el XLSX y avisarlo
-- [ ] 1.8 Pruebas de lectores, normalización y plantillas
+- [x] 1.8 Pruebas de lectores, normalización y plantillas
 
 **Verificación:** `python -m pytest -q` en verde. Una prueba lee los 9 archivos de demo A y los 8 de demo B y comprueba rol, plantilla y cantidad de filas de cada uno.
 

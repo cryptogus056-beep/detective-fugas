@@ -1,0 +1,39 @@
+{
+  "nombre": "transbank_ventas",
+  "rol": "pos",
+  "descripcion": "Ventas con tarjeta tipo Transbank: separador ';', fechas dd-mm-aaaa, punto de miles [sin verificar los encabezados reales].",
+  "deteccion": {
+    "encabezado_contiene": [
+      "Fecha Venta",
+      "Monto Venta",
+      "Estado"
+    ]
+  },
+  "separador": ";",
+  "formato_fecha": [
+    "%d-%m-%Y"
+  ],
+  "numeros": "chileno",
+  "columnas": {
+    "fecha": "Fecha Venta",
+    "id": [
+      "Codigo Autorizacion",
+      "Código Autorización"
+    ],
+    "descripcion": "Tipo Tarjeta",
+    "monto": "Monto Venta",
+    "comision": "Comision + IVA",
+    "monto_neto": "Monto Abono",
+    "estado": "Estado"
+  },
+  "estados": {
+    "aprobada": [
+      "Aprobada"
+    ],
+    "rechazada": [
+      "Rechazada",
+      "Anulada",
+      "Reversada"
+    ]
+  }
+}

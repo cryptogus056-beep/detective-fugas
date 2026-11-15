@@ -1,0 +1,35 @@
+{
+  "nombre": "sii_rcv_compras",
+  "rol": "rcv_compras",
+  "descripcion": "Registro de Compras del SII: separador ';', montos enteros [sin verificar los encabezados reales].",
+  "deteccion": {
+    "encabezado_contiene": [
+      "Tipo Doc",
+      "RUT Proveedor",
+      "Folio",
+      "Monto Total"
+    ]
+  },
+  "separador": ";",
+  "formato_fecha": [
+    "%d/%m/%Y"
+  ],
+  "numeros": "chileno",
+  "columnas": {
+    "tipo": "Tipo Doc",
+    "rut": "RUT Proveedor",
+    "razon_social": [
+      "Razon Social",
+      "Razón Social"
+    ],
+    "folio": "Folio",
+    "fecha": "Fecha Docto",
+    "exento": "Monto Exento",
+    "neto": "Monto Neto",
+    "iva": [
+      "Monto IVA Recuperable",
+      "Monto IVA"
+    ],
+    "total": "Monto Total"
+  }
+}

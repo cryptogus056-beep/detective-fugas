@@ -1,0 +1,32 @@
+{
+  "nombre": "sii_rcv_ventas",
+  "rol": "rcv_ventas",
+  "descripcion": "Registro de Ventas del SII: separador ';', tipo 33 = factura, 39 = boleta, montos enteros [sin verificar los encabezados reales].",
+  "deteccion": {
+    "encabezado_contiene": [
+      "Tipo Doc",
+      "Rut cliente",
+      "Folio",
+      "Monto total"
+    ]
+  },
+  "separador": ";",
+  "formato_fecha": [
+    "%d/%m/%Y"
+  ],
+  "numeros": "chileno",
+  "columnas": {
+    "tipo": "Tipo Doc",
+    "rut": "Rut cliente",
+    "razon_social": [
+      "Razon Social",
+      "Razón Social"
+    ],
+    "folio": "Folio",
+    "fecha": "Fecha Docto",
+    "exento": "Monto Exento",
+    "neto": "Monto Neto",
+    "iva": "Monto IVA",
+    "total": "Monto total"
+  }
+}

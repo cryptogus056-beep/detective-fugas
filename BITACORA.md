@@ -51,6 +51,27 @@ Formato de cada entrada:
 - Qué cambié: estado en `PLAN.md`. No se toca `main`, no hay despliegue ni publicación.
 - Cómo lo verifiqué: mensaje de Gustavo en la sesión ("Sí, aprobado el PLAN.md" y luego "A").
 
+## 2026-11-15 00:12 · Fase 1 · Regla explícita para punto de miles y punto decimal
+
+- Qué pasó: decisión de diseño: `34.400` (cartola) y `65000.00` (Mercado Pago) usan el punto con significados distintos.
+- Por qué: un grupo de miles siempre tiene 3 dígitos; un decimal en pesos casi nunca. Además cada plantilla declara su modo (`chileno` o `decimal_punto`).
+- Qué cambié: `detective/normalizar.py` (`parsear_numero` con la regla escrita en su documentación) y el campo `numeros` de cada plantilla.
+- Cómo lo verifiqué: `python -m pytest -q tests/test_normalizar.py`: 15 casos de números (miles, decimales, signo, paréntesis) en verde.
+
+## 2026-11-15 00:12 · Fase 1 · Separador detectado por regularidad y plantillas con alias
+
+- Qué pasó: decisión de diseño: el separador se elige por el que aparece la misma cantidad de veces en más líneas, y las plantillas aceptan varios nombres posibles por columna y un bloque `estados`.
+- Por qué: una coma dentro de un nombre o una coma decimal no es regular; un separador de columnas sí. Los alias permiten que una misma plantilla sirva para variantes pequeñas (con o sin tilde, con o sin `($)`).
+- Qué cambié: `detective/lectores.py`, `detective/plantillas.py` y los 10 JSON de `plantillas/`.
+- Cómo lo verifiqué: prueba `test_lee_todos_los_archivos_de_las_demos`: los 8 archivos de datos de demo A y los 7 de demo B se reconocen con la plantilla esperada y sin filas saltadas (más `config.json` en cada una: 9 y 8).
+
+## 2026-11-15 00:12 · Fase 1 · Cierre de fase 1
+
+- Qué pasó: base terminada: normalización, lectores CSV y XLSX con línea física, plantillas, configuración y comandos `version` y `plantilla`. La tarea 1.7 (archivos repetidos) se hace junto con `auditoria.py` en la fase 2, porque ahí se reúnen los archivos.
+- Por qué: el orden natural del código: la regla de repetidos necesita comparar registros ya cargados.
+- Qué cambié: `detective/` (6 módulos), `plantillas/` (10 JSON), `tests/` (3 archivos de prueba).
+- Cómo lo verifiqué: `python -m pytest -q`: 67 passed in 0.35s.
+
 ## Crítico
 
 (Fable completa esta sección en la fase 7: los máximo 5 problemas encontrados y qué se hizo con cada uno.)

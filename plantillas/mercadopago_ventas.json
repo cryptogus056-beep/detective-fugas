@@ -1,0 +1,37 @@
+{
+  "nombre": "mercadopago_ventas",
+  "rol": "pos",
+  "descripcion": "Reporte de ventas de Mercado Pago: separador ',', fechas ISO con hora y zona, montos con punto decimal [sin verificar los encabezados reales].",
+  "deteccion": {
+    "encabezado_contiene": [
+      "fecha_creacion",
+      "monto_bruto",
+      "estado"
+    ]
+  },
+  "separador": ",",
+  "formato_fecha": [],
+  "numeros": "decimal_punto",
+  "columnas": {
+    "fecha": "fecha_creacion",
+    "id": "id_operacion",
+    "descripcion": "descripcion",
+    "monto": "monto_bruto",
+    "comision": "comision_mp",
+    "monto_neto": "monto_neto",
+    "estado": "estado"
+  },
+  "estados": {
+    "aprobada": [
+      "approved"
+    ],
+    "rechazada": [
+      "rejected",
+      "cancelled",
+      "refunded",
+      "pending",
+      "in_process",
+      "charged_back"
+    ]
+  }
+}
