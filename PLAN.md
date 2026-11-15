@@ -178,9 +178,9 @@ Cada fase cierra con: pruebas en verde, este plan actualizado, entrada en `BITAC
 ### Fase 8 · Documentación y entrega
 
 - [x] 8.1 `README.md` completo según la sección 13 (incluye "Cómo sacar tus archivos" con **[sin verificar]** en todo lo que no pueda comprobar en la fuente oficial)
-- [ ] 8.2 `ENTREGA/`: reemplazar los marcadores que dependen del resultado; dejar los de link y video para ti
-- [ ] 8.3 `BITACORA.md`: resumen arriba ("Fable corrigió N cosas; las 3 más importantes fueron...")
-- [ ] 8.4 `salida/demo/` y `salida/demo_b/` regeneradas y dentro del repositorio como ejemplo
+- [x] 8.2 `ENTREGA/`: reemplazar los marcadores que dependen del resultado; dejar los de link y video para ti
+- [x] 8.3 `BITACORA.md`: resumen arriba ("Fable corrigió N cosas; las 3 más importantes fueron...")
+- [x] 8.4 `salida/demo/` y `salida/demo_b/` regeneradas y dentro del repositorio como ejemplo
 
 **Verificación:** prueba de idioma en verde (sin guion largo en ningún `.md` ni en la web), y una búsqueda de marcadores `[[` que solo debe dejar los de link y video.
 

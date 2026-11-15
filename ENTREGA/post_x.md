@@ -4,7 +4,7 @@
 
 ## Opción A (recomendada)
 
-Construí con Claude Fable 5.2 un Detective de Fugas para pymes: lee tu cartola, ventas, SII y cotizaciones y te muestra la plata que pierdes, con la fila exacta que lo prueba. En la demo encontró [[X]]/12 fugas. Gratis: [[LINK_WEB]] #FableImperial
+Construí con Claude Fable 5.2 un Detective de Fugas para pymes: lee tu cartola, ventas, SII y cotizaciones y te muestra la plata que pierdes, con la fila exacta que lo prueba. En la demo encontró 12/12 fugas. Gratis: [[LINK_WEB]] #FableImperial
 
 ## Opción B (más corta)
 

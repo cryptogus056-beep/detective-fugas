@@ -2,7 +2,13 @@
 
 Aquí queda registrado cada error, corrección y decisión durante la construcción con Claude Fable 5.2. Es la base de la parte "cómo lo hice" del post del concurso.
 
-**Resumen (Fable lo completa al final):** Fable corrigió [[N]] cosas; las 3 más importantes fueron [[...]].
+**Resumen:** Fable corrigió 17 cosas (12 que detectó con sus propias pruebas y relecturas, en 7 entradas tituladas "Corrección", y 5 que encontró el crítico); las 3 más importantes fueron:
+
+1. **El informe mezclaba montos.** El crítico (como dueña de pyme) no podía saber cuánta plata era suya: la columna "Monto" a veces era la deuda y a veces el total de un documento cuya pérdida real era otra, y el resumen decía "al mes" para cosas que pasaron una sola vez. Fable separó "monto del documento" de "plata en juego" y reescribió el resumen.
+2. **Los mensajes de cobro envejecían al enviarlos.** Decían "al 31/10 lleva 72 días sin pago" y prometían "le enviaremos la factura esta semana", sin datos para transferir. Ahora no citan fechas que cambian, adjuntan el documento, piden disculpas por la demora y traen entre corchetes lo que el dueño debe completar.
+3. **Una prueba se delató a sí misma.** La prueba que prohíbe el guion largo falló apuntando a su propio archivo: la herramienta había convertido el código de escape en el carácter real. Es la clase de error que solo aparece si de verdad corres las pruebas en vez de suponer que pasan.
+
+Resultado final: demo A y demo B con 12 de 12 fugas y 0 falsos positivos; 173 pruebas automáticas en verde; la web da el mismo resultado que la línea de comandos. Además de las correcciones hay 12 decisiones de diseño registradas (por ejemplo, que los subagentes solo pueden quitar hallazgos, nunca agregar) y un bloqueo que no se resolvió por decisión propia: el respaldo con `git push` quedó denegado por `.claude/settings.json` y no se saltó.
 
 Formato de cada entrada:
 
@@ -225,6 +231,13 @@ Formato de cada entrada:
 - Por qué: checkpoint de la spec: la demo se ve y subir los CSV de demo B da el mismo informe que la CLI.
 - Qué cambié: `scripts/construir_web.py`, `web/` (página, estilos, `app.js`, `puente.py`, copias de código, plantillas y demo), `tests/test_web.py`, `tests/navegador/prueba_web.cjs`.
 - Cómo lo verifiqué: prueba con Chromium: `hallazgos.json`, `informe.md` y `mensajes_cobro.md` del navegador son idénticos a los de la CLI para demo B; 0 errores en la consola; capturas revisadas en ancho de computador (1200) y de celular (390, sin desborde horizontal). La prueba con navegador se salta sola si no hay Node con Playwright o no hay acceso al CDN.
+
+## 2026-11-15 13:55 · Fase 8 · Cierre de fase 8: documentación y entrega con números reales
+
+- Qué pasó: README completo según la sección 13, borradores de `ENTREGA/` con los números reales y resumen al comienzo de esta bitácora.
+- Por qué: el post del concurso necesita 4 partes (proyecto, resultado, cómo se hizo y moraleja) y no puede salir con marcadores vacíos ni con números inventados.
+- Qué cambié: `README.md` (qué es, resultado, uso en 3 comandos, web, cómo sacar los archivos con **[sin verificar]** donde no pude comprobar la fuente oficial, plantillas, diagrama, cómo se construyó, limitaciones, privacidad, licencia). `ENTREGA/post_skool.md`, `ENTREGA/post_x.md` y `ENTREGA/guion_video.md`: 12 de 12 en ambas demos, $3.738.472 en juego, 17 correcciones, 5 problemas del crítico, y los prompts P0 y P1 pegados. Quedan solo los marcadores de links (`[[LINK_WEB]]`, `[[LINK_VIDEO]]`, `[[LINK_GITHUB]]`, `[[LINK_POST_X]]`), que le tocan a Gustavo.
+- Cómo lo verifiqué: búsqueda de `[[` en `ENTREGA/`, `README.md` y `BITACORA.md`: solo aparecen marcadores `LINK_`. Los textos para X miden 255 y 196 caracteres (contando cada link como 23). `python -m pytest -q`: 173 passed.
 
 ## Crítico
 

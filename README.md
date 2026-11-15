@@ -180,7 +180,7 @@ Estructura del proyecto:
 |---|---|
 | `detective/` | El detector: lectores, plantillas, emparejamiento, reglas, verificador, informe y mensajes |
 | `plantillas/` | Un archivo JSON por formato de banco o sistema |
-| `tests/` | 172 pruebas automáticas (`python -m pytest -q`) |
+| `tests/` | 173 pruebas automáticas (`python -m pytest -q`) |
 | `scripts/` | Generador de las demos, evaluador y constructor de la web |
 | `web/` | La página de demostración |
 | `data/` | Las dos demos ficticias |
