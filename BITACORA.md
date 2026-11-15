@@ -126,7 +126,7 @@ Formato de cada entrada:
 - Qué pasó: `test_ningun_texto_tiene_guion_largo` falló señalando a `tests/test_idioma.py`: la propia prueba tenía el guion largo escrito de forma literal.
 - Por qué: escribí el carácter con su código de escape, pero la herramienta con la que creé el archivo lo convirtió en el carácter real antes de guardarlo. Es exactamente la trampa que la spec advierte en la sección 9.
 - Qué cambié: `tests/test_idioma.py`: el carácter ahora está como secuencia de escape de verdad en el archivo, comprobado leyendo la línea.
-- Cómo lo verifiqué: `python -m pytest -q`: 134 passed. La línea del archivo se lee `GUION_LARGO = "\\u2014"`.
+- Cómo lo verifiqué: `python -m pytest -q`: 134 passed. La línea del archivo se lee `GUION_LARGO = "\u2014"` (con una sola barra).
 
 ## 2026-11-15 00:21 · Fase 3 · Corrección: la prueba anti trampa encontró un nombre de la demo en el código
 
@@ -141,6 +141,41 @@ Formato de cada entrada:
 - Por qué: las diferencias entre A y B viven en `plantillas/*.json` (separador, formato de fecha, modo de números, nombres de columna y estados), no en el código.
 - Qué cambié: pruebas nuevas: `tests/test_punta_a_punta.py` (regenera los datasets, corre el detector y ejecuta `evaluar.py` en ambas demos), `tests/test_anti_trampa.py`, `tests/test_idioma.py` y `tests/test_cli.py`.
 - Cómo lo verifiqué: `python scripts/evaluar.py --dataset data/demo_b`: "Encontradas: 12 de 12   Falsos positivos: 0   RESULTADO: APROBADO". `python -m pytest -q`: 134 passed in 1.62s.
+
+## 2026-11-15 07:48 · Fase 4 · La sesión se cortó a mitad de la fase 4 y se retomó sin perder nada
+
+- Qué pasó: el turno se interrumpió justo después de escribir `detective/mensajes.py`. Gustavo pidió reintentar.
+- Por qué: un corte de la sesión en la nube, no un error del código.
+- Qué cambié: nada. Seguí la regla de reanudación: revisé `git status`, las tareas sin marcar de `PLAN.md` y corrí las pruebas antes de tocar algo.
+- Cómo lo verifiqué: `git log` mostraba los 6 commits; `python -m pytest -q`: 134 passed; los dos archivos a medio hacer seguían en el disco.
+
+## 2026-11-15 07:48 · Fase 4 · El informe se arma una sola vez y se escribe en dos formatos
+
+- Qué pasó: decisión de diseño: `informe.py` construye el informe como estructura (`construir`) y de ahí salen `informe.md` e `informe.html`.
+- Por qué: si cada formato armara sus propios textos, tarde o temprano dirían cosas distintas. Además la web reutiliza el mismo HTML.
+- Qué cambié: `detective/informe.py` (resumen de 5 líneas, tabla, detalle con la fila original, cómo verificar, lo que no pude revisar, pie) y `detective/mensajes.py`.
+- Cómo lo verifiqué: `tests/test_informe.py`: 5 líneas exactas, orden de la tabla igual al de `hallazgos.json`, fila original igual a la línea física del archivo, montos y fechas con el formato pedido, HTML sin recursos externos y con el texto escapado.
+
+## 2026-11-15 07:48 · Fase 4 · Capa LLM opcional: programada y probada sin gastar un peso
+
+- Qué pasó: el modo `--llm` usa la librería oficial de Anthropic con el modelo económico `claude-haiku-5-5`, solo si existe `ANTHROPIC_API_KEY`. No la ejecuté con una clave real.
+- Por qué: gastar dinero está reservado a Gustavo (sección 0.5). Además el texto de un modelo puede cambiar un dato sin querer.
+- Qué cambié: `detective/llm.py`: después de pulir, comprueba que el texto conserve monto, fecha y folio o número de cotización, que no use guion largo y que no se alargue demasiado; si algo falla, queda la plantilla fija. La librería `anthropic` es opcional y se carga solo al pedir `--llm`.
+- Cómo lo verifiqué: `tests/test_mensajes.py` con un cliente simulado: 8 casos de falla (pierde el monto, respuesta vacía, texto cortado, negativa, clave inválida, sin conexión, error del servidor, guion largo) dejan la plantilla y un aviso. `python -m detective auditar --datos data/demo --llm` sin clave avisa y sigue.
+
+## 2026-11-15 07:48 · Fase 4 · Corrección: cuatro cosas que confundían al leer el informe como dueño de pyme
+
+- Qué pasó: al leer `salida/demo/informe.md` completo encontré: (1) la licencia huérfana decía monto $8.600 pero su evidencia mostraba $34.400; (2) la palabra "glosa" en textos para el usuario; (3) el saludo "Buenos días, Restaurante ..." a una empresa y el cierre "Quedo atento" en masculino; (4) nombres técnicos de plantilla en la lista de archivos leídos.
+- Por qué: el cobro del banco es por las 4 licencias juntas y el informe no lo explicaba; el resto eran textos escritos pensando como programador.
+- Qué cambié: `reglas/suscripciones.py` (explica que el cobro incluye todas las licencias), `reglas/abono_sin_documento.py` y `mensajes.py` ("descripción del movimiento", "Estimado equipo de ...", "Quedamos atentos"), `informe.py` (tipo de archivo en palabras simples).
+- Cómo lo verifiqué: relectura de `salida/demo/informe.md` y `salida/demo/mensajes_cobro.md`; `python scripts/evaluar.py`: 12 de 12, 0 falsos.
+
+## 2026-11-15 07:48 · Fase 4 · Cierre de fase 4
+
+- Qué pasó: informe y mensajes listos: `informe.md`, `informe.html`, `mensajes_cobro.md`, opciones `--tratamiento` y `--llm`.
+- Por qué: checkpoint de la spec: resumen de 5 líneas, tabla ordenada, evidencia y encabezado de borrador.
+- Qué cambié: `detective/informe.py`, `detective/mensajes.py`, `detective/llm.py`, `detective/__main__.py`, `requirements.txt` (nota sobre la librería opcional), `salida/demo/` y `salida/demo_b/`.
+- Cómo lo verifiqué: `python -m pytest -q`: 163 passed in 3.00s. Demo A y demo B: 12 de 12, 0 falsos.
 
 ## Crítico
 

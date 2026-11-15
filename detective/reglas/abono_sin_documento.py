@@ -46,7 +46,7 @@ def detectar(ctx) -> list:
         confianza, primeros_dias = "alta", config.periodo_desde + dt.timedelta(days=config.dias_pago_pendiente)
         if not m.ruts:
             confianza = "media"
-            descripcion += " La glosa no trae RUT, así que no sé quién pagó: revísalo antes de emitir el documento."
+            descripcion += " La descripción del movimiento no trae RUT, así que no sé quién pagó: revísalo antes de emitir el documento."
         elif m.fecha < primeros_dias:
             confianza = "media"
             descripcion += (" Ojo: llegó al comienzo del periodo, así que podría ser el pago de un documento "

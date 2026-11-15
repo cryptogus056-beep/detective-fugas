@@ -139,12 +139,12 @@ Cada fase cierra con: pruebas en verde, este plan actualizado, entrada en `BITAC
 
 ### Fase 4 · Informe y mensajes
 
-- [ ] 4.1 `informe.md` con las 7 partes de la sección 6.2: título, resumen de exactamente 5 líneas, tabla ordenada por impacto mensual, detalle con la fila original copiada tal cual, cómo verificar, lo que no pude revisar y el pie
-- [ ] 4.2 Formatos: montos `$1.234.567`, fechas `dd/mm/aaaa`
-- [ ] 4.3 `informe.html`: el mismo informe con estilo, en un solo archivo, sin recursos externos
-- [ ] 4.4 `mensajes_cobro.md`: encabezado de borrador, un mensaje por cada cobro (cotización sin cobro, pago pendiente) en "usted" por defecto con opción de "tú", y una nota interna para el resto
-- [ ] 4.5 Modo `--llm`: si existe `ANTHROPIC_API_KEY` pule los textos; si no, avisa y usa las plantillas. Nunca envía nada. Se prueba con una respuesta simulada
-- [ ] 4.6 Pruebas del informe y de los mensajes
+- [x] 4.1 `informe.md` con las 7 partes de la sección 6.2: título, resumen de exactamente 5 líneas, tabla ordenada por impacto mensual, detalle con la fila original copiada tal cual, cómo verificar, lo que no pude revisar y el pie
+- [x] 4.2 Formatos: montos `$1.234.567`, fechas `dd/mm/aaaa`
+- [x] 4.3 `informe.html`: el mismo informe con estilo, en un solo archivo, sin recursos externos
+- [x] 4.4 `mensajes_cobro.md`: encabezado de borrador, un mensaje por cada cobro (cotización sin cobro, pago pendiente) en "usted" por defecto con opción de "tú", y una nota interna para el resto
+- [x] 4.5 Modo `--llm`: si existe `ANTHROPIC_API_KEY` pule los textos; si no, avisa y usa las plantillas. Nunca envía nada. Se prueba con una respuesta simulada
+- [x] 4.6 Pruebas del informe y de los mensajes
 
 **Verificación:** pruebas que cuentan las 5 líneas del resumen, revisan el orden de la tabla y el encabezado de borrador. Además leo yo los dos informes completos como si fuera el dueño de la pyme.
 

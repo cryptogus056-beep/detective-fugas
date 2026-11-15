@@ -113,7 +113,9 @@ def _huerfanas(ctx, cobros: dict) -> list:
                               "no pude calcular cuánto pierdes. Revísala a mano.")
             continue
         se_fue = f"dejó la empresa el {formato_fecha(salida)}" if salida else "figura como inactivo en tu equipo"
-        evidencia = [evidencia_de(m, m.fecha, -m.monto, m.descripcion) for m in cargos]
+        incluye = any(-m.monto != costo for m in cargos)
+        nota_cobro = " (cobro mensual de todas las licencias del servicio; incluye esta)" if incluye else ""
+        evidencia = [evidencia_de(m, m.fecha, -m.monto, m.descripcion + nota_cobro) for m in cargos]
         evidencia.append(evidencia_de(lic, None, costo, f"Licencia {lic.servicio} de {lic.usuario}, estado activa"))
         evidencia.append(Evidencia(persona.origen.archivo, persona.origen.fila, salida, None,
                                    f"{quien}, inactivo" + (f", salida {formato_fecha(salida)}" if salida else ""),
@@ -122,7 +124,10 @@ def _huerfanas(ctx, cobros: dict) -> list:
             tipo=TIPO, subtipo="huerfana", titulo=f"Pagas la licencia de {lic.servicio} de alguien que ya se fue",
             descripcion=(f"La licencia de {lic.servicio} de {lic.usuario} sigue activa y cuesta "
                          f"{formato_clp(costo)} al mes, pero {quien} {se_fue}. En el periodo la pagaste "
-                         f"{meses} {'mes' if meses == 1 else 'meses'} sin que nadie la use."),
+                         f"{meses} {'mes' if meses == 1 else 'meses'} sin que nadie la use."
+                         + (f" El cobro de {formato_clp(-cargos[0].monto)} que ves en el banco es por todas las "
+                            f"licencias de {lic.servicio}; la de esta persona es {formato_clp(costo)} de ese total."
+                            if incluye else "")),
             monto_clp=costo, impacto_clp=costo * meses, impacto_mensual_clp=costo, recurrente=True,
             evidencia=evidencia,
             accion_sugerida=f"Da de baja la licencia de {lic.usuario} en {lic.servicio}",

@@ -4,7 +4,7 @@
   "periodo_desde": "2026-08-01",
   "periodo_hasta": "2026-10-31",
   "meses_del_periodo": 3,
-  "generado_en": "2026-11-15T03:20:13+00:00",
+  "generado_en": "2026-11-15T10:47:15+00:00",
   "version_detector": "1.0.0",
   "archivos_leidos": [
     {
@@ -434,7 +434,7 @@
       "tipo": "suscripcion_duplicada_o_huerfana",
       "subtipo": "huerfana",
       "titulo": "Pagas la licencia de Google Workspace de alguien que ya se fue",
-      "descripcion": "La licencia de Google Workspace de bruno@climatizacionaustral-ficticia.cl sigue activa y cuesta $8.600 al mes, pero Bruno Ficticio Vera dejó la empresa el 31/07/2026. En el periodo la pagaste 3 meses sin que nadie la use.",
+      "descripcion": "La licencia de Google Workspace de bruno@climatizacionaustral-ficticia.cl sigue activa y cuesta $8.600 al mes, pero Bruno Ficticio Vera dejó la empresa el 31/07/2026. En el periodo la pagaste 3 meses sin que nadie la use. El cobro de $34.400 que ves en el banco es por todas las licencias de Google Workspace; la de esta persona es $8.600 de ese total.",
       "monto_clp": 8600,
       "impacto_clp": 25800,
       "impacto_mensual_clp": 8600,
@@ -446,7 +446,7 @@
           "fila": 7,
           "fecha": "2026-08-02",
           "monto_clp": 34400,
-          "detalle": "COMPRA TARJETA GOOGLE*WORKSPACE",
+          "detalle": "COMPRA TARJETA GOOGLE*WORKSPACE (cobro mensual de todas las licencias del servicio; incluye esta)",
           "fila_original": "02/08/2026;COMPRA TARJETA GOOGLE*WORKSPACE;000000;34.400;;3.765.600"
         },
         {
@@ -454,7 +454,7 @@
           "fila": 31,
           "fecha": "2026-09-02",
           "monto_clp": 34400,
-          "detalle": "COMPRA TARJETA GOOGLE*WORKSPACE",
+          "detalle": "COMPRA TARJETA GOOGLE*WORKSPACE (cobro mensual de todas las licencias del servicio; incluye esta)",
           "fila_original": "02/09/2026;COMPRA TARJETA GOOGLE*WORKSPACE;190056;34.400;;6.640.167"
         },
         {
@@ -462,7 +462,7 @@
           "fila": 65,
           "fecha": "2026-10-02",
           "monto_clp": 34400,
-          "detalle": "COMPRA TARJETA GOOGLE*WORKSPACE",
+          "detalle": "COMPRA TARJETA GOOGLE*WORKSPACE (cobro mensual de todas las licencias del servicio; incluye esta)",
           "fila_original": "02/10/2026;COMPRA TARJETA GOOGLE*WORKSPACE;459302;34.400;;9.793.821"
         },
         {

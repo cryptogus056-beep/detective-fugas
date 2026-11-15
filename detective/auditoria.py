@@ -181,7 +181,7 @@ def auditar(entradas: list, plantillas: list, roles_forzados: dict = None, clasi
     res.avisos.extend(ctx.avisos)
     res.ambiguas = [{"archivo": m.origen.archivo, "fila": m.origen.fila, "fecha": m.fecha.isoformat(),
                      "monto_clp": m.monto, "texto": m.origen.crudo,
-                     "motivo": "abono sin documento cuya glosa no trae RUT: no se sabe quién pagó"}
+                     "motivo": "abono sin documento cuya descripción no trae RUT: no se sabe quién pagó"}
                     for m in abonos_ambiguos(ctx)] if "rcv_ventas" in datos.roles else []
     hallazgos, por_clasificacion = _aplicar_clasificaciones(hallazgos, res.ambiguas, clasificaciones, res.avisos)
 

@@ -11,10 +11,11 @@ import json
 import sys
 from pathlib import Path
 
-from . import __version__
+from . import __version__, mensajes
 from .auditoria import Entrada, auditar
 from .informe import archivos_de_salida
 from .lectores import ErrorLectura, leer_tabla
+from .normalizar import formato_clp
 from .plantillas import (ROLES, PlantillaNoEncontrada, cargar_plantillas, carpeta_por_defecto,
                          fila_de_encabezado_probable, proponer_plantilla, reconocer_archivo)
 
@@ -38,9 +39,21 @@ def cmd_auditar(args) -> int:
     if args.clasificaciones:
         clasificaciones = json.loads(Path(args.clasificaciones).read_text(encoding="utf-8"))
     res = auditar(leer_carpeta(carpeta), _plantillas(args), clasificaciones=clasificaciones)
+    borradores = mensajes.borradores(res, args.tratamiento)
+    if args.llm:
+        from . import llm
+        se_puede, motivo = llm.disponible()
+        if se_puede:
+            borradores, avisos = llm.pulir(borradores)
+            pulidos = sum(1 for b in borradores if b["pulido"])
+            print(f"Mensajes pulidos con {llm.MODELO}: {pulidos}. Nada se envió: siguen siendo borradores.")
+            for aviso in avisos:
+                print(f"  Aviso: {aviso}")
+        else:
+            print(motivo)
     salida = Path(args.salida) if args.salida else Path("salida") / carpeta.resolve().name
     salida.mkdir(parents=True, exist_ok=True)
-    for nombre, contenido in archivos_de_salida(res).items():
+    for nombre, contenido in archivos_de_salida(res, borradores).items():
         (salida / nombre).write_text(contenido, encoding="utf-8")
     print(f"Empresa: {res.config.empresa}. Corte: {res.config.fecha_corte.strftime('%d/%m/%Y')}.")
     for a in res.archivos_leidos:
@@ -49,7 +62,8 @@ def cmd_auditar(args) -> int:
     print(f"Hallazgos verificados: {len(res.hallazgos)}. Descartados: {len(res.descartados)}.")
     for linea in res.no_revisado:
         print(f"  No revisado: {linea}")
-    print(f"Resultados en {salida}/")
+    total = sum(h.impacto_clp for h in res.hallazgos)
+    print(f"En juego: {formato_clp(total)}. Abre {salida / 'informe.md'} para ver el detalle.")
     return 0
 
 
@@ -107,6 +121,10 @@ def construir_parser() -> argparse.ArgumentParser:
     p.add_argument("--datos", required=True, help="carpeta con tus archivos (CSV, XLSX y config.json)")
     p.add_argument("--salida", default=None, help="carpeta de resultados (por defecto salida/<nombre de la carpeta>)")
     p.add_argument("--plantillas", default=None, help="carpeta de plantillas (por defecto, plantillas/)")
+    p.add_argument("--tratamiento", choices=["usted", "tu"], default="usted",
+                   help="cómo tratar al cliente en los mensajes de cobro (por defecto, usted)")
+    p.add_argument("--llm", action="store_true",
+                   help="pule los mensajes con un modelo de lenguaje si existe ANTHROPIC_API_KEY (tiene costo)")
     p.add_argument("--clasificaciones", default=None,
                    help="JSON con clasificaciones de filas ambiguas (lo genera el modo agéntico)")
     p.set_defaults(funcion=cmd_auditar)
