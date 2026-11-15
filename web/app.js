@@ -93,9 +93,23 @@ function vaciarEntrada(py) {
   }
 }
 
-function escribirEntrada(py, archivos) {
+function escribirEntrada(py, archivos, extra) {
   vaciarEntrada(py);
   for (const [nombre, bytes] of archivos) py.FS.writeFile("/entrada/" + nombre, bytes);
+  for (const [nombre, texto] of Object.entries(extra || {})) py.FS.writeFile("/entrada/" + nombre, texto);
+}
+
+function tieneConfig() {
+  return Array.from(estado.archivos.keys()).some((n) => n.toLowerCase() === "config.json");
+}
+
+/* Si no subieron config.json, se arma uno con lo que la persona escribio en la pagina. */
+function configEscrita() {
+  if (tieneConfig()) return {};
+  const datos = {};
+  if ($("empresa").value.trim()) datos.empresa = $("empresa").value.trim();
+  if ($("corte").value) { datos.fecha_corte = $("corte").value; datos.periodo_hasta = $("corte").value; }
+  return Object.keys(datos).length ? { "config.json": JSON.stringify(datos) } : {};
 }
 
 function ejecutar(py, funcion, ...argumentos) {
@@ -118,8 +132,8 @@ async function mostrarDemo() {
   }
   try {
     const p = JSON.parse(await traerTexto("demo/puntaje.json"));
-    $("puntaje").textContent = "Resultado medido con la llave de respuestas: encontró " + p.encontradas + " de " +
-      p.total + " fugas escondidas y no inventó ninguna (" + p.falsos + " falsos positivos).";
+    $("puntaje").textContent = "En esta empresa inventada el detective encontró " + p.encontradas + " de " + p.total +
+      " fugas que escondimos a propósito" + (p.falsos === 0 ? " y no inventó ninguna." : " e inventó " + p.falsos + ".");
   } catch (error) { /* el puntaje es opcional */ }
   try {
     estado.manifiesto = JSON.parse(await traerTexto("py/manifiesto.json"));
@@ -190,7 +204,7 @@ function pintarTabla(filas) {
     nombre.textContent = f.nombre;
     const que = document.createElement("td");
     if (f.rol === "config") {
-      que.textContent = "Configuración (fecha de corte y exclusiones)";
+      que.textContent = "Datos de tu empresa (nombre y último día que cubren tus archivos)";
     } else {
       const select = document.createElement("select");
       select.dataset.archivo = f.nombre;
@@ -225,6 +239,7 @@ function pintarTabla(filas) {
     tr.append(nombre, que, filasTd, quitar);
     cuerpo.appendChild(tr);
   }
+  $("sin-config").hidden = tieneConfig();
 }
 
 function rolesElegidos() {
@@ -249,7 +264,7 @@ async function buscarFugas() {
   boton.disabled = true;
   try {
     const py = await motor("estado-mios");
-    escribirEntrada(py, estado.archivos);
+    escribirEntrada(py, estado.archivos, configEscrita());
     avisar("estado-mios", "Buscando fugas y verificando cada fila...");
     const r = ejecutar(py, "auditar_entrada", JSON.stringify(rolesElegidos()), $("tratamiento").value);
     if (r.error) throw new Error(r.error);

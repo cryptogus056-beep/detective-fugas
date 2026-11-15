@@ -25,10 +25,21 @@ def _documento(rut) -> str:
     return "la factura" if _es_empresa(rut) else "la boleta o factura"
 
 
+COMPLETAR_PAGO = "[tu banco, tipo y número de cuenta, RUT y correo para el comprobante]"
+COMPLETAR_CONTACTO = "[tu correo o teléfono]"
+COMPLETAR_NOMBRE = "[Tu nombre]"
+
+
 def _saludo(d: dict, usted: bool) -> str:
-    if _es_empresa(d.get("rut")):
-        return f"Estimado equipo de {d['cliente']}:" if usted else f"Hola, equipo de {d['cliente']}:"
-    return f"Buenos días, {d['cliente']}:" if usted else f"Hola, {d['cliente']}:"
+    quien = f"equipo de {d['cliente']}" if _es_empresa(d.get("rut")) else d["cliente"]
+    return f"Buenos días, {quien}:" if usted else f"Hola, {quien}:"
+
+
+def _cierre(empresa: str, usted: bool) -> str:
+    if usted:
+        return (f"Cualquier duda, escríbame a {COMPLETAR_CONTACTO}.\n\nSaludos cordiales,\n"
+                f"{COMPLETAR_NOMBRE}\n{empresa}")
+    return f"Cualquier duda, escríbeme a {COMPLETAR_CONTACTO}.\n\nSaludos,\n{COMPLETAR_NOMBRE}\n{empresa}"
 
 
 def _cotizacion(h, empresa: str, usted: bool) -> dict:
@@ -41,48 +52,55 @@ def _cotizacion(h, empresa: str, usted: bool) -> dict:
             f"{_saludo(d, usted)}\n\n"
             f"Junto con saludar, le escribo por la cotización {d['numero']}{servicio}, que usted aceptó el {fecha} "
             f"por {total} (neto {neto} más IVA).\n\n"
-            f"Al revisar nuestros registros vimos que todavía no emitimos {doc} por ese trabajo ni tenemos "
-            f"registrado su pago. Para dejarlo al día, le enviaremos {doc} por {total} esta semana.\n\n"
-            "¿Nos puede confirmar sus datos de facturación y la fecha en que podría hacer el pago? Si ya pagó o "
-            "hay algún error de nuestra parte, le agradecería avisarnos para corregirlo de inmediato.\n\n"
-            f"Quedamos atentos a su respuesta.\n\nSaludos cordiales,\n{empresa}")
+            f"Al revisar nuestros registros notamos que quedó pendiente enviarle {doc} por ese trabajo. "
+            f"Le pedimos disculpas por la demora: se la adjuntamos en este mensaje, por {total}.\n\n"
+            f"Puede pagar por transferencia a: {COMPLETAR_PAGO}.\n\n"
+            "Si ya pagó o ve algún error de nuestra parte, le agradecería avisarnos para corregirlo de inmediato.\n\n"
+            f"{_cierre(empresa, usted)}")
     else:
         cuerpo = (
             f"{_saludo(d, usted)}\n\n"
             f"Te escribo por la cotización {d['numero']}{servicio}, que aceptaste el {fecha} por {total} "
             f"(neto {neto} más IVA).\n\n"
-            f"Al revisar nuestros registros vimos que todavía no emitimos {doc} por ese trabajo ni tenemos "
-            f"registrado tu pago. Para dejarlo al día, te enviaremos {doc} por {total} esta semana.\n\n"
-            "¿Nos confirmas tus datos de facturación y la fecha en que podrías hacer el pago? Si ya pagaste o "
-            "hay algún error de nuestra parte, avísanos y lo corregimos de inmediato.\n\n"
-            f"Quedamos atentos a tu respuesta.\n\nSaludos,\n{empresa}")
+            f"Al revisar nuestros registros notamos que quedó pendiente enviarte {doc} por ese trabajo. "
+            f"Disculpa la demora: te la adjuntamos en este mensaje, por {total}.\n\n"
+            f"Puedes pagar por transferencia a: {COMPLETAR_PAGO}.\n\n"
+            "Si ya pagaste o ves algún error de nuestra parte, avísanos y lo corregimos de inmediato.\n\n"
+            f"{_cierre(empresa, usted)}")
     return {"para": d["cliente"], "asunto": f"Cotización {d['numero']}: documento y pago pendientes ({total})",
-            "cuerpo": cuerpo, "obligatorio": [d["numero"], total, fecha]}
+            "cuerpo": cuerpo, "obligatorio": [d["numero"], total, fecha],
+            "antes": [f"Emite {doc} por {total} y adjúntala al mensaje.",
+                      "Completa lo que está entre corchetes: tus datos para el pago, tu contacto y tu nombre."]}
 
 
-def _pago(h, empresa: str, usted: bool, corte: str) -> dict:
+def _pago(h, empresa: str, usted: bool) -> dict:
     d = h.datos
     fecha, total = formato_fecha_iso(d["fecha"]), formato_clp(d["total"])
     if usted:
         cuerpo = (
             f"{_saludo(d, usted)}\n\n"
-            f"Junto con saludar, le escribo por la factura N° {d['folio']}, emitida el {fecha} por {total}.\n\n"
-            f"Según nuestros registros, al {corte} lleva {d['dias']} días sin pago. ¿Nos puede indicar en qué "
-            "fecha hará la transferencia?\n\n"
-            "Si ya la pagó, le agradecería enviarnos el comprobante para dejarla al día. Y si hay algún problema "
-            "con la factura o con el servicio, conversemos para resolverlo.\n\n"
-            f"Quedamos atentos a su respuesta.\n\nSaludos cordiales,\n{empresa}")
+            f"Junto con saludar, le escribo por la factura N° {d['folio']}, emitida el {fecha} por {total}, "
+            "que en nuestros registros figura sin pago.\n\n"
+            "¿Nos puede confirmar en qué fecha podrá pagarla? Si ya la pagó, le agradecería enviarnos el "
+            "comprobante para dejarla al día.\n\n"
+            f"Puede pagar por transferencia a: {COMPLETAR_PAGO}.\n\n"
+            "Si hay algún problema con la factura o con el servicio, conversemos para resolverlo.\n\n"
+            f"{_cierre(empresa, usted)}")
     else:
         cuerpo = (
             f"{_saludo(d, usted)}\n\n"
-            f"Te escribo por la factura N° {d['folio']}, emitida el {fecha} por {total}.\n\n"
-            f"Según nuestros registros, al {corte} lleva {d['dias']} días sin pago. ¿Nos cuentas en qué fecha "
-            "harás la transferencia?\n\n"
-            "Si ya la pagaste, envíanos el comprobante para dejarla al día. Y si hay algún problema con la factura "
-            "o con el servicio, conversemos para resolverlo.\n\n"
-            f"Quedamos atentos a tu respuesta.\n\nSaludos,\n{empresa}")
+            f"Te escribo por la factura N° {d['folio']}, emitida el {fecha} por {total}, que en nuestros "
+            "registros figura sin pago.\n\n"
+            "¿Nos confirmas en qué fecha podrás pagarla? Si ya la pagaste, envíanos el comprobante para dejarla "
+            "al día.\n\n"
+            f"Puedes pagar por transferencia a: {COMPLETAR_PAGO}.\n\n"
+            "Si hay algún problema con la factura o con el servicio, conversemos para resolverlo.\n\n"
+            f"{_cierre(empresa, usted)}")
     return {"para": d["cliente"], "asunto": f"Factura N° {d['folio']} pendiente de pago ({total})",
-            "cuerpo": cuerpo, "obligatorio": [str(d["folio"]), total, fecha]}
+            "cuerpo": cuerpo, "obligatorio": [str(d["folio"]), total, fecha],
+            "antes": [f"Revisa en tu banco que el pago no haya llegado después del {formato_fecha_iso(d['corte'])} "
+                      f"(a esa fecha llevaba {d['dias']} días sin pago).",
+                      "Completa lo que está entre corchetes: tus datos para el pago, tu contacto y tu nombre."]}
 
 
 def _nota(h) -> str:
@@ -91,12 +109,13 @@ def _nota(h) -> str:
     if h.subtipo == "banco":
         relacion = (f" Parece ser el pago de la cotización {d['cotizacion']} de {d['cliente']}."
                     if d.get("cotizacion") else "")
-        return (f"Emite la boleta o factura por {monto} del abono del {fecha} (\"{d.get('glosa', '')}\").{relacion} "
-                "Si no era una venta (un préstamo, un aporte, una devolución), agrega una palabra de esa descripción a "
-                "\"palabras_excluidas_abonos\" en tu config.json y no volverá a aparecer.")
+        return (f"Confirma primero qué fue el abono del {fecha} por {monto} (\"{d.get('glosa', '')}\").{relacion} "
+                "Si fue una venta y no tiene documento, emite la boleta o factura. Si no fue una venta (por ejemplo "
+                "un préstamo, un aporte de un socio o una devolución), no emitas nada y avísale a tu contador; el "
+                "README explica cómo anotar esos casos para que no vuelvan a aparecer.")
     if h.subtipo == "pos":
-        return (f"Emite la boleta por {monto} de la venta con tarjeta del {fecha} ({d.get('glosa', '')}). "
-                "Si la boleta existe con otra fecha u otro monto, revisa por qué no coinciden.")
+        return (f"Busca la boleta de la venta con tarjeta del {fecha} por {monto} ({d.get('glosa', '')}). "
+                "Si existe con otra fecha u otro monto, revisa por qué no coinciden. Si no existe, emítela.")
     if h.subtipo == "duplicada":
         return (f"Entra a la cuenta de {d['servicio']} y revisa por qué hay {d['cobros_al_mes']} cobros al mes de "
                 f"{monto} si tienes {d['asientos']} {'licencia' if d['asientos'] == 1 else 'licencias'}. Cancela la "
@@ -118,15 +137,17 @@ def _nota(h) -> str:
 def borradores(res, tratamiento: str = "usted") -> list:
     """Un borrador por hallazgo: mensaje al cliente si hay que cobrar, nota interna si no."""
     usted = tratamiento != "tu"
-    empresa, corte = res.config.empresa, formato_fecha(res.config.fecha_corte)
+    empresa = res.config.empresa
     lista = []
     for h in res.hallazgos:
         if h.tipo == "cotizacion_sin_cobro":
             b = {"clase": "mensaje", **_cotizacion(h, empresa, usted)}
         elif h.tipo == "pago_pendiente_30d":
-            b = {"clase": "mensaje", **_pago(h, empresa, usted, corte)}
+            b = {"clase": "mensaje", **_pago(h, empresa, usted)}
         else:
-            b = {"clase": "nota", "para": "", "asunto": h.titulo, "cuerpo": _nota(h), "obligatorio": []}
+            b = {"clase": "nota", "para": "", "asunto": h.titulo, "cuerpo": _nota(h), "obligatorio": [], "antes": []}
+        if b["clase"] == "mensaje":      # lo que un texto pulido no puede perder
+            b["obligatorio"] = b["obligatorio"] + [COMPLETAR_PAGO, COMPLETAR_CONTACTO, COMPLETAR_NOMBRE]
         b.update(codigo=h.mensaje, hallazgo=h.id, monto=formato_clp(h.monto_clp), pulido=False)
         lista.append(b)
     return lista
@@ -142,13 +163,15 @@ def mensajes_md(res, lista: list = None) -> str:
     notas = [b for b in lista if b["clase"] == "nota"]
     s = [f"# Mensajes de cobro: {res.config.empresa}", "", f"> **{ENCABEZADO}**", "",
          "Estos textos los escribió el Detective de Fugas a partir del informe. Nadie los ha mandado: cópialos, "
-         "ajústalos a tu forma de hablar y envíalos tú desde tu correo o WhatsApp.", ""]
+         "ajústalos a tu forma de hablar y envíalos tú desde tu correo o WhatsApp. Lo que está entre corchetes "
+         "[así] lo completas tú.", ""]
     s += ["## Mensajes para clientes", ""]
     if not mensajes:
         s += ["No hay cobros pendientes a clientes en este informe.", ""]
     for b in mensajes:
         s += [f"### {b['codigo']} · {b['para']} ({b['hallazgo']})", "", f"- **Para:** {b['para']}",
-              f"- **Asunto:** {b['asunto']}", f"- **Monto:** {b['monto']}", ""] + _cita(b["cuerpo"]) + [""]
+              f"- **Asunto:** {b['asunto']}", f"- **Monto:** {b['monto']}",
+              "- **Antes de enviarlo:** " + " ".join(b["antes"]), ""] + _cita(b["cuerpo"]) + [""]
     s += ["## Notas internas (no se envían a nadie)", ""]
     if not notas:
         s += ["No hay notas internas en este informe.", ""]

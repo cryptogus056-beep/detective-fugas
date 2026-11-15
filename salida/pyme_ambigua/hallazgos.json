@@ -4,7 +4,7 @@
   "periodo_desde": "2026-08-01",
   "periodo_hasta": "2026-09-30",
   "meses_del_periodo": 2,
-  "generado_en": "2026-11-15T10:51:24+00:00",
+  "generado_en": "2026-11-15T16:53:33+00:00",
   "version_detector": "1.0.0",
   "archivos_leidos": [
     {
@@ -28,7 +28,7 @@
       "tipo": "abono_sin_documento",
       "subtipo": "banco",
       "titulo": "Entró plata al banco sin boleta ni factura",
-      "descripcion": "El 15/09/2026 entraron $238.000 a tu cuenta (\"DEPOSITO CHEQUE CLIENTE TALLER\") y no encontré boleta ni factura por ese monto. IVA en riesgo: $38.000. Riesgo de multa del SII [sin verificar el monto de la multa]. La descripción del movimiento no trae RUT, así que no sé quién pagó: revísalo antes de emitir el documento.",
+      "descripcion": "El 15/09/2026 entraron $238.000 a tu cuenta (\"DEPOSITO CHEQUE CLIENTE TALLER\") y no encontré boleta ni factura por ese monto. IVA en riesgo (el IVA que habría que declarar si esta plata fue una venta): $38.000. Riesgo de multa del SII [sin verificar el monto de la multa]: no sé de cuánto sería, pregúntale a tu contador. La descripción del movimiento no trae RUT, así que no sé quién pagó: revísalo antes de emitir el documento.",
       "monto_clp": 238000,
       "impacto_clp": 38000,
       "impacto_mensual_clp": 19000,
@@ -44,7 +44,7 @@
           "fila_original": "15/09/2026;DEPOSITO CHEQUE CLIENTE TALLER;;238.000"
         }
       ],
-      "accion_sugerida": "Emite la boleta o factura que falta (nota interna N01).",
+      "accion_sugerida": "Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura (nota interna N01).",
       "mensaje": "N01",
       "verificado": true,
       "datos": {
@@ -60,7 +60,7 @@
       "tipo": "abono_sin_documento",
       "subtipo": "banco",
       "titulo": "Entró plata al banco sin boleta ni factura",
-      "descripcion": "El 04/08/2026 entraron $120.000 a tu cuenta (\"DEPOSITO EN EFECTIVO SUCURSAL CENTRO\") y no encontré boleta ni factura por ese monto. IVA en riesgo: $19.160. Riesgo de multa del SII [sin verificar el monto de la multa]. La descripción del movimiento no trae RUT, así que no sé quién pagó: revísalo antes de emitir el documento.",
+      "descripcion": "El 04/08/2026 entraron $120.000 a tu cuenta (\"DEPOSITO EN EFECTIVO SUCURSAL CENTRO\") y no encontré boleta ni factura por ese monto. IVA en riesgo (el IVA que habría que declarar si esta plata fue una venta): $19.160. Riesgo de multa del SII [sin verificar el monto de la multa]: no sé de cuánto sería, pregúntale a tu contador. La descripción del movimiento no trae RUT, así que no sé quién pagó: revísalo antes de emitir el documento.",
       "monto_clp": 120000,
       "impacto_clp": 19160,
       "impacto_mensual_clp": 9580,
@@ -76,7 +76,7 @@
           "fila_original": "04/08/2026;DEPOSITO EN EFECTIVO SUCURSAL CENTRO;;120.000"
         }
       ],
-      "accion_sugerida": "Emite la boleta o factura que falta (nota interna N02).",
+      "accion_sugerida": "Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura (nota interna N02).",
       "mensaje": "N02",
       "verificado": true,
       "datos": {
@@ -92,7 +92,7 @@
       "tipo": "abono_sin_documento",
       "subtipo": "banco",
       "titulo": "Entró plata al banco sin boleta ni factura",
-      "descripcion": "El 28/09/2026 entraron $96.500 a tu cuenta (\"ABONO REMESA VENTA MOSTRADOR SEMANA 39\") y no encontré boleta ni factura por ese monto. IVA en riesgo: $15.408. Riesgo de multa del SII [sin verificar el monto de la multa]. La descripción del movimiento no trae RUT, así que no sé quién pagó: revísalo antes de emitir el documento.",
+      "descripcion": "El 28/09/2026 entraron $96.500 a tu cuenta (\"ABONO REMESA VENTA MOSTRADOR SEMANA 39\") y no encontré boleta ni factura por ese monto. IVA en riesgo (el IVA que habría que declarar si esta plata fue una venta): $15.408. Riesgo de multa del SII [sin verificar el monto de la multa]: no sé de cuánto sería, pregúntale a tu contador. La descripción del movimiento no trae RUT, así que no sé quién pagó: revísalo antes de emitir el documento.",
       "monto_clp": 96500,
       "impacto_clp": 15408,
       "impacto_mensual_clp": 7704,
@@ -108,7 +108,7 @@
           "fila_original": "28/09/2026;ABONO REMESA VENTA MOSTRADOR SEMANA 39;;96.500"
         }
       ],
-      "accion_sugerida": "Emite la boleta o factura que falta (nota interna N03).",
+      "accion_sugerida": "Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura (nota interna N03).",
       "mensaje": "N03",
       "verificado": true,
       "datos": {

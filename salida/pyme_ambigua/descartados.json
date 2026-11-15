@@ -6,7 +6,7 @@
       "tipo": "abono_sin_documento",
       "subtipo": "banco",
       "titulo": "Entró plata al banco sin boleta ni factura",
-      "descripcion": "El 11/08/2026 entraron $2.000.000 a tu cuenta (\"ABONO PRESTAMO COMERCIAL BANCO CUOTA 1 DE 12\") y no encontré boleta ni factura por ese monto. IVA en riesgo: $319.328. Riesgo de multa del SII [sin verificar el monto de la multa]. La descripción del movimiento no trae RUT, así que no sé quién pagó: revísalo antes de emitir el documento.",
+      "descripcion": "El 11/08/2026 entraron $2.000.000 a tu cuenta (\"ABONO PRESTAMO COMERCIAL BANCO CUOTA 1 DE 12\") y no encontré boleta ni factura por ese monto. IVA en riesgo (el IVA que habría que declarar si esta plata fue una venta): $319.328. Riesgo de multa del SII [sin verificar el monto de la multa]: no sé de cuánto sería, pregúntale a tu contador. La descripción del movimiento no trae RUT, así que no sé quién pagó: revísalo antes de emitir el documento.",
       "monto_clp": 2000000,
       "impacto_clp": 319328,
       "impacto_mensual_clp": 159664,
@@ -22,7 +22,7 @@
           "fila_original": "11/08/2026;ABONO PRESTAMO COMERCIAL BANCO CUOTA 1 DE 12;;2.000.000"
         }
       ],
-      "accion_sugerida": "Emite la boleta o factura que falta",
+      "accion_sugerida": "Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura",
       "mensaje": "",
       "verificado": false,
       "datos": {
@@ -40,7 +40,7 @@
       "tipo": "abono_sin_documento",
       "subtipo": "banco",
       "titulo": "Entró plata al banco sin boleta ni factura",
-      "descripcion": "El 02/09/2026 entraron $185.300 a tu cuenta (\"REEMBOLSO SEGURO SINIESTRO VEHICULO\") y no encontré boleta ni factura por ese monto. IVA en riesgo: $29.586. Riesgo de multa del SII [sin verificar el monto de la multa]. La descripción del movimiento no trae RUT, así que no sé quién pagó: revísalo antes de emitir el documento.",
+      "descripcion": "El 02/09/2026 entraron $185.300 a tu cuenta (\"REEMBOLSO SEGURO SINIESTRO VEHICULO\") y no encontré boleta ni factura por ese monto. IVA en riesgo (el IVA que habría que declarar si esta plata fue una venta): $29.586. Riesgo de multa del SII [sin verificar el monto de la multa]: no sé de cuánto sería, pregúntale a tu contador. La descripción del movimiento no trae RUT, así que no sé quién pagó: revísalo antes de emitir el documento.",
       "monto_clp": 185300,
       "impacto_clp": 29586,
       "impacto_mensual_clp": 14793,
@@ -56,7 +56,7 @@
           "fila_original": "02/09/2026;REEMBOLSO SEGURO SINIESTRO VEHICULO;;185.300"
         }
       ],
-      "accion_sugerida": "Emite la boleta o factura que falta",
+      "accion_sugerida": "Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura",
       "mensaje": "",
       "verificado": false,
       "datos": {

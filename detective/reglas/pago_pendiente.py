@@ -30,5 +30,5 @@ def detectar(ctx) -> list:
             evidencia=[evidencia_de(doc, doc.fecha, doc.total, f"Factura folio {doc.folio} a {cliente}")],
             accion_sugerida="Llama al cliente y envía el mensaje de cobro",
             datos={"cliente": cliente, "rut": doc.rut, "folio": doc.folio, "fecha": doc.fecha.isoformat(),
-                   "dias": dias, "total": doc.total}))
+                   "dias": dias, "total": doc.total, "corte": config.fecha_corte.isoformat()}))
     return hallazgos

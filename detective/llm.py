@@ -22,8 +22,9 @@ INSTRUCCIONES = (
     "Reglas estrictas: (1) no cambies ni quites ningún dato: montos, fechas, números de factura o de "
     "cotización, nombres y firma deben quedar exactamente como están; (2) no agregues datos, plazos, "
     "amenazas, intereses ni descuentos que no estén en el borrador; (3) conserva el tratamiento (usted o tú) "
-    "del borrador; (4) no uses el guion largo, usa comas, dos puntos o paréntesis; (5) responde solo con el "
-    "texto final del mensaje, sin comentarios ni comillas."
+    "del borrador; (4) no uses el guion largo, usa comas, dos puntos o paréntesis; (5) deja tal cual los textos "
+    "entre corchetes, porque los completa el dueño; (6) responde solo con el texto final del mensaje, sin "
+    "comentarios ni comillas."
 )
 
 

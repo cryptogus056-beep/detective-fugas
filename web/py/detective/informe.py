@@ -107,6 +107,19 @@ def _impacto_mensual(h) -> str:
     return f"{formato_clp(h.impacto_mensual_clp)} {'cada mes' if h.recurrente else '(promedio mensual)'}"
 
 
+SEGURIDAD = {"alta": "Alta", "media": "Media: confirma antes", "baja": "Baja: confirma antes"}
+COLUMNAS = [("n", "N°"), ("tipo", "Tipo"), ("que", "Qué pasó"), ("monto", "Monto del documento o movimiento"),
+            ("en_juego", "Plata en juego"), ("mensual", "Impacto mensual"), ("seguridad", "Qué tan seguro"),
+            ("evidencia", "Evidencia"), ("accion", "Acción")]
+NOTA_TABLA = ("\"Monto del documento o movimiento\" es el total de la factura, cotización, cobro o abono. "
+              "\"Plata en juego\" es la parte que pierdes, te deben o arriesgas: a veces es todo el monto y a veces "
+              "solo el IVA. \"Promedio mensual\" quiere decir que la fuga pasó una vez y la repartí entre los meses "
+              "del periodo para poder ordenar la tabla; \"cada mes\" quiere decir que se repite hasta que la arregles.")
+GLOSARIO = ("Palabras que uso: **neto** es el precio sin IVA; **folio** es el número de la factura o boleta; "
+            "**fecha de corte** es el último día que cubren tus archivos; una **nota de crédito o de débito** es un "
+            "documento que corrige una factura ya emitida (te la emite tu contador o tu sistema de facturación).")
+
+
 def _resumen(res) -> list:
     c, hs = res.config, res.hallazgos
     periodo = f"los {c.meses} meses revisados" if c.meses > 1 else "el mes revisado"
@@ -120,7 +133,19 @@ def _resumen(res) -> list:
             ("Si cobras lo pendiente", "no hay cobros pendientes a clientes en lo que revisé."),
         ]
     total = sum(h.impacto_clp for h in hs)
-    mensual = sum(h.impacto_mensual_clp for h in hs)
+    por_cobrar = sum(h.impacto_clp for h in hs if h.tipo in TIPOS_DE_COBRO)
+    cada_mes = sum(h.impacto_mensual_clp for h in hs if h.recurrente)
+    partes = []
+    if por_cobrar:
+        partes.append(f"{formato_clp(por_cobrar)} que te deben o no has facturado")
+    if total - por_cobrar:
+        partes.append(f"{formato_clp(total - por_cobrar)} entre IVA en riesgo o mal cobrado y software pagado de más")
+    repite = (f" Casi todo pasó una sola vez; lo único que se repite cada mes son {formato_clp(cada_mes)} de software."
+              if cada_mes else " Todo pasó una sola vez: no es un gasto de cada mes.")
+    por_confirmar = sum(1 for h in hs if h.confianza != "alta")
+    confirmar = (f" De ellas, {por_confirmar} {'es' if por_confirmar == 1 else 'son'} de seguridad media: "
+                 
+                 f"{'confírmala' if por_confirmar == 1 else 'confírmalas'} antes de actuar." if por_confirmar else "")
     cuenta = []
     for tipo in TIPOS:
         n = sum(1 for h in hs if h.tipo == tipo)
@@ -138,8 +163,8 @@ def _resumen(res) -> list:
     else:
         recupera = "no hay cobros pendientes a clientes; lo que encontré se arregla puertas adentro."
     return [
-        ("En juego", f"{formato_clp(total)} en {periodo} (unos {formato_clp(mensual)} al mes)."),
-        ("Qué encontré", f"{len(hs)} {'fuga' if len(hs) == 1 else 'fugas'}: {_lista(cuenta)}."),
+        ("En juego", f"{formato_clp(total)} en {periodo}: {_lista(partes)}.{repite}"),
+        ("Qué encontré", f"{len(hs)} {'fuga' if len(hs) == 1 else 'fugas'}: {_lista(cuenta)}.{confirmar}"),
         ("La más grande", f"{referencia(mayor)} ({formato_clp(mayor.impacto_clp)}, {mayor.id})."),
         ("Qué hacer primero esta semana", f"{mayor.accion_sugerida} Después sigue con la tabla, de arriba hacia abajo."),
         ("Si cobras lo pendiente", recupera),
@@ -155,13 +180,14 @@ def construir(res) -> dict:
         otras = len(h.evidencia) - 1
         evidencia = cita(principal) + (f" (y {otras} {'fila' if otras == 1 else 'filas'} más en el detalle)" if otras else "")
         tabla.append({"n": str(n), "id": h.id, "tipo": NOMBRE_SIMPLE[h.tipo], "que": referencia(h),
-                      "monto": formato_clp(h.monto_clp), "mensual": _impacto_mensual(h), "evidencia": evidencia,
-                      "accion": h.accion_sugerida})
-        lineas = [("Qué pasó", h.descripcion), ("Monto", formato_clp(h.monto_clp)),
-                  ("Impacto en el periodo", formato_clp(h.impacto_clp)), ("Impacto mensual", _impacto_mensual(h)),
+                      "monto": formato_clp(h.monto_clp), "en_juego": formato_clp(h.impacto_clp),
+                      "mensual": _impacto_mensual(h), "seguridad": SEGURIDAD.get(h.confianza, h.confianza),
+                      "evidencia": evidencia, "accion": h.accion_sugerida})
+        lineas = [("Qué pasó", h.descripcion), ("Monto del documento o movimiento", formato_clp(h.monto_clp)),
+                  ("Plata en juego", formato_clp(h.impacto_clp)), ("Impacto mensual", _impacto_mensual(h)),
+                  ("Qué tan seguro", "Alta: la evidencia es directa." if h.confianza == "alta"
+                   else f"{h.confianza.capitalize()}: confírmalo antes de actuar."),
                   ("Qué hacer", h.accion_sugerida)]
-        if h.confianza != "alta":
-            lineas.append(("Confianza", f"{h.confianza}: revísalo antes de actuar."))
         detalles.append({"id": h.id, "titulo": h.titulo, "tipo": NOMBRE_SIMPLE[h.tipo], "lineas": lineas,
                          "evidencias": [{"cita": cita(e), "detalle": e.detalle, "fila_original": e.fila_original}
                                         for e in h.evidencia]})
@@ -178,7 +204,8 @@ def construir(res) -> dict:
     return {
         "titulo": f"Informe de fugas: {c.empresa}",
         "periodo": (f"Periodo revisado: {formato_fecha(c.periodo_desde)} al {formato_fecha(c.periodo_hasta)} "
-                    f"({c.meses} {'mes' if c.meses == 1 else 'meses'}). Fecha de corte: {formato_fecha(c.fecha_corte)}."),
+                    f"({c.meses} {'mes' if c.meses == 1 else 'meses'}). Último día que cubren tus archivos "
+                    f"(fecha de corte): {formato_fecha(c.fecha_corte)}."),
         "resumen": _resumen(res),
         "tabla": tabla,
         "detalles": detalles,
@@ -209,12 +236,9 @@ def informe_md(res) -> str:
     s += [f"{n}. **{etiqueta}:** {texto}" for n, (etiqueta, texto) in enumerate(m["resumen"], start=1)]
     s += ["", "## Fugas encontradas, de mayor a menor impacto mensual", ""]
     if m["tabla"]:
-        s += ["| N° | Tipo | Qué pasó | Monto | Impacto mensual | Evidencia | Acción |",
-              "|---|---|---|---|---|---|---|"]
-        s += [f"| {f['n']} | {_celda(f['tipo'])} | {_celda(f['que'])} | {f['monto']} | {f['mensual']} | "
-              f"{_celda(f['evidencia'])} | {_celda(f['accion'])} |" for f in m["tabla"]]
-        s += ["", "\"Promedio mensual\" quiere decir que la fuga pasó una vez y la repartí entre los meses del "
-                  "periodo. \"Cada mes\" quiere decir que se repite todos los meses hasta que la arregles."]
+        s += ["| " + " | ".join(titulo for _, titulo in COLUMNAS) + " |", "|" + "---|" * len(COLUMNAS)]
+        s += ["| " + " | ".join(_celda(f[clave]) for clave, _ in COLUMNAS) + " |" for f in m["tabla"]]
+        s += ["", NOTA_TABLA, "", GLOSARIO]
     else:
         s.append("No encontré fugas con evidencia en los archivos que revisé.")
     s += ["", "## Detalle de cada fuga", ""]
@@ -283,7 +307,11 @@ ESTILO = """
 def _marcas(texto: str) -> str:
     """Escapa HTML y convierte `codigo` en <code>."""
     partes = html.escape(str(texto)).split("`")
-    return "".join(p if i % 2 == 0 else f"<code>{p}</code>" for i, p in enumerate(partes))
+    unido = "".join(p if i % 2 == 0 else f"<code>{p}</code>" for i, p in enumerate(partes))
+    negritas = unido.split("**")
+    if len(negritas) % 2 == 0:
+        return unido
+    return "".join(p if i % 2 == 0 else f"<strong>{p}</strong>" for i, p in enumerate(negritas))
 
 
 def cuerpo_html(res) -> str:
@@ -294,17 +322,15 @@ def cuerpo_html(res) -> str:
     s += [f"<li><strong>{_marcas(etiqueta)}:</strong> {_marcas(texto)}</li>" for etiqueta, texto in m["resumen"]]
     s += ["</ol>", "<h2>Fugas encontradas, de mayor a menor impacto mensual</h2>"]
     if m["tabla"]:
-        columnas = [("n", "N°"), ("tipo", "Tipo"), ("que", "Qué pasó"), ("monto", "Monto"),
-                    ("mensual", "Impacto mensual"), ("evidencia", "Evidencia"), ("accion", "Acción")]
+        columnas = COLUMNAS
         s += ["<table>", "<thead><tr>" + "".join(f"<th>{t}</th>" for _, t in columnas) + "</tr></thead>", "<tbody>"]
         for f in m["tabla"]:
             celdas = "".join(
-                f'<td data-etiqueta="{t}"{" class=monto" if k in ("monto", "mensual") else ""}>{_marcas(f[k])}</td>'
+                f'<td data-etiqueta="{t}"{" class=monto" if k in ("monto", "en_juego", "mensual") else ""}>{_marcas(f[k])}</td>'
                 for k, t in columnas)
             s.append(f"<tr>{celdas}</tr>")
         s += ["</tbody>", "</table>",
-              '<p class="nota">"Promedio mensual" quiere decir que la fuga pasó una vez y la repartí entre los meses '
-              'del periodo. "Cada mes" quiere decir que se repite todos los meses hasta que la arregles.</p>']
+              f'<p class="nota">{_marcas(NOTA_TABLA)}</p>', f'<p class="nota">{_marcas(GLOSARIO)}</p>']
     else:
         s.append("<p>No encontré fugas con evidencia en los archivos que revisé.</p>")
     s.append("<h2>Detalle de cada fuga</h2>")

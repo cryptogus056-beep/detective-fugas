@@ -34,13 +34,21 @@ def test_un_mensaje_por_cobro_y_una_nota_interna_para_el_resto(res):
     assert [b["codigo"] for b in lista] == [h.mensaje for h in res.hallazgos]
     factura = next(b for b in lista if "Factura" in b["asunto"])
     assert factura["clase"] == "mensaje" and factura["para"] == "Ana SpA"
-    for dato in ("1203", "$791.350", "20/08/2026", "72 días"):                 # monto, folio y fecha
+    for dato in ("1203", "$791.350", "20/08/2026"):                            # monto, folio y fecha
         assert dato in factura["cuerpo"]
+    assert "72 días" not in factura["cuerpo"] and "31/10/2026" not in factura["cuerpo"]    # nada que envejezca al enviarlo
+    assert "72 días" in " ".join(factura["antes"])                                       # el dato queda para el dueño
     cot = next(b for b in lista if "Cotización" in b["asunto"])
     for dato in ("C-7", "$119.000", "03/09/2026"):
         assert dato in cot["cuerpo"]
     nota = por_codigo["N01"]
-    assert nota["clase"] == "nota" and "Emite la boleta o factura por $398.650" in nota["cuerpo"]
+    assert nota["clase"] == "nota" and "Confirma primero qué fue el abono del 09/10/2026 por $398.650" in nota["cuerpo"]
+    assert "config.json" not in nota["cuerpo"] and "no emitas nada y avísale a tu contador" in nota["cuerpo"]
+    for b in (factura, cot):                                                    # datos que completa el dueño
+        assert "[tu banco, tipo y número de cuenta, RUT y correo para el comprobante]" in b["cuerpo"]
+        assert "[tu correo o teléfono]" in b["cuerpo"] and "[Tu nombre]" in b["cuerpo"]
+    assert "se la adjuntamos" in cot["cuerpo"] and "esta semana" not in cot["cuerpo"]
+    assert "adjúntala al mensaje" in " ".join(cot["antes"])
     md = mensajes_md(res, lista)
     assert md.index("## Mensajes para clientes") < md.index("## Notas internas (no se envían a nadie)")
 
@@ -50,7 +58,8 @@ def test_por_defecto_trata_de_usted_y_se_puede_pedir_tu(res):
     tu = "\n".join(b["cuerpo"] for b in borradores(res, "tu") if b["clase"] == "mensaje")
     assert "le escribo" in usted and "usted aceptó" in usted and "Te escribo" not in usted
     assert "Te escribo" in tu and "aceptaste" in tu and "usted" not in tu
-    assert "Estimado equipo de Ana SpA:" in usted and "Buenos días, Pedro Soto:" in usted    # empresa y persona
+    assert "Buenos días, equipo de Ana SpA:" in usted and "Buenos días, Pedro Soto:" in usted  # empresa y persona
+    assert "Hola, equipo de Ana SpA:" in tu and "Hola, Pedro Soto:" in tu
     assert "la boleta o factura" in usted                                                    # a una persona
 
 

@@ -1,35 +1,37 @@
 # Informe de fugas: Taller Ficticio de Prueba SpA
 
-Periodo revisado: 01/08/2026 al 30/09/2026 (2 meses). Fecha de corte: 30/09/2026.
+Periodo revisado: 01/08/2026 al 30/09/2026 (2 meses). Último día que cubren tus archivos (fecha de corte): 30/09/2026.
 
 ## Resumen en 5 líneas
 
-1. **En juego:** $72.568 en los 2 meses revisados (unos $36.284 al mes).
-2. **Qué encontré:** 3 fugas: 3 ingresos sin boleta ni factura.
+1. **En juego:** $72.568 en los 2 meses revisados: $72.568 entre IVA en riesgo o mal cobrado y software pagado de más. Todo pasó una sola vez: no es un gasto de cada mes.
+2. **Qué encontré:** 3 fugas: 3 ingresos sin boleta ni factura. De ellas, 3 son de seguridad media: confírmalas antes de actuar.
 3. **La más grande:** Abono del 15/09/2026 sin boleta ni factura (DEPOSITO CHEQUE CLIENTE TALLER) ($38.000, H01).
-4. **Qué hacer primero esta semana:** Emite la boleta o factura que falta (nota interna N01). Después sigue con la tabla, de arriba hacia abajo.
+4. **Qué hacer primero esta semana:** Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura (nota interna N01). Después sigue con la tabla, de arriba hacia abajo.
 5. **Si cobras lo pendiente:** no hay cobros pendientes a clientes; lo que encontré se arregla puertas adentro.
 
 ## Fugas encontradas, de mayor a menor impacto mensual
 
-| N° | Tipo | Qué pasó | Monto | Impacto mensual | Evidencia | Acción |
-|---|---|---|---|---|---|---|
-| 1 | Plata que entró sin boleta ni factura | Abono del 15/09/2026 sin boleta ni factura (DEPOSITO CHEQUE CLIENTE TALLER) | $238.000 | $19.000 (promedio mensual) | `banco.csv` fila 6, 15/09/2026, $238.000 | Emite la boleta o factura que falta (nota interna N01). |
-| 2 | Plata que entró sin boleta ni factura | Abono del 04/08/2026 sin boleta ni factura (DEPOSITO EN EFECTIVO SUCURSAL CENTRO) | $120.000 | $9.580 (promedio mensual) | `banco.csv` fila 2, 04/08/2026, $120.000 | Emite la boleta o factura que falta (nota interna N02). |
-| 3 | Plata que entró sin boleta ni factura | Abono del 28/09/2026 sin boleta ni factura (ABONO REMESA VENTA MOSTRADOR SEMANA 39) | $96.500 | $7.704 (promedio mensual) | `banco.csv` fila 7, 28/09/2026, $96.500 | Emite la boleta o factura que falta (nota interna N03). |
+| N° | Tipo | Qué pasó | Monto del documento o movimiento | Plata en juego | Impacto mensual | Qué tan seguro | Evidencia | Acción |
+|---|---|---|---|---|---|---|---|---|
+| 1 | Plata que entró sin boleta ni factura | Abono del 15/09/2026 sin boleta ni factura (DEPOSITO CHEQUE CLIENTE TALLER) | $238.000 | $38.000 | $19.000 (promedio mensual) | Media: confirma antes | `banco.csv` fila 6, 15/09/2026, $238.000 | Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura (nota interna N01). |
+| 2 | Plata que entró sin boleta ni factura | Abono del 04/08/2026 sin boleta ni factura (DEPOSITO EN EFECTIVO SUCURSAL CENTRO) | $120.000 | $19.160 | $9.580 (promedio mensual) | Media: confirma antes | `banco.csv` fila 2, 04/08/2026, $120.000 | Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura (nota interna N02). |
+| 3 | Plata que entró sin boleta ni factura | Abono del 28/09/2026 sin boleta ni factura (ABONO REMESA VENTA MOSTRADOR SEMANA 39) | $96.500 | $15.408 | $7.704 (promedio mensual) | Media: confirma antes | `banco.csv` fila 7, 28/09/2026, $96.500 | Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura (nota interna N03). |
 
-"Promedio mensual" quiere decir que la fuga pasó una vez y la repartí entre los meses del periodo. "Cada mes" quiere decir que se repite todos los meses hasta que la arregles.
+"Monto del documento o movimiento" es el total de la factura, cotización, cobro o abono. "Plata en juego" es la parte que pierdes, te deben o arriesgas: a veces es todo el monto y a veces solo el IVA. "Promedio mensual" quiere decir que la fuga pasó una vez y la repartí entre los meses del periodo para poder ordenar la tabla; "cada mes" quiere decir que se repite hasta que la arregles.
+
+Palabras que uso: **neto** es el precio sin IVA; **folio** es el número de la factura o boleta; **fecha de corte** es el último día que cubren tus archivos; una **nota de crédito o de débito** es un documento que corrige una factura ya emitida (te la emite tu contador o tu sistema de facturación).
 
 ## Detalle de cada fuga
 
 ### H01 · Entró plata al banco sin boleta ni factura
 
-- **Qué pasó:** El 15/09/2026 entraron $238.000 a tu cuenta ("DEPOSITO CHEQUE CLIENTE TALLER") y no encontré boleta ni factura por ese monto. IVA en riesgo: $38.000. Riesgo de multa del SII [sin verificar el monto de la multa]. La descripción del movimiento no trae RUT, así que no sé quién pagó: revísalo antes de emitir el documento.
-- **Monto:** $238.000
-- **Impacto en el periodo:** $38.000
+- **Qué pasó:** El 15/09/2026 entraron $238.000 a tu cuenta ("DEPOSITO CHEQUE CLIENTE TALLER") y no encontré boleta ni factura por ese monto. IVA en riesgo (el IVA que habría que declarar si esta plata fue una venta): $38.000. Riesgo de multa del SII [sin verificar el monto de la multa]: no sé de cuánto sería, pregúntale a tu contador. La descripción del movimiento no trae RUT, así que no sé quién pagó: revísalo antes de emitir el documento.
+- **Monto del documento o movimiento:** $238.000
+- **Plata en juego:** $38.000
 - **Impacto mensual:** $19.000 (promedio mensual)
-- **Qué hacer:** Emite la boleta o factura que falta (nota interna N01).
-- **Confianza:** media: revísalo antes de actuar.
+- **Qué tan seguro:** Media: confírmalo antes de actuar.
+- **Qué hacer:** Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura (nota interna N01).
 - **Evidencia:**
 
   - `banco.csv` fila 6, 15/09/2026, $238.000. DEPOSITO CHEQUE CLIENTE TALLER
@@ -40,12 +42,12 @@ Periodo revisado: 01/08/2026 al 30/09/2026 (2 meses). Fecha de corte: 30/09/2026
 
 ### H02 · Entró plata al banco sin boleta ni factura
 
-- **Qué pasó:** El 04/08/2026 entraron $120.000 a tu cuenta ("DEPOSITO EN EFECTIVO SUCURSAL CENTRO") y no encontré boleta ni factura por ese monto. IVA en riesgo: $19.160. Riesgo de multa del SII [sin verificar el monto de la multa]. La descripción del movimiento no trae RUT, así que no sé quién pagó: revísalo antes de emitir el documento.
-- **Monto:** $120.000
-- **Impacto en el periodo:** $19.160
+- **Qué pasó:** El 04/08/2026 entraron $120.000 a tu cuenta ("DEPOSITO EN EFECTIVO SUCURSAL CENTRO") y no encontré boleta ni factura por ese monto. IVA en riesgo (el IVA que habría que declarar si esta plata fue una venta): $19.160. Riesgo de multa del SII [sin verificar el monto de la multa]: no sé de cuánto sería, pregúntale a tu contador. La descripción del movimiento no trae RUT, así que no sé quién pagó: revísalo antes de emitir el documento.
+- **Monto del documento o movimiento:** $120.000
+- **Plata en juego:** $19.160
 - **Impacto mensual:** $9.580 (promedio mensual)
-- **Qué hacer:** Emite la boleta o factura que falta (nota interna N02).
-- **Confianza:** media: revísalo antes de actuar.
+- **Qué tan seguro:** Media: confírmalo antes de actuar.
+- **Qué hacer:** Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura (nota interna N02).
 - **Evidencia:**
 
   - `banco.csv` fila 2, 04/08/2026, $120.000. DEPOSITO EN EFECTIVO SUCURSAL CENTRO
@@ -56,12 +58,12 @@ Periodo revisado: 01/08/2026 al 30/09/2026 (2 meses). Fecha de corte: 30/09/2026
 
 ### H03 · Entró plata al banco sin boleta ni factura
 
-- **Qué pasó:** El 28/09/2026 entraron $96.500 a tu cuenta ("ABONO REMESA VENTA MOSTRADOR SEMANA 39") y no encontré boleta ni factura por ese monto. IVA en riesgo: $15.408. Riesgo de multa del SII [sin verificar el monto de la multa]. La descripción del movimiento no trae RUT, así que no sé quién pagó: revísalo antes de emitir el documento.
-- **Monto:** $96.500
-- **Impacto en el periodo:** $15.408
+- **Qué pasó:** El 28/09/2026 entraron $96.500 a tu cuenta ("ABONO REMESA VENTA MOSTRADOR SEMANA 39") y no encontré boleta ni factura por ese monto. IVA en riesgo (el IVA que habría que declarar si esta plata fue una venta): $15.408. Riesgo de multa del SII [sin verificar el monto de la multa]: no sé de cuánto sería, pregúntale a tu contador. La descripción del movimiento no trae RUT, así que no sé quién pagó: revísalo antes de emitir el documento.
+- **Monto del documento o movimiento:** $96.500
+- **Plata en juego:** $15.408
 - **Impacto mensual:** $7.704 (promedio mensual)
-- **Qué hacer:** Emite la boleta o factura que falta (nota interna N03).
-- **Confianza:** media: revísalo antes de actuar.
+- **Qué tan seguro:** Media: confírmalo antes de actuar.
+- **Qué hacer:** Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura (nota interna N03).
 - **Evidencia:**
 
   - `banco.csv` fila 7, 28/09/2026, $96.500. ABONO REMESA VENTA MOSTRADOR SEMANA 39

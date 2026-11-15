@@ -1,42 +1,45 @@
 # Informe de fugas: Climatizacion Austral Ficticia SpA
 
-Periodo revisado: 01/08/2026 al 31/10/2026 (3 meses). Fecha de corte: 31/10/2026.
+Periodo revisado: 01/08/2026 al 31/10/2026 (3 meses). Último día que cubren tus archivos (fecha de corte): 31/10/2026.
 
 ## Resumen en 5 líneas
 
-1. **En juego:** $3.817.410 en los 3 meses revisados (unos $1.272.471 al mes).
-2. **Qué encontré:** 12 fugas: 3 ingresos sin boleta ni factura, 3 cotizaciones aceptadas sin facturar, 2 facturas impagas, 2 pagos de software de más y 2 diferencias de IVA.
+1. **En juego:** $3.817.410 en los 3 meses revisados: $3.445.050 que te deben o no has facturado y $372.360 entre IVA en riesgo o mal cobrado y software pagado de más. Casi todo pasó una sola vez; lo único que se repite cada mes son $21.590 de software.
+2. **Qué encontré:** 12 fugas: 3 ingresos sin boleta ni factura, 3 cotizaciones aceptadas sin facturar, 2 facturas impagas, 2 pagos de software de más y 2 diferencias de IVA. De ellas, 1 es de seguridad media: confírmala antes de actuar.
 3. **La más grande:** PRE-0519: Clinica Dental Demo Sonrisa SpA la aceptó el 03/09/2026 y nunca se facturó ($1.332.800, H01).
 4. **Qué hacer primero esta semana:** Emite la factura y envía el mensaje de cobro M01. Después sigue con la tabla, de arriba hacia abajo.
 5. **Si cobras lo pendiente:** recuperas $3.445.050 (3 cotizaciones sin facturar y 2 facturas impagas). Los mensajes ya están redactados en `mensajes_cobro.md`.
 
 ## Fugas encontradas, de mayor a menor impacto mensual
 
-| N° | Tipo | Qué pasó | Monto | Impacto mensual | Evidencia | Acción |
-|---|---|---|---|---|---|---|
-| 1 | Trabajo aceptado que nunca se facturó | PRE-0519: Clinica Dental Demo Sonrisa SpA la aceptó el 03/09/2026 y nunca se facturó | $1.332.800 | $444.267 (promedio mensual) | `presupuestos.csv` fila 20, 03/09/2026, $1.120.000 | Emite la factura y envía el mensaje de cobro M01. |
-| 2 | Factura que no te han pagado | Factura folio 3404 a Cafeteria Demo Grano Fino SpA: 72 días sin pago | $815.150 | $271.717 (promedio mensual) | `rcv_ventas.csv` fila 24, 20/08/2026, $815.150 | Llama al cliente y envía el mensaje de cobro M02. |
-| 3 | Trabajo aceptado que nunca se facturó | PRE-0505: Colegio Demo Los Aromos la aceptó el 12/08/2026 y nunca se facturó | $595.000 | $198.333 (promedio mensual) | `presupuestos.csv` fila 6, 12/08/2026, $500.000 | Emite la factura y envía el mensaje de cobro M03. |
-| 4 | Factura que no te han pagado | Factura folio 3415 a Bodega Ficticia Austral SpA: 46 días sin pago | $440.300 | $146.767 (promedio mensual) | `rcv_ventas.csv` fila 47, 15/09/2026, $440.300 | Llama al cliente y envía el mensaje de cobro M04. |
-| 5 | Trabajo aceptado que nunca se facturó | PRE-0534: Martina Ficticia Fuentes la aceptó el 29/09/2026 y nunca se facturó | $261.800 | $87.267 (promedio mensual) | `presupuestos.csv` fila 35, 29/09/2026, $220.000 | Emite la factura y envía el mensaje de cobro M05. |
-| 6 | IVA que salió de tu bolsillo | PRE-0524 de Restaurante Ficticio La Caleta Ltda: se facturó el neto como si fuera el total (folio 3413) | $870.000 | $55.100 (promedio mensual) | `rcv_ventas.csv` fila 44, 10/09/2026, $870.000 (y 2 filas más en el detalle) | Revisa con tu contador cómo corregir el documento y cobra la diferencia al cliente (nota interna N01). |
-| 7 | Plata que entró sin boleta ni factura | Abono del 09/10/2026 sin boleta ni factura (TRANSF. DE 76.468.166-5 INMOBILIARIA FICTICIA...) | $374.850 | $19.950 (promedio mensual) | `movimientos_cuenta.csv` fila 68, 09/10/2026, $374.850 | Emite la boleta o factura que falta (nota interna N02). |
-| 8 | IVA que salió de tu bolsillo | Documento folio 3422 a Oficina Contable Demo Cuentas Claras SpA: IVA mal calculado | $489.500 | $13.350 (promedio mensual) | `rcv_ventas.csv` fila 64, 06/10/2026, $489.500 | Revisa con tu contador si corresponde una nota de débito y cobra la diferencia (nota interna N03). |
-| 9 | Software que pagas de más | Canva Pro: 2 cobros al mes con 1 licencia | $12.990 | $12.990 cada mes | `movimientos_cuenta.csv` fila 5, 03/08/2026, $12.990 (y 6 filas más en el detalle) | Entra a la cuenta de Canva Pro, revisa por qué hay más de un cobro y cancela el que sobra (nota interna N04). |
-| 10 | Plata que entró sin boleta ni factura | Abono del 27/08/2026 sin boleta ni factura (TRANSF. DE 12.737.842-8 NICOLAS FICTICIO VARGAS) | $201.000 | $10.697 (promedio mensual) | `movimientos_cuenta.csv` fila 18, 27/08/2026, $201.000 | Emite la boleta o factura que falta (nota interna N05). |
-| 11 | Software que pagas de más | Licencia de Google Workspace de Bruno Ficticio Vera, que ya no trabaja contigo | $8.600 | $8.600 cada mes | `movimientos_cuenta.csv` fila 2, 02/08/2026, $34.400 (y 4 filas más en el detalle) | Da de baja la licencia de bruno@climatizacionaustral-ficticia.cl en Google Workspace (nota interna N06). |
-| 12 | Plata que entró sin boleta ni factura | Venta con tarjeta del 18/09/2026 sin boleta (Credito, operación 2958094) | $64.500 | $3.433 (promedio mensual) | `ventas_transbank.csv` fila 30, 18/09/2026, $64.500 | Emite la boleta que falta (nota interna N07). |
+| N° | Tipo | Qué pasó | Monto del documento o movimiento | Plata en juego | Impacto mensual | Qué tan seguro | Evidencia | Acción |
+|---|---|---|---|---|---|---|---|---|
+| 1 | Trabajo aceptado que nunca se facturó | PRE-0519: Clinica Dental Demo Sonrisa SpA la aceptó el 03/09/2026 y nunca se facturó | $1.332.800 | $1.332.800 | $444.267 (promedio mensual) | Alta | `presupuestos.csv` fila 20, 03/09/2026, $1.120.000 | Emite la factura y envía el mensaje de cobro M01. |
+| 2 | Factura que no te han pagado | Factura folio 3404 a Cafeteria Demo Grano Fino SpA: 72 días sin pago | $815.150 | $815.150 | $271.717 (promedio mensual) | Alta | `rcv_ventas.csv` fila 24, 20/08/2026, $815.150 | Llama al cliente y envía el mensaje de cobro M02. |
+| 3 | Trabajo aceptado que nunca se facturó | PRE-0505: Colegio Demo Los Aromos la aceptó el 12/08/2026 y nunca se facturó | $595.000 | $595.000 | $198.333 (promedio mensual) | Alta | `presupuestos.csv` fila 6, 12/08/2026, $500.000 | Emite la factura y envía el mensaje de cobro M03. |
+| 4 | Factura que no te han pagado | Factura folio 3415 a Bodega Ficticia Austral SpA: 46 días sin pago | $440.300 | $440.300 | $146.767 (promedio mensual) | Alta | `rcv_ventas.csv` fila 47, 15/09/2026, $440.300 | Llama al cliente y envía el mensaje de cobro M04. |
+| 5 | Trabajo aceptado que nunca se facturó | PRE-0534: Martina Ficticia Fuentes la aceptó el 29/09/2026 y nunca se facturó | $261.800 | $261.800 | $87.267 (promedio mensual) | Alta | `presupuestos.csv` fila 35, 29/09/2026, $220.000 | Emite la factura y envía el mensaje de cobro M05. |
+| 6 | IVA que salió de tu bolsillo | PRE-0524 de Restaurante Ficticio La Caleta Ltda: se facturó el neto como si fuera el total (folio 3413) | $870.000 | $165.300 | $55.100 (promedio mensual) | Alta | `rcv_ventas.csv` fila 44, 10/09/2026, $870.000 (y 2 filas más en el detalle) | Revisa con tu contador cómo corregir el documento y cobra la diferencia al cliente (nota interna N01). |
+| 7 | Plata que entró sin boleta ni factura | Abono del 09/10/2026 sin boleta ni factura (TRANSF. DE 76.468.166-5 INMOBILIARIA FICTICIA...) | $374.850 | $59.850 | $19.950 (promedio mensual) | Alta | `movimientos_cuenta.csv` fila 68, 09/10/2026, $374.850 | Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura (nota interna N02). |
+| 8 | IVA que salió de tu bolsillo | Documento folio 3422 a Oficina Contable Demo Cuentas Claras SpA: IVA mal calculado | $489.500 | $40.050 | $13.350 (promedio mensual) | Alta | `rcv_ventas.csv` fila 64, 06/10/2026, $489.500 | Revisa con tu contador si corresponde una nota de débito y cobra la diferencia (nota interna N03). |
+| 9 | Software que pagas de más | Canva Pro: 2 cobros al mes con 1 licencia | $12.990 | $38.970 | $12.990 cada mes | Alta | `movimientos_cuenta.csv` fila 5, 03/08/2026, $12.990 (y 6 filas más en el detalle) | Entra a la cuenta de Canva Pro, revisa por qué hay más de un cobro y cancela el que sobra (nota interna N04). |
+| 10 | Plata que entró sin boleta ni factura | Abono del 27/08/2026 sin boleta ni factura (TRANSF. DE 12.737.842-8 NICOLAS FICTICIO VARGAS) | $201.000 | $32.092 | $10.697 (promedio mensual) | Media: confirma antes | `movimientos_cuenta.csv` fila 18, 27/08/2026, $201.000 | Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura (nota interna N05). |
+| 11 | Software que pagas de más | Licencia de Google Workspace de Bruno Ficticio Vera, que ya no trabaja contigo | $8.600 | $25.800 | $8.600 cada mes | Alta | `movimientos_cuenta.csv` fila 2, 02/08/2026, $34.400 (y 4 filas más en el detalle) | Da de baja la licencia de bruno@climatizacionaustral-ficticia.cl en Google Workspace (nota interna N06). |
+| 12 | Plata que entró sin boleta ni factura | Venta con tarjeta del 18/09/2026 sin boleta (Credito, operación 2958094) | $64.500 | $10.298 | $3.433 (promedio mensual) | Alta | `ventas_transbank.csv` fila 30, 18/09/2026, $64.500 | Confirma que la boleta no existe con otra fecha u otro monto; si falta, emítela (nota interna N07). |
 
-"Promedio mensual" quiere decir que la fuga pasó una vez y la repartí entre los meses del periodo. "Cada mes" quiere decir que se repite todos los meses hasta que la arregles.
+"Monto del documento o movimiento" es el total de la factura, cotización, cobro o abono. "Plata en juego" es la parte que pierdes, te deben o arriesgas: a veces es todo el monto y a veces solo el IVA. "Promedio mensual" quiere decir que la fuga pasó una vez y la repartí entre los meses del periodo para poder ordenar la tabla; "cada mes" quiere decir que se repite hasta que la arregles.
+
+Palabras que uso: **neto** es el precio sin IVA; **folio** es el número de la factura o boleta; **fecha de corte** es el último día que cubren tus archivos; una **nota de crédito o de débito** es un documento que corrige una factura ya emitida (te la emite tu contador o tu sistema de facturación).
 
 ## Detalle de cada fuga
 
 ### H01 · Cotización aceptada que nunca se facturó
 
 - **Qué pasó:** PRE-0519 fue aceptada por Clinica Dental Demo Sonrisa SpA el 03/09/2026 por $1.332.800 (el archivo trae solo el neto, $1.120.000; le sumé el IVA). Pasaron 58 días y no encontré factura, boleta ni pago por ese trabajo.
-- **Monto:** $1.332.800
-- **Impacto en el periodo:** $1.332.800
+- **Monto del documento o movimiento:** $1.332.800
+- **Plata en juego:** $1.332.800
 - **Impacto mensual:** $444.267 (promedio mensual)
+- **Qué tan seguro:** Alta: la evidencia es directa.
 - **Qué hacer:** Emite la factura y envía el mensaje de cobro M01.
 - **Evidencia:**
 
@@ -49,9 +52,10 @@ Periodo revisado: 01/08/2026 al 31/10/2026 (3 meses). Fecha de corte: 31/10/2026
 ### H02 · Factura emitida que no te han pagado
 
 - **Qué pasó:** La factura folio 3404 a Cafeteria Demo Grano Fino SpA, del 20/08/2026, por $815.150, no tiene pago en tu banco. Lleva 72 días al 31/10/2026 (42 sobre el plazo de 30 días).
-- **Monto:** $815.150
-- **Impacto en el periodo:** $815.150
+- **Monto del documento o movimiento:** $815.150
+- **Plata en juego:** $815.150
 - **Impacto mensual:** $271.717 (promedio mensual)
+- **Qué tan seguro:** Alta: la evidencia es directa.
 - **Qué hacer:** Llama al cliente y envía el mensaje de cobro M02.
 - **Evidencia:**
 
@@ -64,9 +68,10 @@ Periodo revisado: 01/08/2026 al 31/10/2026 (3 meses). Fecha de corte: 31/10/2026
 ### H03 · Cotización aceptada que nunca se facturó
 
 - **Qué pasó:** PRE-0505 fue aceptada por Colegio Demo Los Aromos el 12/08/2026 por $595.000 (el archivo trae solo el neto, $500.000; le sumé el IVA). Pasaron 80 días y no encontré factura, boleta ni pago por ese trabajo.
-- **Monto:** $595.000
-- **Impacto en el periodo:** $595.000
+- **Monto del documento o movimiento:** $595.000
+- **Plata en juego:** $595.000
 - **Impacto mensual:** $198.333 (promedio mensual)
+- **Qué tan seguro:** Alta: la evidencia es directa.
 - **Qué hacer:** Emite la factura y envía el mensaje de cobro M03.
 - **Evidencia:**
 
@@ -79,9 +84,10 @@ Periodo revisado: 01/08/2026 al 31/10/2026 (3 meses). Fecha de corte: 31/10/2026
 ### H04 · Factura emitida que no te han pagado
 
 - **Qué pasó:** La factura folio 3415 a Bodega Ficticia Austral SpA, del 15/09/2026, por $440.300, no tiene pago en tu banco. Lleva 46 días al 31/10/2026 (16 sobre el plazo de 30 días).
-- **Monto:** $440.300
-- **Impacto en el periodo:** $440.300
+- **Monto del documento o movimiento:** $440.300
+- **Plata en juego:** $440.300
 - **Impacto mensual:** $146.767 (promedio mensual)
+- **Qué tan seguro:** Alta: la evidencia es directa.
 - **Qué hacer:** Llama al cliente y envía el mensaje de cobro M04.
 - **Evidencia:**
 
@@ -94,9 +100,10 @@ Periodo revisado: 01/08/2026 al 31/10/2026 (3 meses). Fecha de corte: 31/10/2026
 ### H05 · Cotización aceptada que nunca se facturó
 
 - **Qué pasó:** PRE-0534 fue aceptada por Martina Ficticia Fuentes el 29/09/2026 por $261.800 (el archivo trae solo el neto, $220.000; le sumé el IVA). Pasaron 32 días y no encontré factura, boleta ni pago por ese trabajo.
-- **Monto:** $261.800
-- **Impacto en el periodo:** $261.800
+- **Monto del documento o movimiento:** $261.800
+- **Plata en juego:** $261.800
 - **Impacto mensual:** $87.267 (promedio mensual)
+- **Qué tan seguro:** Alta: la evidencia es directa.
 - **Qué hacer:** Emite la factura y envía el mensaje de cobro M05.
 - **Evidencia:**
 
@@ -109,9 +116,10 @@ Periodo revisado: 01/08/2026 al 31/10/2026 (3 meses). Fecha de corte: 31/10/2026
 ### H06 · Cobraste el neto como si fuera el total
 
 - **Qué pasó:** PRE-0524 cotizó a Restaurante Ficticio La Caleta Ltda $870.000 más IVA (total $1.035.300), pero el documento folio 3413 del 10/09/2026 se emitió por $870.000 en total. El IVA ($165.300) salió de tu bolsillo.
-- **Monto:** $870.000
-- **Impacto en el periodo:** $165.300
+- **Monto del documento o movimiento:** $870.000
+- **Plata en juego:** $165.300
 - **Impacto mensual:** $55.100 (promedio mensual)
+- **Qué tan seguro:** Alta: la evidencia es directa.
 - **Qué hacer:** Revisa con tu contador cómo corregir el documento y cobra la diferencia al cliente (nota interna N01).
 - **Evidencia:**
 
@@ -135,11 +143,12 @@ Periodo revisado: 01/08/2026 al 31/10/2026 (3 meses). Fecha de corte: 31/10/2026
 
 ### H07 · Entró plata al banco sin boleta ni factura
 
-- **Qué pasó:** El 09/10/2026 entraron $374.850 a tu cuenta ("TRANSF. DE 76.468.166-5 INMOBILIARIA FICTICIA ALTOS DEL SUR") y no encontré boleta ni factura por ese monto. IVA en riesgo: $59.850. Riesgo de multa del SII [sin verificar el monto de la multa].
-- **Monto:** $374.850
-- **Impacto en el periodo:** $59.850
+- **Qué pasó:** El 09/10/2026 entraron $374.850 a tu cuenta ("TRANSF. DE 76.468.166-5 INMOBILIARIA FICTICIA ALTOS DEL SUR") y no encontré boleta ni factura por ese monto. IVA en riesgo (el IVA que habría que declarar si esta plata fue una venta): $59.850. Riesgo de multa del SII [sin verificar el monto de la multa]: no sé de cuánto sería, pregúntale a tu contador.
+- **Monto del documento o movimiento:** $374.850
+- **Plata en juego:** $59.850
 - **Impacto mensual:** $19.950 (promedio mensual)
-- **Qué hacer:** Emite la boleta o factura que falta (nota interna N02).
+- **Qué tan seguro:** Alta: la evidencia es directa.
+- **Qué hacer:** Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura (nota interna N02).
 - **Evidencia:**
 
   - `movimientos_cuenta.csv` fila 68, 09/10/2026, $374.850. TRANSF. DE 76.468.166-5 INMOBILIARIA FICTICIA ALTOS DEL SUR
@@ -151,9 +160,10 @@ Periodo revisado: 01/08/2026 al 31/10/2026 (3 meses). Fecha de corte: 31/10/2026
 ### H08 · Documento con el IVA mal calculado
 
 - **Qué pasó:** El documento folio 3422 a Oficina Contable Demo Cuentas Claras SpA, del 06/10/2026, tiene neto $445.000 con IVA $44.500 (10%) en vez de $84.550 (19%). Cobraste $40.050 de menos y esa parte del IVA la terminas poniendo tú.
-- **Monto:** $489.500
-- **Impacto en el periodo:** $40.050
+- **Monto del documento o movimiento:** $489.500
+- **Plata en juego:** $40.050
 - **Impacto mensual:** $13.350 (promedio mensual)
+- **Qué tan seguro:** Alta: la evidencia es directa.
 - **Qué hacer:** Revisa con tu contador si corresponde una nota de débito y cobra la diferencia (nota interna N03).
 - **Evidencia:**
 
@@ -166,9 +176,10 @@ Periodo revisado: 01/08/2026 al 31/10/2026 (3 meses). Fecha de corte: 31/10/2026
 ### H09 · Canva Pro se cobra dos veces al mes
 
 - **Qué pasó:** Canva Pro se cobra dos veces al mes por $12.990 (los días 3 y 17) y hay una sola licencia registrada. Pasó en 3 meses del periodo. Pagas $12.990 de más cada mes.
-- **Monto:** $12.990
-- **Impacto en el periodo:** $38.970
+- **Monto del documento o movimiento:** $12.990
+- **Plata en juego:** $38.970
 - **Impacto mensual:** $12.990 cada mes
+- **Qué tan seguro:** Alta: la evidencia es directa.
 - **Qué hacer:** Entra a la cuenta de Canva Pro, revisa por qué hay más de un cobro y cancela el que sobra (nota interna N04).
 - **Evidencia:**
 
@@ -216,12 +227,12 @@ Periodo revisado: 01/08/2026 al 31/10/2026 (3 meses). Fecha de corte: 31/10/2026
 
 ### H10 · Entró plata al banco sin boleta ni factura
 
-- **Qué pasó:** El 27/08/2026 entraron $201.000 a tu cuenta ("TRANSF. DE 12.737.842-8 NICOLAS FICTICIO VARGAS") y no encontré boleta ni factura por ese monto. IVA en riesgo: $32.092. Riesgo de multa del SII [sin verificar el monto de la multa]. Ojo: llegó al comienzo del periodo, así que podría ser el pago de un documento emitido antes de lo que cubren tus archivos.
-- **Monto:** $201.000
-- **Impacto en el periodo:** $32.092
+- **Qué pasó:** El 27/08/2026 entraron $201.000 a tu cuenta ("TRANSF. DE 12.737.842-8 NICOLAS FICTICIO VARGAS") y no encontré boleta ni factura por ese monto. IVA en riesgo (el IVA que habría que declarar si esta plata fue una venta): $32.092. Riesgo de multa del SII [sin verificar el monto de la multa]: no sé de cuánto sería, pregúntale a tu contador. Ojo: llegó al comienzo del periodo, así que podría ser el pago de un documento emitido antes de lo que cubren tus archivos.
+- **Monto del documento o movimiento:** $201.000
+- **Plata en juego:** $32.092
 - **Impacto mensual:** $10.697 (promedio mensual)
-- **Qué hacer:** Emite la boleta o factura que falta (nota interna N05).
-- **Confianza:** media: revísalo antes de actuar.
+- **Qué tan seguro:** Media: confírmalo antes de actuar.
+- **Qué hacer:** Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura (nota interna N05).
 - **Evidencia:**
 
   - `movimientos_cuenta.csv` fila 18, 27/08/2026, $201.000. TRANSF. DE 12.737.842-8 NICOLAS FICTICIO VARGAS
@@ -233,9 +244,10 @@ Periodo revisado: 01/08/2026 al 31/10/2026 (3 meses). Fecha de corte: 31/10/2026
 ### H11 · Pagas la licencia de Google Workspace de alguien que ya se fue
 
 - **Qué pasó:** La licencia de Google Workspace de bruno@climatizacionaustral-ficticia.cl sigue activa y cuesta $8.600 al mes, pero Bruno Ficticio Vera dejó la empresa el 31/07/2026. En el periodo la pagaste 3 meses sin que nadie la use. El cobro de $34.400 que ves en el banco es por todas las licencias de Google Workspace; la de esta persona es $8.600 de ese total.
-- **Monto:** $8.600
-- **Impacto en el periodo:** $25.800
+- **Monto del documento o movimiento:** $8.600
+- **Plata en juego:** $25.800
 - **Impacto mensual:** $8.600 cada mes
+- **Qué tan seguro:** Alta: la evidencia es directa.
 - **Qué hacer:** Da de baja la licencia de bruno@climatizacionaustral-ficticia.cl en Google Workspace (nota interna N06).
 - **Evidencia:**
 
@@ -271,11 +283,12 @@ Periodo revisado: 01/08/2026 al 31/10/2026 (3 meses). Fecha de corte: 31/10/2026
 
 ### H12 · Venta con tarjeta sin boleta
 
-- **Qué pasó:** El 18/09/2026 se aprobó una venta con tarjeta por $64.500 (Credito, operación 2958094) y no encontré su boleta de ese día ni del día siguiente. IVA en riesgo: $10.298. Riesgo de multa del SII [sin verificar el monto de la multa].
-- **Monto:** $64.500
-- **Impacto en el periodo:** $10.298
+- **Qué pasó:** El 18/09/2026 se aprobó una venta con tarjeta por $64.500 (Credito, operación 2958094) y no encontré su boleta de ese día ni del día siguiente. IVA en riesgo (el IVA que habría que declarar si esta plata fue una venta): $10.298. Riesgo de multa del SII [sin verificar el monto de la multa]: no sé de cuánto sería, pregúntale a tu contador.
+- **Monto del documento o movimiento:** $64.500
+- **Plata en juego:** $10.298
 - **Impacto mensual:** $3.433 (promedio mensual)
-- **Qué hacer:** Emite la boleta que falta (nota interna N07).
+- **Qué tan seguro:** Alta: la evidencia es directa.
+- **Qué hacer:** Confirma que la boleta no existe con otra fecha u otro monto; si falta, emítela (nota interna N07).
 - **Evidencia:**
 
   - `ventas_transbank.csv` fila 30, 18/09/2026, $64.500. Credito, operación 2958094

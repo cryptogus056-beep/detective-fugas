@@ -169,15 +169,15 @@ Cada fase cierra con: pruebas en verde, este plan actualizado, entrada en `BITAC
 
 ### Fase 7 · Crítico
 
-- [ ] 7.1 Lanzar el subagente `critico-pyme` con contexto limpio, solo con `salida/demo/informe.md`, `salida/demo/mensajes_cobro.md`, `README.md` y la web local
-- [ ] 7.2 Corregir cada problema (máximo 5) o justificar por escrito por qué no
-- [ ] 7.3 Registrar todo en `BITACORA.md`, sección "Crítico"
+- [x] 7.1 Lanzar el subagente `critico-pyme` con contexto limpio, solo con `salida/demo/informe.md`, `salida/demo/mensajes_cobro.md`, `README.md` y la web local
+- [x] 7.2 Corregir cada problema (máximo 5) o justificar por escrito por qué no
+- [x] 7.3 Registrar todo en `BITACORA.md`, sección "Crítico"
 
 **Verificación:** sección "Crítico" completa, pruebas y evaluador en verde después de los cambios.
 
 ### Fase 8 · Documentación y entrega
 
-- [ ] 8.1 `README.md` completo según la sección 13 (incluye "Cómo sacar tus archivos" con **[sin verificar]** en todo lo que no pueda comprobar en la fuente oficial)
+- [x] 8.1 `README.md` completo según la sección 13 (incluye "Cómo sacar tus archivos" con **[sin verificar]** en todo lo que no pueda comprobar en la fuente oficial)
 - [ ] 8.2 `ENTREGA/`: reemplazar los marcadores que dependen del resultado; dejar los de link y video para ti
 - [ ] 8.3 `BITACORA.md`: resumen arriba ("Fable corrigió N cosas; las 3 más importantes fueron...")
 - [ ] 8.4 `salida/demo/` y `salida/demo_b/` regeneradas y dentro del repositorio como ejemplo

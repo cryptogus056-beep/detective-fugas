@@ -141,6 +141,7 @@ def test_navegador_la_demo_se_ve_sin_errores_y_sin_cargar_nada_externo(navegador
     assert navegador["titulo"] == "Detective de Fugas Pyme"
     assert "Tus archivos no salen de tu computador" in navegador["cabecera"]
     assert "Datos 100% ficticios" in navegador["aviso_demo"] and "12 de 12" in navegador["aviso_demo"]
+    assert "todavía no se ha probado con archivos reales" in navegador["aviso_demo"]
     assert navegador["fugas_demo"] == 12 and navegador["titulo_informe"].startswith("Informe de fugas:")
     assert navegador["dominios_solo_demo"] == ["127.0.0.1"], "ver la demo no debe descargar nada de otros sitios"
     assert navegador["errores"] == [] and navegador["fallidas"] == []
@@ -161,6 +162,12 @@ def test_navegador_subir_demo_b_da_el_mismo_resultado_que_la_cli(navegador, raiz
                      "movimientos_cuenta.csv": "banco", "presupuestos.csv": "cotizaciones",
                      "rcv_compras.csv": "rcv_compras", "rcv_ventas.csv": "rcv_ventas", "ventas_transbank.csv": "pos"}
     assert navegador["descargas"] == ["informe.md", "hallazgos.json", "mensajes_cobro.md", "informe.html"]
+
+
+def test_navegador_sin_archivo_de_empresa_la_pagina_pregunta_los_datos(navegador):
+    assert navegador["formulario_oculto_con_config"] is True and navegador["formulario_visible_sin_config"] is True
+    assert navegador["titulo_sin_config"] == "Informe de fugas: Mi Pyme de Prueba SpA"
+    assert "31/10/2026" in navegador["periodo_sin_config"]
 
 
 def test_navegador_no_envia_datos_y_lee_excel(navegador):

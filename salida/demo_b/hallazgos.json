@@ -4,7 +4,7 @@
   "periodo_desde": "2026-08-01",
   "periodo_hasta": "2026-10-31",
   "meses_del_periodo": 3,
-  "generado_en": "2026-11-15T16:46:38+00:00",
+  "generado_en": "2026-11-15T16:53:32+00:00",
   "version_detector": "1.0.0",
   "archivos_leidos": [
     {
@@ -123,7 +123,8 @@
         "folio": "3404",
         "fecha": "2026-08-20",
         "dias": 72,
-        "total": 815150
+        "total": 815150,
+        "corte": "2026-10-31"
       }
     },
     {
@@ -191,7 +192,8 @@
         "folio": "3415",
         "fecha": "2026-09-15",
         "dias": 46,
-        "total": 440300
+        "total": 440300,
+        "corte": "2026-10-31"
       }
     },
     {
@@ -283,7 +285,7 @@
       "tipo": "abono_sin_documento",
       "subtipo": "banco",
       "titulo": "Entró plata al banco sin boleta ni factura",
-      "descripcion": "El 09/10/2026 entraron $374.850 a tu cuenta (\"TRANSF. DE 76.468.166-5 INMOBILIARIA FICTICIA ALTOS DEL SUR\") y no encontré boleta ni factura por ese monto. IVA en riesgo: $59.850. Riesgo de multa del SII [sin verificar el monto de la multa].",
+      "descripcion": "El 09/10/2026 entraron $374.850 a tu cuenta (\"TRANSF. DE 76.468.166-5 INMOBILIARIA FICTICIA ALTOS DEL SUR\") y no encontré boleta ni factura por ese monto. IVA en riesgo (el IVA que habría que declarar si esta plata fue una venta): $59.850. Riesgo de multa del SII [sin verificar el monto de la multa]: no sé de cuánto sería, pregúntale a tu contador.",
       "monto_clp": 374850,
       "impacto_clp": 59850,
       "impacto_mensual_clp": 19950,
@@ -299,7 +301,7 @@
           "fila_original": "2026-10-09,TRANSF. DE 76.468.166-5 INMOBILIARIA FICTICIA ALTOS DEL SUR ,OFICINA CENTRAL,374850,11647159"
         }
       ],
-      "accion_sugerida": "Emite la boleta o factura que falta (nota interna N02).",
+      "accion_sugerida": "Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura (nota interna N02).",
       "mensaje": "N02",
       "verificado": true,
       "datos": {
@@ -427,7 +429,7 @@
       "tipo": "abono_sin_documento",
       "subtipo": "banco",
       "titulo": "Entró plata al banco sin boleta ni factura",
-      "descripcion": "El 27/08/2026 entraron $201.000 a tu cuenta (\"TRANSF. DE 12.737.842-8 NICOLAS FICTICIO VARGAS\") y no encontré boleta ni factura por ese monto. IVA en riesgo: $32.092. Riesgo de multa del SII [sin verificar el monto de la multa]. Ojo: llegó al comienzo del periodo, así que podría ser el pago de un documento emitido antes de lo que cubren tus archivos.",
+      "descripcion": "El 27/08/2026 entraron $201.000 a tu cuenta (\"TRANSF. DE 12.737.842-8 NICOLAS FICTICIO VARGAS\") y no encontré boleta ni factura por ese monto. IVA en riesgo (el IVA que habría que declarar si esta plata fue una venta): $32.092. Riesgo de multa del SII [sin verificar el monto de la multa]: no sé de cuánto sería, pregúntale a tu contador. Ojo: llegó al comienzo del periodo, así que podría ser el pago de un documento emitido antes de lo que cubren tus archivos.",
       "monto_clp": 201000,
       "impacto_clp": 32092,
       "impacto_mensual_clp": 10697,
@@ -443,7 +445,7 @@
           "fila_original": "2026-08-27,TRANSF. DE 12.737.842-8 NICOLAS FICTICIO VARGAS,OFICINA CENTRAL,201000,4257798"
         }
       ],
-      "accion_sugerida": "Emite la boleta o factura que falta (nota interna N05).",
+      "accion_sugerida": "Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura (nota interna N05).",
       "mensaje": "N05",
       "verificado": true,
       "datos": {
@@ -524,7 +526,7 @@
       "tipo": "abono_sin_documento",
       "subtipo": "pos",
       "titulo": "Venta con tarjeta sin boleta",
-      "descripcion": "El 18/09/2026 se aprobó una venta con tarjeta por $64.500 (Credito, operación 2958094) y no encontré su boleta de ese día ni del día siguiente. IVA en riesgo: $10.298. Riesgo de multa del SII [sin verificar el monto de la multa].",
+      "descripcion": "El 18/09/2026 se aprobó una venta con tarjeta por $64.500 (Credito, operación 2958094) y no encontré su boleta de ese día ni del día siguiente. IVA en riesgo (el IVA que habría que declarar si esta plata fue una venta): $10.298. Riesgo de multa del SII [sin verificar el monto de la multa]: no sé de cuánto sería, pregúntale a tu contador.",
       "monto_clp": 64500,
       "impacto_clp": 10298,
       "impacto_mensual_clp": 3433,
@@ -540,7 +542,7 @@
           "fila_original": "18-09-2026;10:10;2958094;Credito;64.500;2.251;62.249;Aprobada"
         }
       ],
-      "accion_sugerida": "Emite la boleta que falta (nota interna N07).",
+      "accion_sugerida": "Confirma que la boleta no existe con otra fecha u otro monto; si falta, emítela (nota interna N07).",
       "mensaje": "N07",
       "verificado": true,
       "datos": {

@@ -15,7 +15,8 @@ def test_transferencia_sin_boleta_ni_factura():
     assert e.fila_original == f"09/10/2026;TRANSF. DE {BETO} BETO SPA;;398.650"
     assert h.monto_clp == 398650 and h.impacto_clp == 398650 - 335000 == 63650      # el IVA en riesgo
     assert h.impacto_mensual_clp == 21217 and h.recurrente is False               # promedio de 3 meses
-    assert "[sin verificar el monto de la multa]" in h.descripcion and h.verificado
+    assert "Riesgo de multa del SII [sin verificar el monto de la multa]" in h.descripcion and h.verificado
+    assert "pregúntale a tu contador" in h.descripcion and h.accion_sugerida.startswith("Confirma que fue una venta")
 
 
 def test_senuelos_del_banco_no_son_fuga():

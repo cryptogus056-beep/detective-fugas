@@ -52,6 +52,19 @@ const { chromium } = require("playwright");
   salida.xlsx = await pagina.evaluate(() => estado.xlsx);
   if (capturas) await pagina.screenshot({ path: path.join(capturas, "mios_resultado.png"), fullPage: false });
 
+  // Sin archivo de datos de empresa: la página pregunta el nombre y el último día
+  salida.formulario_oculto_con_config = await pagina.evaluate(() => document.getElementById("sin-config").hidden);
+  await pagina.click("#limpiar");
+  await pagina.setInputFiles("#archivos", archivos.filter((a) => !/config\.json$/i.test(a)));
+  await pagina.waitForFunction((n) => document.querySelectorAll("#tabla-archivos tbody tr").length === n, archivos.length - 1, { timeout: 60000 });
+  salida.formulario_visible_sin_config = await pagina.evaluate(() => !document.getElementById("sin-config").hidden);
+  await pagina.fill("#empresa", "Mi Pyme de Prueba SpA");
+  await pagina.fill("#corte", "2026-10-31");
+  await pagina.click("#auditar");
+  await pagina.waitForFunction(() => /^Listo/.test(document.getElementById("estado-mios").textContent), null, { timeout: 60000 });
+  salida.titulo_sin_config = await pagina.textContent("#informe-mio .informe h1");
+  salida.periodo_sin_config = await pagina.textContent("#informe-mio .informe .periodo");
+
   // Volver a calcular la demo en el navegador (usa el XLSX de la demo)
   await pagina.click("#boton-demo");
   await pagina.click("#recalcular");

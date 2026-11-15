@@ -38,10 +38,13 @@ def test_el_resumen_tiene_exactamente_cinco_lineas(demo):
     assert [l[:3] for l in lineas] == ["1. ", "2. ", "3. ", "4. ", "5. "]
     total = sum(h.impacto_clp for h in demo.hallazgos)
     assert f"${total:,}".replace(",", ".") in lineas[0]                         # total en juego
+    cobrable = sum(h.impacto_clp for h in demo.hallazgos if h.tipo in ("cotizacion_sin_cobro", "pago_pendiente_30d"))
+    assert f"${cobrable:,} que te deben o no has facturado".replace(",", ".") in lineas[0]     # sin mezclar montos
+    assert "$21.590 de software" in lineas[0] and "al mes)" not in lineas[0]                    # no parece gasto mensual
     assert "12 fugas" in lineas[1] and "3 cotizaciones aceptadas sin facturar" in lineas[1]
+    assert "1 es de seguridad media: confírmala antes de actuar" in lineas[1]
     assert demo.hallazgos[0].id in lineas[2]                                    # la mas grande
     assert "esta semana" in lineas[3] and "M01" in lineas[3]                    # que hacer primero
-    cobrable = sum(h.impacto_clp for h in demo.hallazgos if h.tipo in ("cotizacion_sin_cobro", "pago_pendiente_30d"))
     assert f"recuperas ${cobrable:,}".replace(",", ".") in lineas[4]            # cuanto se recupera
 
 
@@ -51,10 +54,12 @@ def test_la_tabla_esta_ordenada_por_impacto_mensual_y_trae_evidencia(demo):
     mensual = []
     for n, (fila, h) in enumerate(zip(filas, demo.hallazgos), start=1):
         celdas = [c.strip() for c in fila.strip("|").split(" | ")]
-        assert len(celdas) == 7 and celdas[0] == str(n)
-        mensual.append(int(re.sub(r"\D", "", celdas[4].split(" ")[0])))
-        assert re.search(r"`[^`]+` fila \d+, \d{2}/\d{2}/\d{4}, \$[\d.]+", celdas[5]), celdas[5]
-        assert celdas[6] == h.accion_sugerida
+        assert len(celdas) == 9 and celdas[0] == str(n)
+        assert celdas[3] == f"${h.monto_clp:,}".replace(",", ".") and celdas[4] == f"${h.impacto_clp:,}".replace(",", ".")
+        mensual.append(int(re.sub(r"\D", "", celdas[5].split(" ")[0])))
+        assert celdas[6].startswith("Alta" if h.confianza == "alta" else "Media")
+        assert re.search(r"`[^`]+` fila \d+, \d{2}/\d{2}/\d{4}, \$[\d.]+", celdas[7]), celdas[7]
+        assert celdas[8] == h.accion_sugerida
     assert mensual == sorted(mensual, reverse=True)
     assert mensual == [h.impacto_mensual_clp for h in demo.hallazgos]
 
@@ -88,6 +93,7 @@ def test_html_dice_lo_mismo_y_no_usa_recursos_externos(demo):
     for etiqueta, _ in modelo["resumen"]:
         assert f"<strong>{etiqueta}:</strong>" in pagina
     assert PIE in pagina and "viewport" in pagina
+    assert "<strong>neto</strong> es el precio sin IVA" in pagina and "**" not in pagina        # glosario para no contadores
 
 
 def test_html_escapa_texto_peligroso():

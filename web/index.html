@@ -27,6 +27,7 @@
     <div class="aviso ficticio">
       <strong>Datos 100% ficticios.</strong> Esta demo usa una empresa inventada (Climatizacion Austral Ficticia SpA) con fugas escondidas a propósito. Ningún nombre, RUT ni monto es real.
       <span id="puntaje"></span>
+      <span class="ojo">Ojo: todavía no se ha probado con archivos reales de bancos. Con los tuyos, revisa cada hallazgo contra tu archivo y con tu contador antes de cobrar o emitir algo.</span>
     </div>
     <p class="explica">Así se ve un informe: cada fuga dice cuánta plata es, en qué archivo y en qué fila está la prueba, y qué hacer. Baja y míralo, o prueba con los tuyos en "Usar mis archivos".</p>
     <div class="acciones">
@@ -68,6 +69,15 @@
             <thead><tr><th>Archivo</th><th>Qué es</th><th>Filas leídas</th><th></th></tr></thead>
             <tbody></tbody>
           </table>
+        </div>
+        <div class="opciones" id="sin-config" hidden>
+          <p><strong>Datos de tu empresa.</strong> Sirven para el título del informe y para saber hasta qué día revisar.</p>
+          <label>Nombre de tu empresa
+            <input type="text" id="empresa" autocomplete="organization" placeholder="Por ejemplo: Taller Los Aromos SpA">
+          </label>
+          <label>Último día que cubren tus archivos (si lo dejas vacío, uso la última fecha que encuentre)
+            <input type="date" id="corte">
+          </label>
         </div>
         <div class="opciones">
           <label>¿Cómo tratas a tus clientes en los mensajes de cobro?

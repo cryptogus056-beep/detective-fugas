@@ -12,7 +12,7 @@ body{background:var(--papel);color:var(--tinta);font:16px/1.55 system-ui,-apple-
 .modo.activo{background:var(--acento);border-color:var(--acento);color:#fff}
 .aviso{border-radius:8px;margin:0 0 1rem;padding:.8rem 1rem}
 .ficticio{background:var(--ficticio);border:1px solid var(--ficticio-borde)}
-#puntaje{display:block;margin-top:.3rem}
+#puntaje,.ojo{display:block;margin-top:.3rem}
 .explica{margin:0 0 1rem}
 .acciones{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 1rem}
 .boton{background:var(--acento);border:1px solid var(--acento);border-radius:8px;color:#fff;cursor:pointer;display:inline-block;font:inherit;font-weight:600;padding:.6rem 1rem;text-decoration:none}
@@ -37,10 +37,11 @@ body{background:var(--papel);color:var(--tinta);font:16px/1.55 system-ui,-apple-
 .tabla-scroll{overflow-x:auto}
 #tabla-archivos{border-collapse:collapse;width:100%}
 #tabla-archivos th,#tabla-archivos td{border-bottom:1px solid var(--linea);padding:.5rem .4rem;text-align:left;vertical-align:top}
-#tabla-archivos select,.opciones select{border:1px solid #9fb3c2;border-radius:6px;font:inherit;max-width:100%;padding:.35rem .4rem}
+#tabla-archivos select,.opciones select,.opciones input{border:1px solid #9fb3c2;border-radius:6px;font:inherit;max-width:100%;padding:.35rem .4rem}
 #tabla-archivos .problema{color:var(--error);font-size:.9rem}
 .opciones{margin:1rem 0}
-.opciones label{display:flex;flex-direction:column;gap:.3rem;max-width:26rem}
+.opciones label{display:flex;flex-direction:column;gap:.3rem;margin:.6rem 0;max-width:26rem}
+.opciones p{margin:.2rem 0}
 .mensajes{background:#fff;border:1px solid var(--linea);border-radius:10px;margin-top:1rem;padding:.8rem 1rem}
 .mensajes summary{cursor:pointer;font-weight:600}
 .mensajes pre{font:.88rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;margin:.8rem 0 0;white-space:pre-wrap;word-break:break-word}

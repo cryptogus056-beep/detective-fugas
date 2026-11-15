@@ -8,7 +8,9 @@ from ..normalizar import formato_clp, formato_fecha, neto_de_total
 from . import Hallazgo, evidencia_de, mensual_puntual
 
 TIPO = "abono_sin_documento"
-NOTA_MULTA = "Riesgo de multa del SII [sin verificar el monto de la multa]."
+NOTA_MULTA = ("Riesgo de multa del SII [sin verificar el monto de la multa]: no sé de cuánto sería, "
+              "pregúntale a tu contador.")
+IVA_EN_RIESGO = "IVA en riesgo (el IVA que habría que declarar si esta plata fue una venta)"
 
 
 def _cotizacion_relacionada(movimiento, ctx):
@@ -37,7 +39,7 @@ def detectar(ctx) -> list:
         cot = _cotizacion_relacionada(m, ctx)
         descripcion = (f"El {formato_fecha(m.fecha)} entraron {formato_clp(m.monto)} a tu cuenta "
                        f"(\"{m.descripcion}\") y no encontré boleta ni factura por ese monto. "
-                       f"IVA en riesgo: {formato_clp(iva)}. {NOTA_MULTA}")
+                       f"{IVA_EN_RIESGO}: {formato_clp(iva)}. {NOTA_MULTA}")
         datos = {"origen": "banco", "glosa": m.descripcion, "ruts": m.ruts, "iva_en_riesgo": iva}
         if cot:
             descripcion += (f" Parece ser el pago de {cot.numero} ({cot.cliente}), que está aceptada "
@@ -56,7 +58,8 @@ def detectar(ctx) -> list:
             descripcion=descripcion, monto_clp=m.monto, impacto_clp=iva,
             impacto_mensual_clp=mensual_puntual(iva, config), recurrente=False, confianza=confianza,
             evidencia=[evidencia_de(m, m.fecha, m.monto, m.descripcion)],
-            accion_sugerida="Emite la boleta o factura que falta", datos=datos))
+            accion_sugerida="Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura",
+            datos=datos))
 
     for v in ctx.datos.ventas_pos:
         if not v.aprobada or clave(v) in emp.doc_de_venta:
@@ -67,10 +70,10 @@ def detectar(ctx) -> list:
             tipo=TIPO, subtipo="pos", titulo="Venta con tarjeta sin boleta",
             descripcion=(f"El {formato_fecha(v.fecha)} se aprobó una venta con tarjeta por {formato_clp(v.monto)} "
                          f"({detalle}) y no encontré su boleta de ese día ni del día siguiente. "
-                         f"IVA en riesgo: {formato_clp(iva)}. {NOTA_MULTA}"),
+                         f"{IVA_EN_RIESGO}: {formato_clp(iva)}. {NOTA_MULTA}"),
             monto_clp=v.monto, impacto_clp=iva, impacto_mensual_clp=mensual_puntual(iva, config),
             recurrente=False, evidencia=[evidencia_de(v, v.fecha, v.monto, detalle or v.estado_original)],
-            accion_sugerida="Emite la boleta que falta",
+            accion_sugerida="Confirma que la boleta no existe con otra fecha u otro monto; si falta, emítela",
             datos={"origen": "pos", "glosa": detalle, "iva_en_riesgo": iva}))
     return hallazgos
 
