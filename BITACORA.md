@@ -44,6 +44,13 @@ Formato de cada entrada:
 - Qué cambié: en `PLAN.md` quedaron los riesgos R1 (respaldo), R8 (copia local de `openpyxl` para la web, o solo CSV si falla) y R9 (prueba con navegador opcional). No hice ningún push: la decisión de respaldo es de Gustavo.
 - Cómo lo verifiqué: `python3 -m pytest --version` falla con "No module named pytest"; el archivo `pyodide-lock.json` del CDN oficial no lista `openpyxl`; `node -e "require('playwright')"` funciona.
 
+## 2026-11-15 00:25 · Fase 0 · Plan aprobado y decisión de respaldo
+
+- Qué pasó: Gustavo aprobó `PLAN.md` y eligió la opción A de respaldo: push solo a la rama de trabajo `claude/wizardly-hawking-b7n711` al cierre de cada fase.
+- Por qué: la sesión corre en un contenedor temporal de la nube; sin respaldo, un reciclaje del contenedor borraría los commits locales. El push sigue reservado a Gustavo (sección 0.5) y él lo autorizó solo para esa rama.
+- Qué cambié: estado en `PLAN.md`. No se toca `main`, no hay despliegue ni publicación.
+- Cómo lo verifiqué: mensaje de Gustavo en la sesión ("Sí, aprobado el PLAN.md" y luego "A").
+
 ## Crítico
 
 (Fable completa esta sección en la fase 7: los máximo 5 problemas encontrados y qué se hizo con cada uno.)

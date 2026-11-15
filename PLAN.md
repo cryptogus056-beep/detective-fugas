@@ -2,7 +2,7 @@
 
 Plan vivo. Cada tarea se marca con [x] cuando está hecha y verificada. Al retomar una sesión: leer este archivo y `BITACORA.md`, correr `python -m pytest -q` y `python scripts/evaluar.py`, y seguir desde la primera tarea sin marcar.
 
-- Estado: **Fase 0, esperando la aprobación de Gustavo.**
+- Estado: **Plan aprobado por Gustavo el 15/11/2026. En ejecución.** Respaldo: Gustavo eligió la opción A (push solo a la rama de trabajo `claude/wizardly-hawking-b7n711` al cierre de cada fase; nunca a `main`, sin despliegues).
 - Entrega del concurso: jueves 19 de noviembre de 2026, 23:59 (hora de Chile).
 - Meta de puntaje: 12 de 12 fugas en las dos demos, con 0 falsos positivos (el mínimo exigido es 10 de 12).
 
@@ -96,7 +96,7 @@ Cada fase cierra con: pruebas en verde, este plan actualizado, entrada en `BITAC
 - [x] Leer los 6 archivos en el orden pedido
 - [x] Comprobar que el generador es reproducible
 - [x] Escribir `PLAN.md`
-- [ ] Aprobación de Gustavo: "Sí, aprobado el PLAN.md"
+- [x] Aprobación de Gustavo: "Sí, aprobado el PLAN.md"
 
 **Verificación:** tu aprobación.
 
