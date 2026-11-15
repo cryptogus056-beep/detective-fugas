@@ -1,0 +1,70 @@
+[
+  {
+    "motivo": "Clasificado como \"prestamo\" (no es una venta): ABONO PRESTAMO COMERCIAL BANCO CUOTA 1 DE 12: desembolso de préstamo bancario en cuotas.",
+    "hallazgo": {
+      "id": "",
+      "tipo": "abono_sin_documento",
+      "subtipo": "banco",
+      "titulo": "Entró plata al banco sin boleta ni factura",
+      "descripcion": "El 11/08/2026 entraron $2.000.000 a tu cuenta (\"ABONO PRESTAMO COMERCIAL BANCO CUOTA 1 DE 12\") y no encontré boleta ni factura por ese monto. IVA en riesgo: $319.328. Riesgo de multa del SII [sin verificar el monto de la multa]. La descripción del movimiento no trae RUT, así que no sé quién pagó: revísalo antes de emitir el documento.",
+      "monto_clp": 2000000,
+      "impacto_clp": 319328,
+      "impacto_mensual_clp": 159664,
+      "recurrente": false,
+      "confianza": "media",
+      "evidencia": [
+        {
+          "archivo": "banco.csv",
+          "fila": 3,
+          "fecha": "2026-08-11",
+          "monto_clp": 2000000,
+          "detalle": "ABONO PRESTAMO COMERCIAL BANCO CUOTA 1 DE 12",
+          "fila_original": "11/08/2026;ABONO PRESTAMO COMERCIAL BANCO CUOTA 1 DE 12;;2.000.000"
+        }
+      ],
+      "accion_sugerida": "Emite la boleta o factura que falta",
+      "mensaje": "",
+      "verificado": false,
+      "datos": {
+        "origen": "banco",
+        "glosa": "ABONO PRESTAMO COMERCIAL BANCO CUOTA 1 DE 12",
+        "ruts": [],
+        "iva_en_riesgo": 319328
+      }
+    }
+  },
+  {
+    "motivo": "Clasificado como \"reembolso\" (no es una venta): REEMBOLSO SEGURO SINIESTRO VEHICULO: pago de seguro por siniestro.",
+    "hallazgo": {
+      "id": "",
+      "tipo": "abono_sin_documento",
+      "subtipo": "banco",
+      "titulo": "Entró plata al banco sin boleta ni factura",
+      "descripcion": "El 02/09/2026 entraron $185.300 a tu cuenta (\"REEMBOLSO SEGURO SINIESTRO VEHICULO\") y no encontré boleta ni factura por ese monto. IVA en riesgo: $29.586. Riesgo de multa del SII [sin verificar el monto de la multa]. La descripción del movimiento no trae RUT, así que no sé quién pagó: revísalo antes de emitir el documento.",
+      "monto_clp": 185300,
+      "impacto_clp": 29586,
+      "impacto_mensual_clp": 14793,
+      "recurrente": false,
+      "confianza": "media",
+      "evidencia": [
+        {
+          "archivo": "banco.csv",
+          "fila": 5,
+          "fecha": "2026-09-02",
+          "monto_clp": 185300,
+          "detalle": "REEMBOLSO SEGURO SINIESTRO VEHICULO",
+          "fila_original": "02/09/2026;REEMBOLSO SEGURO SINIESTRO VEHICULO;;185.300"
+        }
+      ],
+      "accion_sugerida": "Emite la boleta o factura que falta",
+      "mensaje": "",
+      "verificado": false,
+      "datos": {
+        "origen": "banco",
+        "glosa": "REEMBOLSO SEGURO SINIESTRO VEHICULO",
+        "ruts": [],
+        "iva_en_riesgo": 29586
+      }
+    }
+  }
+]

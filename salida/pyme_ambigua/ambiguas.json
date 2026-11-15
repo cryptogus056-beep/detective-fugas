@@ -1,0 +1,42 @@
+[
+  {
+    "archivo": "banco.csv",
+    "fila": 2,
+    "fecha": "2026-08-04",
+    "monto_clp": 120000,
+    "texto": "04/08/2026;DEPOSITO EN EFECTIVO SUCURSAL CENTRO;;120.000",
+    "motivo": "abono sin documento cuya descripción no trae RUT: no se sabe quién pagó"
+  },
+  {
+    "archivo": "banco.csv",
+    "fila": 3,
+    "fecha": "2026-08-11",
+    "monto_clp": 2000000,
+    "texto": "11/08/2026;ABONO PRESTAMO COMERCIAL BANCO CUOTA 1 DE 12;;2.000.000",
+    "motivo": "abono sin documento cuya descripción no trae RUT: no se sabe quién pagó"
+  },
+  {
+    "archivo": "banco.csv",
+    "fila": 5,
+    "fecha": "2026-09-02",
+    "monto_clp": 185300,
+    "texto": "02/09/2026;REEMBOLSO SEGURO SINIESTRO VEHICULO;;185.300",
+    "motivo": "abono sin documento cuya descripción no trae RUT: no se sabe quién pagó"
+  },
+  {
+    "archivo": "banco.csv",
+    "fila": 6,
+    "fecha": "2026-09-15",
+    "monto_clp": 238000,
+    "texto": "15/09/2026;DEPOSITO CHEQUE CLIENTE TALLER;;238.000",
+    "motivo": "abono sin documento cuya descripción no trae RUT: no se sabe quién pagó"
+  },
+  {
+    "archivo": "banco.csv",
+    "fila": 7,
+    "fecha": "2026-09-28",
+    "monto_clp": 96500,
+    "texto": "28/09/2026;ABONO REMESA VENTA MOSTRADOR SEMANA 39;;96.500",
+    "motivo": "abono sin documento cuya descripción no trae RUT: no se sabe quién pagó"
+  }
+]

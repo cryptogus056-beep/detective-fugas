@@ -177,6 +177,20 @@ Formato de cada entrada:
 - Qué cambié: `detective/informe.py`, `detective/mensajes.py`, `detective/llm.py`, `detective/__main__.py`, `requirements.txt` (nota sobre la librería opcional), `salida/demo/` y `salida/demo_b/`.
 - Cómo lo verifiqué: `python -m pytest -q`: 163 passed in 3.00s. Demo A y demo B: 12 de 12, 0 falsos.
 
+## 2026-11-15 07:51 · Fase 5 · Modo agéntico: los subagentes solo pueden quitar, nunca agregar
+
+- Qué pasó: decisión de diseño: el comando `/auditar` corre el núcleo, manda las filas ambiguas al subagente `clasificador-filas`, pide una segunda opinión al subagente `verificador-evidencia` y vuelve a correr el núcleo con sus respuestas (`--clasificaciones` y `--descartes`).
+- Por qué: un modelo de lenguaje puede equivocarse o inventar. Si solo puede sacar hallazgos (y solo los que el núcleo marcó como ambiguos, en el caso del clasificador), el resultado agéntico nunca contradice la regla de oro.
+- Qué cambié: `detective/auditoria.py` (`_aplicar_clasificaciones`, `_aplicar_descartes`), `detective/__main__.py` (opción `--descartes`), los 3 archivos de `.claude/agents/` y `.claude/commands/auditar.md`. Agregué las categorías `prestamo` y `reembolso` al clasificador.
+- Cómo lo verifiqué: prueba `test_modo_agentico_clasificaciones_y_descartes_solo_pueden_quitar`: una clasificación de una fila no ambigua y un descarte de un hallazgo inexistente se ignoran con aviso.
+
+## 2026-11-15 07:51 · Fase 5 · Ejecución real del flujo /auditar con subagentes
+
+- Qué pasó: corrí los pasos de `/auditar data/demo` con subagentes de verdad. El verificador (modelo económico) revisó los 12 hallazgos y confirmó los 12, sin descartes. Como demo A no tiene filas ambiguas, probé el clasificador con un mini caso ficticio nuevo (`tests/datos/pyme_ambigua`): de 5 depósitos sin RUT dejó 2 como venta, 1 como dudoso ("otro"), y sacó un préstamo bancario y un reembolso de seguro.
+- Por qué: el checkpoint de la fase pide que el modo agéntico llegue al mismo resultado que la CLI. En el mini caso, el total en juego bajó de $421.482 a $72.568 porque un préstamo de $2.000.000 ya no cuenta como venta sin boleta.
+- Qué cambié: `salida/demo/verificacion_agente.json`, `salida/pyme_ambigua/` (con `clasificaciones.json`) y `tests/datos/pyme_ambigua/`.
+- Cómo lo verifiqué: comparé `hallazgos.json` del modo agéntico con el de la CLI para demo A (sin contar la hora de generación): idénticos, 12 hallazgos. `python scripts/evaluar.py --dataset data/demo`: 12 de 12, 0 falsos. `python -m pytest -q`: 164 passed.
+
 ## Crítico
 
 (Fable completa esta sección en la fase 7: los máximo 5 problemas encontrados y qué se hizo con cada uno.)

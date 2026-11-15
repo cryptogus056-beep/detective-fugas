@@ -52,3 +52,34 @@ def test_auditar_con_errores_explica_y_no_revienta(tmp_path, capsys):
     (vacia / "raro.csv").write_text("Dia|Concepto\n1|x\n", encoding="utf-8")
     assert main(["auditar", "--datos", str(vacia), "--salida", str(tmp_path / "s")]) == 2
     assert "No reconocí ningún archivo" in capsys.readouterr().out
+
+
+def test_modo_agentico_clasificaciones_y_descartes_solo_pueden_quitar(tmp_path, capsys):
+    datos, salida = tmp_path / "datos", tmp_path / "salida"
+    datos.mkdir()
+    (datos / "banco.csv").write_text(banco([("09/10/2026", f"TRANSF. DE {ANA} ANA", 398650),
+                                            ("10/10/2026", "DEPOSITO EN EFECTIVO", 80000),
+                                            ("11/10/2026", "DEPOSITO CHEQUE", 70000)]), encoding="utf-8")
+    (datos / "rcv_ventas.csv").write_text(rcv([(39, ANA, "Ana", 1, "01/08/2026", 1000)]), encoding="utf-8")
+    (datos / "config.json").write_text(json.dumps(CONFIG_BASE), encoding="utf-8")
+    assert main(["auditar", "--datos", str(datos), "--salida", str(salida)]) == 0
+    base = json.loads((salida / "hallazgos.json").read_text(encoding="utf-8"))["hallazgos"]
+    ambiguas = json.loads((salida / "ambiguas.json").read_text(encoding="utf-8"))
+    assert len(base) == 3 and [a["fila"] for a in ambiguas] == [5, 6]
+
+    clasificaciones = tmp_path / "clasificaciones.json"
+    clasificaciones.write_text(json.dumps([{"archivo": "banco.csv", "fila": 5, "categoria": "aporte_socio", "motivo": "x"},
+                                           {"archivo": "banco.csv", "fila": 6, "categoria": "venta", "motivo": "y"}]), encoding="utf-8")
+    descartes = tmp_path / "verificacion.json"
+    descartes.write_text(json.dumps({"confirmados": ["H02"], "descartados": [{"id": "H01", "motivo": "prueba"},
+                                                                             {"id": "H99", "motivo": "no existe"}]}), encoding="utf-8")
+    assert main(["auditar", "--datos", str(datos), "--salida", str(salida), "--clasificaciones", str(clasificaciones),
+                 "--descartes", str(descartes)]) == 0
+    final = json.loads((salida / "hallazgos.json").read_text(encoding="utf-8"))
+    citas = [(h["id"], h["evidencia"][0]["fila"]) for h in final["hallazgos"]]
+    assert citas == [("H02", 6)]                                     # quedo solo el deposito clasificado como venta
+    fuera = json.loads((salida / "descartados.json").read_text(encoding="utf-8"))
+    assert sorted(d["motivo"].split(":")[0] for d in fuera) == ['Clasificado como "aporte_socio" (no es una venta)',
+                                                                "Descartado por el verificador de segunda opinión"]
+    assert any("H99" in a for a in final["avisos"])
+    assert "| 1 |" in (salida / "informe.md").read_text(encoding="utf-8")

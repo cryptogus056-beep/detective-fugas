@@ -1,0 +1,8 @@
+{
+  "empresa": "Taller Ficticio de Prueba SpA",
+  "fecha_corte": "2026-09-30",
+  "periodo_desde": "2026-08-01",
+  "periodo_hasta": "2026-09-30",
+  "palabras_excluidas_abonos": ["APORTE SOCIO", "DEVOLUCION"],
+  "nota": "Datos 100% ficticios"
+}

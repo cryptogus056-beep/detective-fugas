@@ -38,7 +38,11 @@ def cmd_auditar(args) -> int:
     clasificaciones = None
     if args.clasificaciones:
         clasificaciones = json.loads(Path(args.clasificaciones).read_text(encoding="utf-8"))
-    res = auditar(leer_carpeta(carpeta), _plantillas(args), clasificaciones=clasificaciones)
+    descartes = None
+    if args.descartes:
+        descartes = json.loads(Path(args.descartes).read_text(encoding="utf-8"))
+        descartes = descartes.get("descartados", []) if isinstance(descartes, dict) else descartes
+    res = auditar(leer_carpeta(carpeta), _plantillas(args), clasificaciones=clasificaciones, descartes=descartes)
     borradores = mensajes.borradores(res, args.tratamiento)
     if args.llm:
         from . import llm
@@ -127,6 +131,8 @@ def construir_parser() -> argparse.ArgumentParser:
                    help="pule los mensajes con un modelo de lenguaje si existe ANTHROPIC_API_KEY (tiene costo)")
     p.add_argument("--clasificaciones", default=None,
                    help="JSON con clasificaciones de filas ambiguas (lo genera el modo agéntico)")
+    p.add_argument("--descartes", default=None,
+                   help="JSON del verificador de segunda opinión con los hallazgos a sacar (modo agéntico)")
     p.set_defaults(funcion=cmd_auditar)
 
     p = sub.add_parser("plantilla", help="muestra los encabezados de un archivo y propone una plantilla")

@@ -150,9 +150,9 @@ Cada fase cierra con: pruebas en verde, este plan actualizado, entrada en `BITAC
 
 ### Fase 5 · Modo agéntico
 
-- [ ] 5.1 Revisar y mejorar los 3 subagentes y el comando `/auditar`
-- [ ] 5.2 `ambiguas.json` y la opción `--clasificaciones` en la CLI
-- [ ] 5.3 Ejecutar los pasos de `/auditar data/demo` con subagentes y comparar el resultado con el de la CLI
+- [x] 5.1 Revisar y mejorar los 3 subagentes y el comando `/auditar`
+- [x] 5.2 `ambiguas.json` y la opción `--clasificaciones` en la CLI
+- [x] 5.3 Ejecutar los pasos de `/auditar data/demo` con subagentes y comparar el resultado con el de la CLI
 
 **Verificación:** el resultado del modo agéntico tiene los mismos hallazgos que la CLI y `evaluar.py` sigue aprobado. Queda anotado en la bitácora.
 

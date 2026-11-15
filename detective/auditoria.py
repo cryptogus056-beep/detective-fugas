@@ -21,8 +21,8 @@ from .verificador import Fuente, verificar
 
 NOMBRE_CONFIG = "config.json"
 IGNORAR = "ignorar"
-CATEGORIAS_QUE_NO_SON_VENTA = {"aporte_socio", "devolucion", "pago_proveedor", "suscripcion", "remuneraciones",
-                               "impuestos", "traspaso"}
+CATEGORIAS_QUE_NO_SON_VENTA = {"aporte_socio", "devolucion", "prestamo", "reembolso", "pago_proveedor",
+                               "suscripcion", "remuneraciones", "impuestos", "traspaso"}
 DESTINO = {"banco": "movimientos", "pos": "ventas_pos", "rcv_ventas": "documentos", "rcv_compras": "compras",
            "cotizaciones": "cotizaciones", "equipo": "personas", "licencias": "licencias"}
 SIN_ARCHIVO = {
@@ -114,8 +114,35 @@ def _aplicar_clasificaciones(hallazgos: list, ambiguas: list, clasificaciones, a
     return quedan, fuera
 
 
+def _aplicar_descartes(confirmados: list, descartes, avisos: list):
+    """Segunda opinion (modo agentico): saca del informe los hallazgos que un verificador externo descarto.
+
+    Solo puede quitar. Los que quedan conservan su numero, para que el informe siga calzando.
+    """
+    if not descartes:
+        return confirmados, []
+    motivos = {}
+    for d in descartes:
+        if isinstance(d, dict) and d.get("id"):
+            motivos[str(d["id"])] = str(d.get("motivo", "")).strip()
+        else:
+            avisos.append(f"Ignoré un descarte mal formado: {d!r}.")
+    existentes = {h.id for h in confirmados}
+    for desconocido in sorted(set(motivos) - existentes):
+        avisos.append(f"Ignoré el descarte de {desconocido}: ese hallazgo no existe.")
+    quedan, fuera = [], []
+    for h in confirmados:
+        if h.id in motivos:
+            h.verificado = False
+            fuera.append({"motivo": "Descartado por el verificador de segunda opinión"
+                                    + (f": {motivos[h.id]}" if motivos[h.id] else "") + ".", "hallazgo": h})
+        else:
+            quedan.append(h)
+    return quedan, fuera
+
+
 def auditar(entradas: list, plantillas: list, roles_forzados: dict = None, clasificaciones: list = None,
-            ahora: str = None) -> Resultado:
+            ahora: str = None, descartes: list = None) -> Resultado:
     """Audita un conjunto de archivos. `roles_forzados`: {nombre_de_archivo: rol o "ignorar"}."""
     roles_forzados = roles_forzados or {}
     crudo_config = next((e.datos for e in entradas if e.nombre.lower() == NOMBRE_CONFIG), None)
@@ -200,6 +227,8 @@ def auditar(entradas: list, plantillas: list, roles_forzados: dict = None, clasi
             n_nota += 1
             h.mensaje = f"N{n_nota:02d}"
             h.accion_sugerida = f"{h.accion_sugerida} (nota interna {h.mensaje})."
+    confirmados, por_segunda_opinion = _aplicar_descartes(confirmados, descartes, res.avisos)
+    res.descartados.extend(por_segunda_opinion)
     excluidos = len(emp.excluidos)
     if excluidos:
         res.avisos.append(f"Dejé fuera {excluidos} {'abono' if excluidos == 1 else 'abonos'} que no son ventas "
