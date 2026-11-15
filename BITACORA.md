@@ -239,6 +239,13 @@ Formato de cada entrada:
 - Qué cambié: `README.md` (qué es, resultado, uso en 3 comandos, web, cómo sacar los archivos con **[sin verificar]** donde no pude comprobar la fuente oficial, plantillas, diagrama, cómo se construyó, limitaciones, privacidad, licencia). `ENTREGA/post_skool.md`, `ENTREGA/post_x.md` y `ENTREGA/guion_video.md`: 12 de 12 en ambas demos, $3.738.472 en juego, 17 correcciones, 5 problemas del crítico, y los prompts P0 y P1 pegados. Quedan solo los marcadores de links (`[[LINK_WEB]]`, `[[LINK_VIDEO]]`, `[[LINK_GITHUB]]`, `[[LINK_POST_X]]`), que le tocan a Gustavo.
 - Cómo lo verifiqué: búsqueda de `[[` en `ENTREGA/`, `README.md` y `BITACORA.md`: solo aparecen marcadores `LINK_`. Los textos para X miden 255 y 196 caracteres (contando cada link como 23). `python -m pytest -q`: 173 passed.
 
+## 2026-11-15 13:56 · Fase 9 · Verificación final: los 12 criterios de aceptación, con la salida pegada
+
+- Qué pasó: recorrí uno por uno los criterios de la sección 12 de la spec y pegué la salida real de cada comando en la sección 7 de `PLAN.md`.
+- Por qué: regla 10 de `CLAUDE.md`: verificar antes de decir "listo".
+- Qué cambié: `PLAN.md` (todas las tareas marcadas, criterios con su evidencia y lo que queda en manos de Gustavo).
+- Cómo lo verifiqué: generador reproducible (`git status --short data` sin cambios); demo A y demo B: "Encontradas: 12 de 12   Falsos positivos: 0   RESULTADO: APROBADO"; `python -m pytest -q`: 173 passed in 10.76s; `python scripts/construir_web.py --comprobar`: "web/ está al día."; búsqueda de claves: 0 archivos; `git ls-remote origin`: solo `main` en el commit inicial, o sea que no hubo push ni despliegue.
+
 ## Crítico
 
 Fase 7. El subagente `critico-pyme` se lanzó con contexto limpio el 15/11/2026: sin la spec, sin el plan, sin la bitácora, sin el código y sin la llave. Solo recibió `salida/demo/informe.md`, `salida/demo/mensajes_cobro.md`, `README.md` y la web local (página y 4 capturas). Actuó como Marcela, dueña de una pyme de servicios que no programa. Entregó 5 problemas, ordenados por gravedad. Los 5 se corrigieron; ninguno se rechazó.

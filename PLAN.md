@@ -2,7 +2,7 @@
 
 Plan vivo. Cada tarea se marca con [x] cuando está hecha y verificada. Al retomar una sesión: leer este archivo y `BITACORA.md`, correr `python -m pytest -q` y `python scripts/evaluar.py`, y seguir desde la primera tarea sin marcar.
 
-- Estado: **Plan aprobado por Gustavo el 15/11/2026. En ejecución.** Respaldo: Gustavo eligió la opción A (push solo a la rama de trabajo `claude/wizardly-hawking-b7n711` al cierre de cada fase; nunca a `main`, sin despliegues).
+- Estado: **Todas las fases terminadas y verificadas el 15/11/2026.** Resultado: demo A y demo B con 12 de 12 fugas y 0 falsos positivos; 173 pruebas en verde. Pendiente solo lo que le toca a Gustavo (sección 7.3): respaldo, push, despliegue y publicación.
 - Entrega del concurso: jueves 19 de noviembre de 2026, 23:59 (hora de Chile).
 - Meta de puntaje: 12 de 12 fugas en las dos demos, con 0 falsos positivos (el mínimo exigido es 10 de 12).
 
@@ -186,10 +186,10 @@ Cada fase cierra con: pruebas en verde, este plan actualizado, entrada en `BITAC
 
 ### Fase 9 · Verificación final
 
-- [ ] 9.1 Recorrer uno por uno los 12 criterios de la sección 12 y marcarlos aquí
-- [ ] 9.2 Pegar aquí la salida de: generador, auditoría de las dos demos, `evaluar.py` de las dos demos y `python -m pytest -q`
-- [ ] 9.3 Revisión de seguridad: sin claves, sin datos reales, sin push ni despliegue no autorizados
-- [ ] 9.4 Mensaje final a Gustavo con el puntaje y los comandos que le tocan, en el orden de `PASO_A_PASO.md`
+- [x] 9.1 Recorrer uno por uno los 12 criterios de la sección 12 y marcarlos aquí
+- [x] 9.2 Pegar aquí la salida de: generador, auditoría de las dos demos, `evaluar.py` de las dos demos y `python -m pytest -q`
+- [x] 9.3 Revisión de seguridad: sin claves, sin datos reales, sin push ni despliegue no autorizados
+- [x] 9.4 Mensaje final a Gustavo con el puntaje y los comandos que le tocan, en el orden de `PASO_A_PASO.md`
 
 **Verificación:** todos los criterios marcados con su evidencia.
 
@@ -227,6 +227,127 @@ No voy a usar la API de Anthropic ni a gastar dinero, y no encontré errores en 
 
 ---
 
-## 7. Salida de los comandos finales
+## 7. Verificación final (fase 9, 15/11/2026)
 
-(Se completa en la fase 9.)
+### 7.1 Criterios de aceptación de la sección 12
+
+- [x] **`python scripts/generar_dataset.py --todas` regenera exactamente los mismos archivos.** Después de regenerar, `git status --short data` no muestra cambios. También lo comprueba la prueba `test_el_generador_es_reproducible`.
+- [x] **Demo A: al menos 10 de 12 con 0 falsos positivos.** Resultado: 12 de 12, 0 falsos positivos, APROBADO.
+- [x] **Demo B: lo mismo, sin código específico para demo B.** Resultado: 12 de 12, 0 falsos positivos, APROBADO. La prueba `test_el_codigo_y_las_plantillas_no_nombran_nada_propio_de_la_demo` impide nombres de las demos en `detective/` y `plantillas/`.
+- [x] **Todos los hallazgos tienen evidencia verificada y el verificador descarta una cita falsa en las pruebas.** `test_contrato_de_hallazgos_json` (toda evidencia con archivo, fila, fecha y monto; `verificado: true`) y `test_descarta_una_cita_falsa_y_dice_por_que` (5 tipos de cita falsa).
+- [x] **`python -m pytest -q` en verde.** 173 passed.
+- [x] **Ningún código de detección lee la llave.** `tests/test_anti_trampa.py` en verde (4 pruebas).
+- [x] **`informe.md` cumple la sección 6.2 y `mensajes_cobro.md` la 6.3.** `tests/test_informe.py` (7 partes en orden, resumen de exactamente 5 líneas, tabla ordenada por impacto mensual, fila original copiada, formatos de monto y fecha, pie) y `tests/test_mensajes.py` (encabezado de borrador exacto, un mensaje por cobro, notas internas, usted y tú, capa LLM simulada).
+- [x] **La web corre en local, muestra la demo, acepta archivos del usuario y no envía datos.** `tests/test_web.py`: 9 pruebas, 4 de ellas con Chromium real (demo visible sin errores de consola, demo B igual a la CLI, único método HTTP usado GET, lectura de Excel en el navegador).
+- [x] **`README.md` completo (sección 13).** Qué es, resultado, 3 comandos, web, cómo sacar los archivos, plantillas, diagrama, cómo se construyó, limitaciones, privacidad, licencia.
+- [x] **`BITACORA.md` con todas las correcciones y la sección "Crítico".** 32 entradas, resumen al comienzo y tabla de los 5 problemas del crítico.
+- [x] **`ENTREGA/` actualizada con los números reales.** Solo quedan los marcadores de links (`LINK_WEB`, `LINK_VIDEO`, `LINK_GITHUB`, `LINK_POST_X`), que le tocan a Gustavo.
+- [x] **Sin guion largo, sin secretos, sin push ni despliegue.** `tests/test_idioma.py` en verde; búsqueda de claves: 0 archivos; `git ls-remote origin` muestra solo `main` en el commit inicial (`3360cb8`): nada de este trabajo salió de la máquina.
+
+### 7.2 Salida de los comandos
+
+```text
+$ python scripts/generar_dataset.py --todas && git status --short data
+Variante A: 12 fugas escondidas en data/demo
+Variante B: 12 fugas escondidas en data/demo_b
+(git status de data/ sin cambios: regenera idéntico)
+```
+
+```text
+$ python -m detective auditar --datos data/demo --salida salida/demo
+Empresa: Climatizacion Austral Ficticia SpA. Corte: 31/10/2026.
+  leí cartola_banco.csv: 86 filas, plantilla banco_cargos_abonos_separados
+  leí cotizaciones.csv: 49 filas, plantilla cotizaciones_generica (repetido, no se usó)
+  leí cotizaciones.xlsx: 49 filas, plantilla cotizaciones_generica
+  leí equipo.csv: 5 filas, plantilla equipo
+  leí licencias.csv: 7 filas, plantilla licencias
+  leí rcv_compras.csv: 12 filas, plantilla sii_rcv_compras
+  leí rcv_ventas.csv: 78 filas, plantilla sii_rcv_ventas
+  leí ventas_mercadopago.csv: 47 filas, plantilla mercadopago_ventas
+Hallazgos verificados: 12. Descartados: 0.
+En juego: $3.738.472. Abre salida/demo/informe.md para ver el detalle.
+```
+
+```text
+$ python scripts/evaluar.py --dataset data/demo
+Dataset: demo   Hallazgos: 12
+  OK   H01 -> F05 (cotizacion_sin_cobro)
+  OK   H02 -> F07 (pago_pendiente_30d)
+  OK   H03 -> F04 (cotizacion_sin_cobro)
+  OK   H04 -> F08 (pago_pendiente_30d)
+  OK   H05 -> F06 (cotizacion_sin_cobro)
+  OK   H06 -> F11 (diferencia_iva)
+  OK   H07 -> F02 (abono_sin_documento)
+  OK   H08 -> F12 (diferencia_iva)
+  OK   H09 -> F09 (suscripcion_duplicada_o_huerfana)
+  OK   H10 -> F10 (suscripcion_duplicada_o_huerfana)
+  OK   H11 -> F01 (abono_sin_documento)
+  OK   H12 -> F03 (abono_sin_documento)
+
+Encontradas: 12 de 12   Falsos positivos: 0
+RESULTADO: APROBADO
+```
+
+```text
+$ python -m detective auditar --datos data/demo_b --salida salida/demo_b
+Empresa: Climatizacion Austral Ficticia SpA. Corte: 31/10/2026.
+  leí equipo.csv: 5 filas, plantilla equipo
+  leí licencias.csv: 7 filas, plantilla licencias
+  leí movimientos_cuenta.csv: 85 filas, plantilla banco_monto_con_signo
+  leí presupuestos.csv: 44 filas, plantilla presupuestos_generica
+  leí rcv_compras.csv: 12 filas, plantilla sii_rcv_compras
+  leí rcv_ventas.csv: 78 filas, plantilla sii_rcv_ventas
+  leí ventas_transbank.csv: 48 filas, plantilla transbank_ventas
+Hallazgos verificados: 12. Descartados: 0.
+En juego: $3.817.410. Abre salida/demo_b/informe.md para ver el detalle.
+```
+
+```text
+$ python scripts/evaluar.py --dataset data/demo_b
+Dataset: demo_b   Hallazgos: 12
+  OK   H01 -> F05 (cotizacion_sin_cobro)
+  OK   H02 -> F07 (pago_pendiente_30d)
+  OK   H03 -> F04 (cotizacion_sin_cobro)
+  OK   H04 -> F08 (pago_pendiente_30d)
+  OK   H05 -> F06 (cotizacion_sin_cobro)
+  OK   H06 -> F11 (diferencia_iva)
+  OK   H07 -> F02 (abono_sin_documento)
+  OK   H08 -> F12 (diferencia_iva)
+  OK   H09 -> F09 (suscripcion_duplicada_o_huerfana)
+  OK   H10 -> F01 (abono_sin_documento)
+  OK   H11 -> F10 (suscripcion_duplicada_o_huerfana)
+  OK   H12 -> F03 (abono_sin_documento)
+
+Encontradas: 12 de 12   Falsos positivos: 0
+RESULTADO: APROBADO
+```
+
+```text
+$ python scripts/construir_web.py && python scripts/construir_web.py --comprobar
+web/ lista: 29 archivos de código y plantillas, 9 archivos de la demo, 12 hallazgos precalculados. Lector de Excel en la web: sí.
+Para verla: python -m http.server -d web 8000  y abre http://localhost:8000
+web/ está al día.
+```
+
+```text
+$ python -m pytest -q
+........................................................................ [ 41%]
+........................................................................ [ 83%]
+.............................                                            [100%]
+173 passed in 10.76s
+```
+
+```text
+$ git ls-remote origin && git log --oneline | wc -l
+3360cb8881ca6fa74f1fa9c26a0788fa6158aaab	HEAD
+3360cb8881ca6fa74f1fa9c26a0788fa6158aaab	refs/heads/main
+11
+```
+
+(El último número son los commits locales al momento de verificar; el remoto solo tiene el commit inicial.)
+
+### 7.3 Lo que queda en manos de Gustavo (sección 0.5)
+
+1. **Respaldar el trabajo.** Los commits están solo en el contenedor de la sesión en la nube. El `git push` a la rama `claude/wizardly-hawking-b7n711` (opción A, ya autorizada) quedó denegado por la regla `Bash(git push:*)` de `.claude/settings.json`, que la spec prohíbe desactivar sin su permiso. Decisión pendiente: autorizar el cambio de esa regla o indicar otra vía.
+2. Subir a GitHub (`main`), publicar la web en Vercel, grabar el video y publicar en X y Skool, en el orden de `PASO_A_PASO.md` (pasos 10 a 13).
+3. Completar los marcadores de links en `ENTREGA/` y en `README.md` (`[[LINK_WEB]]`).
