@@ -130,10 +130,10 @@ Cada fase cierra con: pruebas en verde, este plan actualizado, entrada en `BITAC
 
 ### Fase 3 · Generalidad (demo B)
 
-- [ ] 3.1 Correr demo B sin tocar el código de las reglas. Si algo falla, se arregla en las plantillas o en el lector general, nunca con un "si es demo B"
-- [ ] 3.2 Presupuestos que solo traen neto: el total se calcula con la tasa de IVA
-- [ ] 3.3 Prueba de punta a punta: genera los datasets, corre el detector en las dos demos y ejecuta `evaluar.py` en ambas
-- [ ] 3.4 Prueba anti trampa: `detective/`, `web/` y `plantillas/` no mencionan `_respuestas` ni `respuestas.json`, ni nombres de archivo o de carpeta de las demos
+- [x] 3.1 Correr demo B sin tocar el código de las reglas. Si algo falla, se arregla en las plantillas o en el lector general, nunca con un "si es demo B"
+- [x] 3.2 Presupuestos que solo traen neto: el total se calcula con la tasa de IVA
+- [x] 3.3 Prueba de punta a punta: genera los datasets, corre el detector en las dos demos y ejecuta `evaluar.py` en ambas
+- [x] 3.4 Prueba anti trampa: `detective/`, `web/` y `plantillas/` no mencionan `_respuestas` ni `respuestas.json`, ni nombres de archivo o de carpeta de las demos
 
 **Verificación:** `python scripts/evaluar.py --dataset data/demo_b` aprobado, demo A sigue aprobada y la prueba anti trampa en verde.
 

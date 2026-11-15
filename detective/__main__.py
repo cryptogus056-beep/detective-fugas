@@ -1,6 +1,6 @@
 """Linea de comandos del Detective de Fugas Pyme.
 
-    python -m detective auditar --datos data/demo --salida salida/demo
+    python -m detective auditar --datos <carpeta con tus archivos> --salida <carpeta de resultados>
     python -m detective plantilla --archivo mi_cartola.csv
     python -m detective version
 """

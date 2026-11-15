@@ -121,6 +121,27 @@ Formato de cada entrada:
 - Qué cambié: `detective/emparejar.py`, `detective/reglas/` (5 reglas), `detective/verificador.py`, `detective/auditoria.py`, `detective/informe.py` (solo JSON por ahora), `detective/__main__.py`, 8 archivos de prueba nuevos.
 - Cómo lo verifiqué: demo A: 12 de 12, 0 falsos, APROBADO. `python -m pytest -q`: 121 passed in 1.01s.
 
+## 2026-11-15 00:21 · Fase 3 · Corrección: la prueba de idioma se delató a sí misma
+
+- Qué pasó: `test_ningun_texto_tiene_guion_largo` falló señalando a `tests/test_idioma.py`: la propia prueba tenía el guion largo escrito de forma literal.
+- Por qué: escribí el carácter con su código de escape, pero la herramienta con la que creé el archivo lo convirtió en el carácter real antes de guardarlo. Es exactamente la trampa que la spec advierte en la sección 9.
+- Qué cambié: `tests/test_idioma.py`: el carácter ahora está como secuencia de escape de verdad en el archivo, comprobado leyendo la línea.
+- Cómo lo verifiqué: `python -m pytest -q`: 134 passed. La línea del archivo se lee `GUION_LARGO = "\\u2014"`.
+
+## 2026-11-15 00:21 · Fase 3 · Corrección: la prueba anti trampa encontró un nombre de la demo en el código
+
+- Qué pasó: `test_el_codigo_y_las_plantillas_no_nombran_nada_propio_de_la_demo` falló por `detective/__main__.py`, que mencionaba `data/demo`.
+- Por qué: era solo un ejemplo de uso en el comentario inicial, no una regla; pero la prueba es estricta a propósito: ningún nombre de archivo, empresa o servicio de las demos puede aparecer en `detective/` ni en `plantillas/`.
+- Qué cambié: `detective/__main__.py`: el ejemplo ahora dice `<carpeta con tus archivos>`.
+- Cómo lo verifiqué: `python -m pytest -q tests/test_anti_trampa.py`: 4 passed.
+
+## 2026-11-15 00:21 · Fase 3 · Cierre de fase 3: demo B pasa solo con plantillas
+
+- Qué pasó: demo B (otro banco con monto con signo y BOM, Transbank, presupuestos solo con neto) dio 12 de 12 sin tocar una línea de las reglas.
+- Por qué: las diferencias entre A y B viven en `plantillas/*.json` (separador, formato de fecha, modo de números, nombres de columna y estados), no en el código.
+- Qué cambié: pruebas nuevas: `tests/test_punta_a_punta.py` (regenera los datasets, corre el detector y ejecuta `evaluar.py` en ambas demos), `tests/test_anti_trampa.py`, `tests/test_idioma.py` y `tests/test_cli.py`.
+- Cómo lo verifiqué: `python scripts/evaluar.py --dataset data/demo_b`: "Encontradas: 12 de 12   Falsos positivos: 0   RESULTADO: APROBADO". `python -m pytest -q`: 134 passed in 1.62s.
+
 ## Crítico
 
 (Fable completa esta sección en la fase 7: los máximo 5 problemas encontrados y qué se hizo con cada uno.)
