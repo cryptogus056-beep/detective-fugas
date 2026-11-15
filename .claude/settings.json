@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./data/demo/_respuestas/**)",
+      "Read(./data/demo_b/_respuestas/**)",
+      "Bash(git push:*)",
+      "Bash(vercel:*)",
+      "Bash(npx vercel:*)"
+    ]
+  }
+}

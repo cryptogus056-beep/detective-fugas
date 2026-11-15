@@ -1,0 +1,285 @@
+{
+  "advertencia": "SOLO para scripts/evaluar.py. El detector y los agentes de deteccion NO deben leer este archivo.",
+  "variante": "a",
+  "fecha_corte": "2026-10-31",
+  "total_fugas": 12,
+  "regla_de_coincidencia": "Un hallazgo cuenta si tiene el mismo 'tipo' y cita al menos una (archivo, fila) de 'filas_clave'.",
+  "convencion_filas": "fila = numero de linea fisica del archivo (la primera linea es 1). En XLSX, numero de fila de Excel.",
+  "fugas": [
+    {
+      "id": "F01",
+      "tipo": "abono_sin_documento",
+      "descripcion": "Transferencia de Benjamin Ficticio Silva por 157.000 sin boleta ni factura.",
+      "fecha": "2026-08-27",
+      "monto_clp": 157000,
+      "impacto_clp": 25067,
+      "impacto_mensual_clp": 8356,
+      "recurrente": false,
+      "filas_clave": [
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 23
+        }
+      ]
+    },
+    {
+      "id": "F02",
+      "tipo": "abono_sin_documento",
+      "descripcion": "Transferencia de Veterinaria Ficticia Patitas SpA por 398.650 sin factura emitida.",
+      "fecha": "2026-10-09",
+      "monto_clp": 398650,
+      "impacto_clp": 63650,
+      "impacto_mensual_clp": 21217,
+      "recurrente": false,
+      "filas_clave": [
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 74
+        }
+      ]
+    },
+    {
+      "id": "F03",
+      "tipo": "abono_sin_documento",
+      "descripcion": "Venta aprobada en el POS por 73.500 sin boleta.",
+      "fecha": "2026-09-18",
+      "monto_clp": 73500,
+      "impacto_clp": 11735,
+      "impacto_mensual_clp": 3912,
+      "recurrente": false,
+      "filas_clave": [
+        {
+          "archivo": "ventas_mercadopago.csv",
+          "fila": 25
+        }
+      ]
+    },
+    {
+      "id": "F04",
+      "tipo": "cotizacion_sin_cobro",
+      "descripcion": "COT-0108 aceptada por Oficina Contable Demo Cuentas Claras SpA el 12/08/2026 por 476.000 y nunca se facturo ni se cobro.",
+      "fecha": "2026-08-12",
+      "monto_clp": 476000,
+      "impacto_clp": 476000,
+      "impacto_mensual_clp": 158667,
+      "recurrente": false,
+      "filas_clave": [
+        {
+          "archivo": "cotizaciones.xlsx",
+          "fila": 10
+        },
+        {
+          "archivo": "cotizaciones.csv",
+          "fila": 10
+        }
+      ]
+    },
+    {
+      "id": "F05",
+      "tipo": "cotizacion_sin_cobro",
+      "descripcion": "COT-0118 aceptada por Restaurante Ficticio La Caleta Ltda el 03/09/2026 por 1.499.400 y nunca se facturo ni se cobro.",
+      "fecha": "2026-09-03",
+      "monto_clp": 1499400,
+      "impacto_clp": 1499400,
+      "impacto_mensual_clp": 499800,
+      "recurrente": false,
+      "filas_clave": [
+        {
+          "archivo": "cotizaciones.xlsx",
+          "fila": 20
+        },
+        {
+          "archivo": "cotizaciones.csv",
+          "fila": 20
+        }
+      ]
+    },
+    {
+      "id": "F06",
+      "tipo": "cotizacion_sin_cobro",
+      "descripcion": "COT-0134 aceptada por Tamara Ficticia Morales el 29/09/2026 por 220.150 y nunca se facturo ni se cobro.",
+      "fecha": "2026-09-29",
+      "monto_clp": 220150,
+      "impacto_clp": 220150,
+      "impacto_mensual_clp": 73383,
+      "recurrente": false,
+      "filas_clave": [
+        {
+          "archivo": "cotizaciones.xlsx",
+          "fila": 36
+        },
+        {
+          "archivo": "cotizaciones.csv",
+          "fila": 36
+        }
+      ]
+    },
+    {
+      "id": "F07",
+      "tipo": "pago_pendiente_30d",
+      "descripcion": "Factura folio 1203 a Minimarket Ficticio Las Lomas SpA por 791.350 sin pago: 72 dias al corte.",
+      "fecha": "2026-08-20",
+      "monto_clp": 791350,
+      "impacto_clp": 791350,
+      "impacto_mensual_clp": 263783,
+      "recurrente": false,
+      "filas_clave": [
+        {
+          "archivo": "rcv_ventas.csv",
+          "fila": 17
+        }
+      ]
+    },
+    {
+      "id": "F08",
+      "tipo": "pago_pendiente_30d",
+      "descripcion": "Factura folio 1216 a Gimnasio Demo Fuerza Sur SpA por 386.750 sin pago: 46 dias al corte.",
+      "fecha": "2026-09-15",
+      "monto_clp": 386750,
+      "impacto_clp": 386750,
+      "impacto_mensual_clp": 128917,
+      "recurrente": false,
+      "filas_clave": [
+        {
+          "archivo": "rcv_ventas.csv",
+          "fila": 40
+        }
+      ]
+    },
+    {
+      "id": "F09",
+      "tipo": "suscripcion_duplicada_o_huerfana",
+      "descripcion": "Canva Pro se cobra dos veces al mes (dia 3 y dia 17) y solo hay una licencia registrada.",
+      "fecha": "2026-08-03",
+      "monto_clp": 12990,
+      "impacto_clp": 38970,
+      "impacto_mensual_clp": 12990,
+      "recurrente": true,
+      "filas_clave": [
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 8
+        },
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 18
+        },
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 32
+        },
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 48
+        },
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 67
+        },
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 82
+        },
+        {
+          "archivo": "licencias.csv",
+          "fila": 6
+        }
+      ]
+    },
+    {
+      "id": "F10",
+      "tipo": "suscripcion_duplicada_o_huerfana",
+      "descripcion": "Licencia de Google Workspace de Bruno Ficticio Vera sigue activa y pagada aunque salio de la empresa el 31/07/2026.",
+      "fecha": "2026-08-02",
+      "monto_clp": 8600,
+      "impacto_clp": 25800,
+      "impacto_mensual_clp": 8600,
+      "recurrente": true,
+      "filas_clave": [
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 7
+        },
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 31
+        },
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 65
+        },
+        {
+          "archivo": "equipo.csv",
+          "fila": 5
+        },
+        {
+          "archivo": "licencias.csv",
+          "fila": 5
+        }
+      ]
+    },
+    {
+      "id": "F11",
+      "tipo": "diferencia_iva",
+      "descripcion": "COT-0121 cotizo 835.000 + IVA, pero la factura folio 1212 se emitio por 835.000 total: el IVA salio de tu bolsillo.",
+      "fecha": "2026-09-10",
+      "monto_clp": 835000,
+      "impacto_clp": 158650,
+      "impacto_mensual_clp": 52883,
+      "recurrente": false,
+      "filas_clave": [
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 54
+        },
+        {
+          "archivo": "cotizaciones.xlsx",
+          "fila": 23
+        },
+        {
+          "archivo": "cotizaciones.csv",
+          "fila": 23
+        },
+        {
+          "archivo": "rcv_ventas.csv",
+          "fila": 33
+        }
+      ]
+    },
+    {
+      "id": "F12",
+      "tipo": "diferencia_iva",
+      "descripcion": "Factura folio 1222: neto 455.000 con IVA 45.500 (10%) en vez de 86.450 (19%).",
+      "fecha": "2026-10-06",
+      "monto_clp": 500500,
+      "impacto_clp": 40950,
+      "impacto_mensual_clp": 13650,
+      "recurrente": false,
+      "filas_clave": [
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 79
+        },
+        {
+          "archivo": "rcv_ventas.csv",
+          "fila": 57
+        }
+      ]
+    }
+  ],
+  "senuelos": [
+    "Factura a Hotel Demo Bahia Azul SpA del 11/10/2026 sin pago al corte, pero con 20 dias (menos de 30): no es fuga.",
+    "Factura a Gimnasio Demo Fuerza Sur SpA del 23/10/2026 sin pago al corte, pero con 8 dias (menos de 30): no es fuga.",
+    "Factura a Farmacia Ficticia Vida SpA del 16/10/2026 sin pago al corte, pero con 15 dias (menos de 30): no es fuga.",
+    "Factura a Panaderia Demo El Trigal SpA del 08/09/2026 pagada a los 29 dias: no es fuga.",
+    "Varias transferencias de personas llegan 1 a 3 dias ANTES de su boleta: no son fuga si la boleta existe.",
+    "Venta POS rechazada por 59000 sin boleta: no entro plata, no es fuga.",
+    "Cotizaciones Rechazadas o Pendientes sin factura: no son fuga.",
+    "Cotizacion aceptada el 24/10/2026 sin factura aun: esta dentro de los 15 dias de gracia, no es fuga.",
+    "Matias dejo la empresa en mayo y su licencia ya fue dada de baja: no es fuga.",
+    "Dropbox cuesta lo mismo que Canva (12.990), pero es otro servicio: no es duplicado.",
+    "Aporte de la socia por 1.500.000: no es venta, se excluye por configuracion.",
+    "Devolucion de un proveedor por 23.800: no es venta, se excluye por configuracion.",
+    "Liquidaciones semanales del POS al banco: ya estan respaldadas por boletas en el archivo del POS."
+  ]
+}

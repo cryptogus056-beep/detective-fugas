@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.env.*
+.pytest_cache/
+.DS_Store
+# Nunca subas datos reales: si pruebas con los tuyos, ponlos aquí
+mis_datos/*
+!mis_datos/LEEME.md
+datos_reales/
+salida/mis_datos/*
+!mis_datos/LEEME.md
+.vercel/
+node_modules/

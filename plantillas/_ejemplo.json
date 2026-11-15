@@ -1,0 +1,15 @@
+{
+  "nombre": "mi_banco",
+  "rol": "banco",
+  "descripcion": "Copia este archivo, cambia los nombres de columna por los de tu cartola y guárdalo como plantillas/mi_banco.json",
+  "deteccion": {"encabezado_contiene": ["Fecha", "Descripcion", "Cargos", "Abonos"]},
+  "separador": ";",
+  "formato_fecha": ["%d/%m/%Y"],
+  "numeros": "chileno",
+  "columnas": {
+    "fecha": "Fecha",
+    "descripcion": "Descripcion",
+    "cargo": "Cargos ($)",
+    "abono": "Abonos ($)"
+  }
+}

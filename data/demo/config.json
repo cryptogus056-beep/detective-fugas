@@ -1,0 +1,24 @@
+{
+  "empresa": "Climatizacion Austral Ficticia SpA",
+  "rut_empresa": "77.111.357-5",
+  "fecha_corte": "2026-10-31",
+  "periodo_desde": "2026-08-01",
+  "periodo_hasta": "2026-10-31",
+  "tasa_iva": 0.19,
+  "dias_pago_pendiente": 30,
+  "dias_gracia_cotizacion": 15,
+  "ventana_dias_abono_documento": 7,
+  "tolerancia_clp": 2,
+  "palabras_excluidas_abonos": [
+    "APORTE SOCIO",
+    "DEVOLUCION",
+    "TRASPASO ENTRE CUENTAS",
+    "INTERESES",
+    "MERCADO PAGO LIQUIDACION",
+    "ABONO TRANSBANK"
+  ],
+  "ruts_excluidos_abonos": [
+    "12.669.571-3"
+  ],
+  "nota": "Datos 100% ficticios generados por scripts/generar_dataset.py"
+}

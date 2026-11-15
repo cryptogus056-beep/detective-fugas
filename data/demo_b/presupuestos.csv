@@ -1,0 +1,45 @@
+Folio Presupuesto;Fecha Emision;Razon Social;RUT Cliente;Detalle;Valor Neto;Estado;Aceptado El
+PRE-0501;2026-07-21;Minimarket Ficticio Las Lomas SpA;76.909.420-2;Instalacion equipo 24.000 BTU;320000;APROBADO;2026-07-24
+PRE-0502;2026-07-31;Martina Ficticia Rojas;24.238.049-5;Mantencion camara de frio;145378;APROBADO;2026-08-01
+PRE-0503;2026-08-01;Gimnasio Demo Fuerza Sur SpA;76.890.281-K;Reparacion compresor;365000;APROBADO;2026-08-04
+PRE-0504;2026-08-08;Bodega Ficticia Austral SpA;77.155.629-9;Diagnostico y reparacion tarjeta electronica;1400000;APROBADO;2026-08-09
+PRE-0505;2026-08-08;Colegio Demo Los Aromos;77.322.518-4;Instalacion equipo 24.000 BTU;500000;APROBADO;2026-08-12
+PRE-0506;2026-08-09;Restaurante Ficticio La Caleta Ltda;76.123.963-5;Instalacion equipo 12.000 BTU;1170000;APROBADO;2026-08-11
+PRE-0507;2026-08-11;Tamara Ficticia Munoz;23.484.190-4;Instalacion equipo 24.000 BTU;73950;APROBADO;2026-08-12
+PRE-0508;2026-08-13;Cafeteria Demo Grano Fino SpA;77.222.633-0;Reparacion compresor;685000;APROBADO;2026-08-15
+PRE-0509;2026-08-15;Minimarket Ficticio Las Lomas SpA;76.909.420-2;Reparacion compresor;670000;APROBADO;2026-08-18
+PRE-0510;2026-08-15;Oficina Contable Demo Cuentas Claras SpA;77.185.842-2;Instalacion equipo 24.000 BTU;495000;APROBADO;2026-08-16
+PRE-0511;2026-08-15;Optica Demo Mirada SpA;77.734.034-4;Diagnostico y reparacion tarjeta electronica;610000;ENVIADO;
+PRE-0512;2026-08-18;Vicente Ficticio Soto;9.453.697-9;Limpieza de ductos;625000;RECHAZADO;
+PRE-0513;2026-08-20;Sebastian Ficticio Perez;21.950.969-3;Instalacion equipo 12.000 BTU;140000;RECHAZADO;
+PRE-0514;2026-08-21;Hotel Demo Bahia Azul SpA;76.876.970-2;Reparacion compresor;600000;APROBADO;2026-08-23
+PRE-0515;2026-08-21;Oficina Contable Demo Cuentas Claras SpA;77.185.842-2;Mantencion camara de frio;765000;APROBADO;2026-08-22
+PRE-0516;2026-08-23;Veterinaria Ficticia Patitas SpA;76.190.238-5;Reparacion compresor;1260000;APROBADO;2026-08-25
+PRE-0517;2026-08-24;Luis Ficticio Perez;10.526.903-K;Limpieza de ductos;212185;APROBADO;2026-08-25
+PRE-0518;2026-08-28;Farmacia Ficticia Vida SpA;76.146.497-3;Revision sistema de ventilacion;1265000;APROBADO;2026-08-29
+PRE-0519;2026-08-30;Clinica Dental Demo Sonrisa SpA;77.315.822-3;Reparacion compresor;1120000;APROBADO;2026-09-03
+PRE-0520;2026-08-30;Diego Ficticio Munoz;21.719.528-4;Carga de gas refrigerante;405000;ENVIADO;
+PRE-0521;2026-08-30;Gabriela Ficticia Soto;20.577.412-2;Mantencion preventiva equipo split;295378;APROBADO;2026-08-31
+PRE-0522;2026-09-02;Minimarket Ficticio Las Lomas SpA;76.909.420-2;Mantencion camara de frio;555000;APROBADO;2026-09-03
+PRE-0523;2026-09-02;Panaderia Demo El Trigal SpA;77.986.946-6;Instalacion equipo 24.000 BTU;455000;APROBADO;2026-09-05
+PRE-0524;2026-09-02;Restaurante Ficticio La Caleta Ltda;76.123.963-5;Instalacion equipo 24.000 BTU;870000;APROBADO;2026-09-04
+PRE-0525;2026-09-06;Tamara Ficticia Perez;14.001.115-0;Diagnostico y reparacion tarjeta electronica;45798;APROBADO;2026-09-07
+PRE-0526;2026-09-08;Bodega Ficticia Austral SpA;77.155.629-9;Limpieza de ductos;370000;APROBADO;2026-09-10
+PRE-0527;2026-09-10;Optica Demo Mirada SpA;77.734.034-4;Instalacion equipo 12.000 BTU;1245000;APROBADO;2026-09-13
+PRE-0528;2026-09-14;Felipe Ficticio Fuentes;24.336.821-9;Contrato mantencion trimestral;227731;APROBADO;2026-09-15
+PRE-0529;2026-09-16;Hostal Ficticio Rio Claro Ltda;76.259.631-8;Diagnostico y reparacion tarjeta electronica;430000;APROBADO;2026-09-19
+PRE-0530;2026-09-18;Taller Ficticio Motores del Valle Ltda;76.504.706-4;Reparacion compresor;950000;APROBADO;2026-09-19
+PRE-0531;2026-09-19;Taller Ficticio Motores del Valle Ltda;76.504.706-4;Limpieza de ductos;395000;APROBADO;2026-09-22
+PRE-0532;2026-09-20;Luis Ficticio Perez;10.526.903-K;Revision sistema de ventilacion;255000;RECHAZADO;
+PRE-0533;2026-09-21;Farmacia Ficticia Vida SpA;76.146.497-3;Carga de gas refrigerante;675000;APROBADO;2026-09-23
+PRE-0534;2026-09-25;Martina Ficticia Fuentes;17.935.417-9;Diagnostico y reparacion tarjeta electronica;220000;APROBADO;2026-09-29
+PRE-0535;2026-09-25;Tamara Ficticia Rojas;18.112.921-2;Mantencion preventiva equipo split;780000;ENVIADO;
+PRE-0536;2026-09-27;Hotel Demo Bahia Azul SpA;76.876.970-2;Mantencion preventiva equipo split;1320000;APROBADO;2026-09-30
+PRE-0537;2026-10-01;Oficina Contable Demo Cuentas Claras SpA;77.185.842-2;Reparacion compresor;445000;APROBADO;2026-10-03
+PRE-0538;2026-10-06;Optica Demo Mirada SpA;77.734.034-4;Mantencion preventiva equipo split;1295000;APROBADO;2026-10-09
+PRE-0539;2026-10-08;Bodega Ficticia Austral SpA;77.155.629-9;Limpieza de ductos;60000;APROBADO;2026-10-11
+PRE-0540;2026-10-10;Restaurante Ficticio La Caleta Ltda;76.123.963-5;Mantencion camara de frio;215000;APROBADO;2026-10-13
+PRE-0541;2026-10-11;Gimnasio Demo Fuerza Sur SpA;76.890.281-K;Instalacion equipo 24.000 BTU;70000;APROBADO;2026-10-12
+PRE-0542;2026-10-13;Hotel Demo Bahia Azul SpA;76.876.970-2;Contrato mantencion trimestral;785000;RECHAZADO;
+PRE-0543;2026-10-14;Veterinaria Ficticia Patitas SpA;76.190.238-5;Instalacion equipo 24.000 BTU;1380000;APROBADO;2026-10-17
+PRE-0544;2026-10-22;Taller Ficticio Motores del Valle Ltda;76.504.706-4;Instalacion equipo 24.000 BTU;665000;APROBADO;2026-10-24
