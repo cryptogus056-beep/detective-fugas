@@ -12,6 +12,8 @@ import sys
 from pathlib import Path
 
 from . import __version__
+from .auditoria import Entrada, auditar
+from .informe import archivos_de_salida
 from .lectores import ErrorLectura, leer_tabla
 from .plantillas import (ROLES, PlantillaNoEncontrada, cargar_plantillas, carpeta_por_defecto,
                          fila_de_encabezado_probable, proponer_plantilla, reconocer_archivo)
@@ -19,6 +21,36 @@ from .plantillas import (ROLES, PlantillaNoEncontrada, cargar_plantillas, carpet
 
 def _plantillas(args):
     return cargar_plantillas(args.plantillas or carpeta_por_defecto())
+
+
+def leer_carpeta(carpeta: Path) -> list:
+    """Archivos del primer nivel de la carpeta (no entra a subcarpetas)."""
+    return [Entrada(ruta.name, ruta.read_bytes()) for ruta in sorted(carpeta.iterdir())
+            if ruta.is_file() and not ruta.name.startswith((".", "~$"))]
+
+
+def cmd_auditar(args) -> int:
+    carpeta = Path(args.datos)
+    if not carpeta.is_dir():
+        print(f"No encuentro la carpeta {carpeta}.")
+        return 2
+    clasificaciones = None
+    if args.clasificaciones:
+        clasificaciones = json.loads(Path(args.clasificaciones).read_text(encoding="utf-8"))
+    res = auditar(leer_carpeta(carpeta), _plantillas(args), clasificaciones=clasificaciones)
+    salida = Path(args.salida) if args.salida else Path("salida") / carpeta.resolve().name
+    salida.mkdir(parents=True, exist_ok=True)
+    for nombre, contenido in archivos_de_salida(res).items():
+        (salida / nombre).write_text(contenido, encoding="utf-8")
+    print(f"Empresa: {res.config.empresa}. Corte: {res.config.fecha_corte.strftime('%d/%m/%Y')}.")
+    for a in res.archivos_leidos:
+        nota = "" if a["usado"] else " (repetido, no se usó)"
+        print(f"  leí {a['archivo']}: {a['filas']} filas, plantilla {a['plantilla']}{nota}")
+    print(f"Hallazgos verificados: {len(res.hallazgos)}. Descartados: {len(res.descartados)}.")
+    for linea in res.no_revisado:
+        print(f"  No revisado: {linea}")
+    print(f"Resultados en {salida}/")
+    return 0
 
 
 def cmd_version(args) -> int:
@@ -70,6 +102,14 @@ def construir_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(prog="python -m detective",
                                  description="Detective de Fugas Pyme: encuentra plata que tu pyme pierde sin darse cuenta.")
     sub = ap.add_subparsers(dest="comando")
+
+    p = sub.add_parser("auditar", help="audita una carpeta de archivos y escribe el informe")
+    p.add_argument("--datos", required=True, help="carpeta con tus archivos (CSV, XLSX y config.json)")
+    p.add_argument("--salida", default=None, help="carpeta de resultados (por defecto salida/<nombre de la carpeta>)")
+    p.add_argument("--plantillas", default=None, help="carpeta de plantillas (por defecto, plantillas/)")
+    p.add_argument("--clasificaciones", default=None,
+                   help="JSON con clasificaciones de filas ambiguas (lo genera el modo agéntico)")
+    p.set_defaults(funcion=cmd_auditar)
 
     p = sub.add_parser("plantilla", help="muestra los encabezados de un archivo y propone una plantilla")
     p.add_argument("--archivo", required=True)

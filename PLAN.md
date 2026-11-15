@@ -108,23 +108,23 @@ Cada fase cierra con: pruebas en verde, este plan actualizado, entrada en `BITAC
 - [x] 1.4 `plantillas.py` y las 10 plantillas de la sección 5.3. Si ninguna calza, el error dice qué columnas encontró y cómo copiar `plantillas/_ejemplo.json`
 - [x] 1.5 `modelo.py` y `config.py` (umbrales con valores por defecto si falta `config.json`)
 - [x] 1.6 CLI: `python -m detective version` y `python -m detective plantilla --archivo ...`
-- [ ] 1.7 Regla de archivos repetidos: si `cotizaciones.xlsx` y `cotizaciones.csv` traen lo mismo, usar el XLSX y avisarlo
+- [x] 1.7 Regla de archivos repetidos: si `cotizaciones.xlsx` y `cotizaciones.csv` traen lo mismo, usar el XLSX y avisarlo
 - [x] 1.8 Pruebas de lectores, normalización y plantillas
 
 **Verificación:** `python -m pytest -q` en verde. Una prueba lee los 9 archivos de demo A y los 8 de demo B y comprueba rol, plantilla y cantidad de filas de cada uno.
 
 ### Fase 2 · Motor: emparejamiento, 5 reglas y verificador
 
-- [ ] 2.1 `emparejar.py`: abono con documento (uno a uno, monto igual con tolerancia, ventana de fechas, prefiere mismo RUT y fecha más cercana), venta POS con boleta, cotización con documento
-- [ ] 2.2 `abono_sin_documento` (banco y POS) respetando los señuelos: liquidaciones del POS, aportes de socios, devoluciones, transferencias que llegan antes de su boleta, ventas rechazadas
-- [ ] 2.3 `cotizacion_sin_cobro` (normaliza estados, días de gracia)
-- [ ] 2.4 `pago_pendiente_30d` (días de atraso)
-- [ ] 2.5 `suscripcion_duplicada_o_huerfana` (duplicada y huérfana)
-- [ ] 2.6 `diferencia_iva` (IVA mal calculado y neto cobrado como total)
-- [ ] 2.7 Impacto en el periodo e impacto mensual (sección 4.6)
-- [ ] 2.8 `verificador.py`: relee cada fila citada; lo que no calza va a `descartados.json` con su motivo
-- [ ] 2.9 `auditoria.py` y `python -m detective auditar`, que escribe `hallazgos.json` según el contrato 6.1
-- [ ] 2.10 Pruebas: cada regla con un caso positivo y su señuelo, el verificador descartando una cita falsa, el contrato de `hallazgos.json`, y que ninguna fila quede citada por dos hallazgos del mismo tipo
+- [x] 2.1 `emparejar.py`: abono con documento (uno a uno, monto igual con tolerancia, ventana de fechas, prefiere mismo RUT y fecha más cercana), venta POS con boleta, cotización con documento
+- [x] 2.2 `abono_sin_documento` (banco y POS) respetando los señuelos: liquidaciones del POS, aportes de socios, devoluciones, transferencias que llegan antes de su boleta, ventas rechazadas
+- [x] 2.3 `cotizacion_sin_cobro` (normaliza estados, días de gracia)
+- [x] 2.4 `pago_pendiente_30d` (días de atraso)
+- [x] 2.5 `suscripcion_duplicada_o_huerfana` (duplicada y huérfana)
+- [x] 2.6 `diferencia_iva` (IVA mal calculado y neto cobrado como total)
+- [x] 2.7 Impacto en el periodo e impacto mensual (sección 4.6)
+- [x] 2.8 `verificador.py`: relee cada fila citada; lo que no calza va a `descartados.json` con su motivo
+- [x] 2.9 `auditoria.py` y `python -m detective auditar`, que escribe `hallazgos.json` según el contrato 6.1
+- [x] 2.10 Pruebas: cada regla con un caso positivo y su señuelo, el verificador descartando una cita falsa, el contrato de `hallazgos.json`, y que ninguna fila quede citada por dos hallazgos del mismo tipo
 
 **Verificación:** `python -m detective auditar --datos data/demo --salida salida/demo` y luego `python scripts/evaluar.py --dataset data/demo`: al menos 10 de 12 y 0 falsos (meta: 12 de 12). Pego la salida aquí.
 

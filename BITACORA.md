@@ -72,6 +72,55 @@ Formato de cada entrada:
 - Qué cambié: `detective/` (6 módulos), `plantillas/` (10 JSON), `tests/` (3 archivos de prueba).
 - Cómo lo verifiqué: `python -m pytest -q`: 67 passed in 0.35s.
 
+## 2026-11-15 00:20 · Fase 1 · El respaldo autorizado quedó bloqueado por el propio repositorio
+
+- Qué pasó: Gustavo autorizó el push a la rama de trabajo (opción A), pero el comando `git push -u origin claude/wizardly-hawking-b7n711` fue denegado.
+- Por qué: `.claude/settings.json` tiene la regla `Bash(git push:*)` en `deny`, y la spec (sección 0.4) prohíbe desactivarla. No la salté por otra vía (por ejemplo, la API de GitHub), porque sería burlar un bloqueo puesto a propósito.
+- Qué cambié: nada. Sigo con commits locales y le explico a Gustavo cómo destrabarlo si quiere.
+- Cómo lo verifiqué: mensaje del sistema: "Permission to use Bash with command git push ... has been denied".
+
+## 2026-11-15 00:20 · Fase 2 · Demo A: 12 de 12 en la primera corrida, y por qué no me fío solo de eso
+
+- Qué pasó: la primera ejecución completa del motor encontró las 12 fugas de demo A sin falsos positivos, y demo B (otro banco, otros formatos) también dio 12 de 12 sin cambiar código.
+- Por qué: las reglas de la sección 4 de la spec son precisas, y la spec me pidió leer el generador, así que conozco la forma de los datos. Justamente por eso un 12 de 12 no prueba que el detector sirva fuera de la demo.
+- Qué cambié: agregué 54 pruebas con datos propios (otras empresas, otros montos, otros servicios): cada regla con su caso positivo, sus señuelos y sus límites exactos (día 30 contra día 31, 2 pesos contra 3 pesos, día 7 contra día 8).
+- Cómo lo verifiqué: `python scripts/evaluar.py --dataset data/demo` y `--dataset data/demo_b`: "Encontradas: 12 de 12   Falsos positivos: 0   RESULTADO: APROBADO" en ambas; `python -m pytest -q`: 121 passed.
+
+## 2026-11-15 00:20 · Fase 2 · Mejoras sobre las reglas base de la spec
+
+- Qué pasó: decisiones de diseño que van más allá del texto de la sección 4 (la spec lo permite si se anota): (1) emparejamiento con reacomodo, para no informar una fuga solo por haber elegido mal el orden de los pares; (2) una venta con tarjeta también puede pagar una factura; (3) una nota de crédito (tipo 61) anula su factura; (4) si una cotización aceptada no tiene factura pero sí llegó el pago, se informa una sola vez como abono sin documento; (5) un abono que viene del RUT de un proveedor (según el Registro de Compras) se trata como devolución; (6) quien dejó la empresa a mitad del periodo solo cuenta los meses siguientes; (7) las duplicadas solo se buscan en servicios que están en el archivo de licencias.
+- Por qué: sin estas reglas, con datos reales habría falsos positivos evidentes (comisiones bancarias repetidas, facturas pagadas con tarjeta, facturas anuladas) o la misma plata contada dos veces.
+- Qué cambié: `detective/emparejar.py` y los módulos de `detective/reglas/`.
+- Cómo lo verifiqué: cada mejora tiene su prueba en `tests/test_emparejar.py` y `tests/test_regla_*.py`; las dos demos siguen en 12 de 12.
+
+## 2026-11-15 00:20 · Fase 2 · Evidencia en archivos sin fecha o sin monto
+
+- Qué pasó: `licencias.csv` no tiene fechas y `equipo.csv` no tiene montos, pero la regla de oro pide archivo, fila, fecha y monto.
+- Por qué: la spec pide citar esas filas como evidencia de las licencias huérfanas, y a la vez exige fecha y monto exactos leídos de la fila.
+- Qué cambié: esas filas van como evidencia de apoyo con el campo faltante en `null`, y cada hallazgo debe tener además al menos una evidencia completa (la fila del cobro en el banco). El verificador comprueba todo campo presente. Si no hay cobro en el banco, no hay hallazgo: queda un aviso para revisarlo a mano.
+- Cómo lo verifiqué: pruebas `test_licencia_activa_de_alguien_que_ya_se_fue`, `test_huerfana_sin_cobro_en_el_banco_no_se_cuenta_pero_se_avisa` y `test_un_hallazgo_necesita_al_menos_una_evidencia_completa`.
+
+## 2026-11-15 00:20 · Fase 2 · Corrección: una prueba del verificador estaba mal planteada
+
+- Qué pasó: `test_descarta_una_cita_falsa_y_dice_por_que` falló: esperaba el motivo "encabezado" y recibió "ninguna evidencia tiene archivo, fila, fecha y monto a la vez".
+- Por qué: el error era de la prueba, no del verificador: armé un hallazgo cuya única evidencia no tenía fecha ni monto, así que se descartaba antes (y con razón) por no tener ninguna evidencia completa.
+- Qué cambié: `tests/test_verificador.py`: el caso del encabezado ahora se revisa directo con `revisar_evidencia`.
+- Cómo lo verifiqué: `python -m pytest -q`: 121 passed.
+
+## 2026-11-15 00:20 · Fase 2 · Corrección: tres textos que sonaban mal al leer los hallazgos
+
+- Qué pasó: al leer la salida completa de demo A encontré: "Envía el mensaje de cobro y llama al cliente M02.", "solo hay una sola licencia registrada" y "(Mantencion preventiva domicilio operación 7000...)" sin coma.
+- Por qué: armé las frases por partes y no las había leído completas.
+- Qué cambié: `reglas/pago_pendiente.py` ("Llama al cliente y envía el mensaje de cobro M02."), `reglas/suscripciones.py` y `reglas/abono_sin_documento.py`.
+- Cómo lo verifiqué: lectura de `salida/demo/hallazgos.json` después del cambio.
+
+## 2026-11-15 00:20 · Fase 2 · Cierre de fase 2
+
+- Qué pasó: motor completo: emparejamiento único, 5 reglas, verificador en código, `auditoria.py` y el comando `auditar`.
+- Por qué: checkpoint de la spec: al menos 10 de 12 y 0 falsos en demo A.
+- Qué cambié: `detective/emparejar.py`, `detective/reglas/` (5 reglas), `detective/verificador.py`, `detective/auditoria.py`, `detective/informe.py` (solo JSON por ahora), `detective/__main__.py`, 8 archivos de prueba nuevos.
+- Cómo lo verifiqué: demo A: 12 de 12, 0 falsos, APROBADO. `python -m pytest -q`: 121 passed in 1.01s.
+
 ## Crítico
 
 (Fable completa esta sección en la fase 7: los máximo 5 problemas encontrados y qué se hizo con cada uno.)

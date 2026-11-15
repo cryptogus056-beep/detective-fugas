@@ -1,0 +1,565 @@
+{
+  "empresa": "Climatizacion Austral Ficticia SpA",
+  "fecha_corte": "2026-10-31",
+  "periodo_desde": "2026-08-01",
+  "periodo_hasta": "2026-10-31",
+  "meses_del_periodo": 3,
+  "generado_en": "2026-11-15T03:20:13+00:00",
+  "version_detector": "1.0.0",
+  "archivos_leidos": [
+    {
+      "archivo": "cartola_banco.csv",
+      "rol": "banco",
+      "plantilla": "banco_cargos_abonos_separados",
+      "filas": 86,
+      "usado": true
+    },
+    {
+      "archivo": "cotizaciones.csv",
+      "rol": "cotizaciones",
+      "plantilla": "cotizaciones_generica",
+      "filas": 49,
+      "usado": false
+    },
+    {
+      "archivo": "cotizaciones.xlsx",
+      "rol": "cotizaciones",
+      "plantilla": "cotizaciones_generica",
+      "filas": 49,
+      "usado": true
+    },
+    {
+      "archivo": "equipo.csv",
+      "rol": "equipo",
+      "plantilla": "equipo",
+      "filas": 5,
+      "usado": true
+    },
+    {
+      "archivo": "licencias.csv",
+      "rol": "licencias",
+      "plantilla": "licencias",
+      "filas": 7,
+      "usado": true
+    },
+    {
+      "archivo": "rcv_compras.csv",
+      "rol": "rcv_compras",
+      "plantilla": "sii_rcv_compras",
+      "filas": 12,
+      "usado": true
+    },
+    {
+      "archivo": "rcv_ventas.csv",
+      "rol": "rcv_ventas",
+      "plantilla": "sii_rcv_ventas",
+      "filas": 78,
+      "usado": true
+    },
+    {
+      "archivo": "ventas_mercadopago.csv",
+      "rol": "pos",
+      "plantilla": "mercadopago_ventas",
+      "filas": 47,
+      "usado": true
+    }
+  ],
+  "hallazgos": [
+    {
+      "id": "H01",
+      "tipo": "cotizacion_sin_cobro",
+      "subtipo": "sin_documento",
+      "titulo": "Cotización aceptada que nunca se facturó",
+      "descripcion": "COT-0118 fue aceptada por Restaurante Ficticio La Caleta Ltda el 03/09/2026 por $1.499.400 (neto $1.260.000 más IVA). Pasaron 58 días y no encontré factura, boleta ni pago por ese trabajo.",
+      "monto_clp": 1499400,
+      "impacto_clp": 1499400,
+      "impacto_mensual_clp": 499800,
+      "recurrente": false,
+      "confianza": "alta",
+      "evidencia": [
+        {
+          "archivo": "cotizaciones.xlsx",
+          "fila": 20,
+          "fecha": "2026-09-03",
+          "monto_clp": 1499400,
+          "detalle": "COT-0118 Aceptada Restaurante Ficticio La Caleta Ltda: Reparacion compresor",
+          "fila_original": "COT-0118 | 30/08/2026 | Restaurante Ficticio La Caleta Ltda | 77.424.781-5 | Reparacion compresor | 1260000 | 239400 | 1499400 | Aceptada | 03/09/2026"
+        }
+      ],
+      "accion_sugerida": "Emite la factura y envía el mensaje de cobro M01.",
+      "mensaje": "M01",
+      "verificado": true,
+      "datos": {
+        "cliente": "Restaurante Ficticio La Caleta Ltda",
+        "rut": "77.424.781-5",
+        "numero": "COT-0118",
+        "servicio": "Reparacion compresor",
+        "fecha": "2026-09-03",
+        "dias": 58,
+        "neto": 1260000,
+        "total": 1499400
+      }
+    },
+    {
+      "id": "H02",
+      "tipo": "pago_pendiente_30d",
+      "subtipo": "factura_impaga",
+      "titulo": "Factura emitida que no te han pagado",
+      "descripcion": "La factura folio 1203 a Minimarket Ficticio Las Lomas SpA, del 20/08/2026, por $791.350, no tiene pago en tu banco. Lleva 72 días al 31/10/2026 (42 sobre el plazo de 30 días).",
+      "monto_clp": 791350,
+      "impacto_clp": 791350,
+      "impacto_mensual_clp": 263783,
+      "recurrente": false,
+      "confianza": "alta",
+      "evidencia": [
+        {
+          "archivo": "rcv_ventas.csv",
+          "fila": 17,
+          "fecha": "2026-08-20",
+          "monto_clp": 791350,
+          "detalle": "Factura folio 1203 a Minimarket Ficticio Las Lomas SpA",
+          "fila_original": "16;33;Del Giro;76.658.994-4;Minimarket Ficticio Las Lomas SpA;1203;20/08/2026;20/08/2026 12:00:00;;0;665000;126350;791350"
+        }
+      ],
+      "accion_sugerida": "Llama al cliente y envía el mensaje de cobro M02.",
+      "mensaje": "M02",
+      "verificado": true,
+      "datos": {
+        "cliente": "Minimarket Ficticio Las Lomas SpA",
+        "rut": "76.658.994-4",
+        "folio": "1203",
+        "fecha": "2026-08-20",
+        "dias": 72,
+        "total": 791350
+      }
+    },
+    {
+      "id": "H03",
+      "tipo": "cotizacion_sin_cobro",
+      "subtipo": "sin_documento",
+      "titulo": "Cotización aceptada que nunca se facturó",
+      "descripcion": "COT-0108 fue aceptada por Oficina Contable Demo Cuentas Claras SpA el 12/08/2026 por $476.000 (neto $400.000 más IVA). Pasaron 80 días y no encontré factura, boleta ni pago por ese trabajo.",
+      "monto_clp": 476000,
+      "impacto_clp": 476000,
+      "impacto_mensual_clp": 158667,
+      "recurrente": false,
+      "confianza": "alta",
+      "evidencia": [
+        {
+          "archivo": "cotizaciones.xlsx",
+          "fila": 10,
+          "fecha": "2026-08-12",
+          "monto_clp": 476000,
+          "detalle": "COT-0108 Aceptada Oficina Contable Demo Cuentas Claras SpA: Instalacion equipo 24.000 BTU",
+          "fila_original": "COT-0108 | 08/08/2026 | Oficina Contable Demo Cuentas Claras SpA | 77.028.205-5 | Instalacion equipo 24.000 BTU | 400000 | 76000 | 476000 | Aceptada | 12/08/2026"
+        }
+      ],
+      "accion_sugerida": "Emite la factura y envía el mensaje de cobro M03.",
+      "mensaje": "M03",
+      "verificado": true,
+      "datos": {
+        "cliente": "Oficina Contable Demo Cuentas Claras SpA",
+        "rut": "77.028.205-5",
+        "numero": "COT-0108",
+        "servicio": "Instalacion equipo 24.000 BTU",
+        "fecha": "2026-08-12",
+        "dias": 80,
+        "neto": 400000,
+        "total": 476000
+      }
+    },
+    {
+      "id": "H04",
+      "tipo": "pago_pendiente_30d",
+      "subtipo": "factura_impaga",
+      "titulo": "Factura emitida que no te han pagado",
+      "descripcion": "La factura folio 1216 a Gimnasio Demo Fuerza Sur SpA, del 15/09/2026, por $386.750, no tiene pago en tu banco. Lleva 46 días al 31/10/2026 (16 sobre el plazo de 30 días).",
+      "monto_clp": 386750,
+      "impacto_clp": 386750,
+      "impacto_mensual_clp": 128917,
+      "recurrente": false,
+      "confianza": "alta",
+      "evidencia": [
+        {
+          "archivo": "rcv_ventas.csv",
+          "fila": 40,
+          "fecha": "2026-09-15",
+          "monto_clp": 386750,
+          "detalle": "Factura folio 1216 a Gimnasio Demo Fuerza Sur SpA",
+          "fila_original": "39;33;Del Giro;76.602.386-K;Gimnasio Demo Fuerza Sur SpA;1216;15/09/2026;15/09/2026 12:00:00;;0;325000;61750;386750"
+        }
+      ],
+      "accion_sugerida": "Llama al cliente y envía el mensaje de cobro M04.",
+      "mensaje": "M04",
+      "verificado": true,
+      "datos": {
+        "cliente": "Gimnasio Demo Fuerza Sur SpA",
+        "rut": "76.602.386-K",
+        "folio": "1216",
+        "fecha": "2026-09-15",
+        "dias": 46,
+        "total": 386750
+      }
+    },
+    {
+      "id": "H05",
+      "tipo": "cotizacion_sin_cobro",
+      "subtipo": "sin_documento",
+      "titulo": "Cotización aceptada que nunca se facturó",
+      "descripcion": "COT-0134 fue aceptada por Tamara Ficticia Morales el 29/09/2026 por $220.150 (neto $185.000 más IVA). Pasaron 32 días y no encontré factura, boleta ni pago por ese trabajo.",
+      "monto_clp": 220150,
+      "impacto_clp": 220150,
+      "impacto_mensual_clp": 73383,
+      "recurrente": false,
+      "confianza": "alta",
+      "evidencia": [
+        {
+          "archivo": "cotizaciones.xlsx",
+          "fila": 36,
+          "fecha": "2026-09-29",
+          "monto_clp": 220150,
+          "detalle": "COT-0134 Aceptada Tamara Ficticia Morales: Contrato mantencion trimestral",
+          "fila_original": "COT-0134 | 25/09/2026 | Tamara Ficticia Morales | 21.661.927-7 | Contrato mantencion trimestral | 185000 | 35150 | 220150 | Aceptada | 29/09/2026"
+        }
+      ],
+      "accion_sugerida": "Emite la factura y envía el mensaje de cobro M05.",
+      "mensaje": "M05",
+      "verificado": true,
+      "datos": {
+        "cliente": "Tamara Ficticia Morales",
+        "rut": "21.661.927-7",
+        "numero": "COT-0134",
+        "servicio": "Contrato mantencion trimestral",
+        "fecha": "2026-09-29",
+        "dias": 32,
+        "neto": 185000,
+        "total": 220150
+      }
+    },
+    {
+      "id": "H06",
+      "tipo": "diferencia_iva",
+      "subtipo": "neto_como_total",
+      "titulo": "Cobraste el neto como si fuera el total",
+      "descripcion": "COT-0121 cotizó a Colegio Demo Los Aromos $835.000 más IVA (total $993.650), pero el documento folio 1212 del 10/09/2026 se emitió por $835.000 en total. El IVA ($158.650) salió de tu bolsillo.",
+      "monto_clp": 835000,
+      "impacto_clp": 158650,
+      "impacto_mensual_clp": 52883,
+      "recurrente": false,
+      "confianza": "alta",
+      "evidencia": [
+        {
+          "archivo": "rcv_ventas.csv",
+          "fila": 33,
+          "fecha": "2026-09-10",
+          "monto_clp": 835000,
+          "detalle": "Documento folio 1212: neto $701.681, IVA $133.319, total $835.000",
+          "fila_original": "32;33;Del Giro;76.205.629-1;Colegio Demo Los Aromos;1212;10/09/2026;10/09/2026 12:00:00;;0;701681;133319;835000"
+        },
+        {
+          "archivo": "cotizaciones.xlsx",
+          "fila": 23,
+          "fecha": "2026-09-04",
+          "monto_clp": 835000,
+          "detalle": "COT-0121 Aceptada: neto $835.000 más IVA",
+          "fila_original": "COT-0121 | 02/09/2026 | Colegio Demo Los Aromos | 76.205.629-1 | Instalacion equipo 24.000 BTU | 835000 | 158650 | 993650 | Aceptada | 04/09/2026"
+        },
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 54,
+          "fecha": "2026-09-22",
+          "monto_clp": 835000,
+          "detalle": "Pago recibido: TRANSF. DE 76.205.629-1 COLEGIO DEMO LOS AROMOS",
+          "fila_original": "22/09/2026;TRANSF. DE 76.205.629-1 COLEGIO DEMO LOS AROMOS;372193;;835.000;8.749.848"
+        }
+      ],
+      "accion_sugerida": "Revisa con tu contador cómo corregir el documento y cobra la diferencia al cliente (nota interna N01).",
+      "mensaje": "N01",
+      "verificado": true,
+      "datos": {
+        "cliente": "Colegio Demo Los Aromos",
+        "rut": "76.205.629-1",
+        "folio": "1212",
+        "numero": "COT-0121",
+        "diferencia": 158650,
+        "fecha": "2026-09-10"
+      }
+    },
+    {
+      "id": "H07",
+      "tipo": "abono_sin_documento",
+      "subtipo": "banco",
+      "titulo": "Entró plata al banco sin boleta ni factura",
+      "descripcion": "El 09/10/2026 entraron $398.650 a tu cuenta (\"TRANSF. DE 77.436.922-8 VETERINARIA FICTICIA PATITAS SPA\") y no encontré boleta ni factura por ese monto. IVA en riesgo: $63.650. Riesgo de multa del SII [sin verificar el monto de la multa].",
+      "monto_clp": 398650,
+      "impacto_clp": 63650,
+      "impacto_mensual_clp": 21217,
+      "recurrente": false,
+      "confianza": "alta",
+      "evidencia": [
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 74,
+          "fecha": "2026-10-09",
+          "monto_clp": 398650,
+          "detalle": "TRANSF. DE 77.436.922-8 VETERINARIA FICTICIA PATITAS SPA",
+          "fila_original": "09/10/2026;TRANSF. DE 77.436.922-8 VETERINARIA FICTICIA PATITAS SPA;530573;;398.650;10.766.434"
+        }
+      ],
+      "accion_sugerida": "Emite la boleta o factura que falta (nota interna N02).",
+      "mensaje": "N02",
+      "verificado": true,
+      "datos": {
+        "origen": "banco",
+        "glosa": "TRANSF. DE 77.436.922-8 VETERINARIA FICTICIA PATITAS SPA",
+        "ruts": [
+          "77.436.922-8"
+        ],
+        "iva_en_riesgo": 63650
+      }
+    },
+    {
+      "id": "H08",
+      "tipo": "diferencia_iva",
+      "subtipo": "iva_mal_calculado",
+      "titulo": "Documento con el IVA mal calculado",
+      "descripcion": "El documento folio 1222 a Inmobiliaria Ficticia Altos del Sur SpA, del 06/10/2026, tiene neto $455.000 con IVA $45.500 (10%) en vez de $86.450 (19%). Cobraste $40.950 de menos y esa parte del IVA la terminas poniendo tú.",
+      "monto_clp": 500500,
+      "impacto_clp": 40950,
+      "impacto_mensual_clp": 13650,
+      "recurrente": false,
+      "confianza": "alta",
+      "evidencia": [
+        {
+          "archivo": "rcv_ventas.csv",
+          "fila": 57,
+          "fecha": "2026-10-06",
+          "monto_clp": 500500,
+          "detalle": "Documento folio 1222: neto $455.000, IVA $45.500, total $500.500",
+          "fila_original": "56;33;Del Giro;76.024.093-1;Inmobiliaria Ficticia Altos del Sur SpA;1222;06/10/2026;06/10/2026 12:00:00;;0;455000;45500;500500"
+        }
+      ],
+      "accion_sugerida": "Revisa con tu contador si corresponde una nota de débito y cobra la diferencia (nota interna N03).",
+      "mensaje": "N03",
+      "verificado": true,
+      "datos": {
+        "cliente": "Inmobiliaria Ficticia Altos del Sur SpA",
+        "rut": "76.024.093-1",
+        "folio": "1222",
+        "diferencia": 40950,
+        "fecha": "2026-10-06"
+      }
+    },
+    {
+      "id": "H09",
+      "tipo": "suscripcion_duplicada_o_huerfana",
+      "subtipo": "duplicada",
+      "titulo": "Canva Pro se cobra dos veces al mes",
+      "descripcion": "Canva Pro se cobra dos veces al mes por $12.990 (los días 3 y 17) y hay una sola licencia registrada. Pasó en 3 meses del periodo. Pagas $12.990 de más cada mes.",
+      "monto_clp": 12990,
+      "impacto_clp": 38970,
+      "impacto_mensual_clp": 12990,
+      "recurrente": true,
+      "confianza": "alta",
+      "evidencia": [
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 8,
+          "fecha": "2026-08-03",
+          "monto_clp": 12990,
+          "detalle": "COMPRA TARJETA CANVA* PRO",
+          "fila_original": "03/08/2026;COMPRA TARJETA CANVA* PRO;007919;12.990;;3.752.610"
+        },
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 18,
+          "fecha": "2026-08-17",
+          "monto_clp": 12990,
+          "detalle": "COMPRA TARJETA CANVA* PRO",
+          "fila_original": "17/08/2026;COMPRA TARJETA CANVA* PRO;087109;12.990;;5.559.596"
+        },
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 32,
+          "fecha": "2026-09-03",
+          "monto_clp": 12990,
+          "detalle": "COMPRA TARJETA CANVA* PRO",
+          "fila_original": "03/09/2026;COMPRA TARJETA CANVA* PRO;197975;12.990;;6.627.177"
+        },
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 48,
+          "fecha": "2026-09-17",
+          "monto_clp": 12990,
+          "detalle": "COMPRA TARJETA CANVA* PRO",
+          "fila_original": "17/09/2026;COMPRA TARJETA CANVA* PRO;324679;12.990;;7.709.412"
+        },
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 67,
+          "fecha": "2026-10-03",
+          "monto_clp": 12990,
+          "detalle": "COMPRA TARJETA CANVA* PRO",
+          "fila_original": "03/10/2026;COMPRA TARJETA CANVA* PRO;475140;12.990;;9.804.631"
+        },
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 82,
+          "fecha": "2026-10-17",
+          "monto_clp": 12990,
+          "detalle": "COMPRA TARJETA CANVA* PRO",
+          "fila_original": "17/10/2026;COMPRA TARJETA CANVA* PRO;593925;12.990;;12.775.784"
+        },
+        {
+          "archivo": "licencias.csv",
+          "fila": 6,
+          "fecha": null,
+          "monto_clp": 12990,
+          "detalle": "Licencia Canva Pro de camila@climatizacionaustral-ficticia.cl (Pro individual)",
+          "fila_original": "Canva Pro,camila@climatizacionaustral-ficticia.cl,Pro individual,12990,Activa"
+        }
+      ],
+      "accion_sugerida": "Entra a la cuenta de Canva Pro, revisa por qué hay más de un cobro y cancela el que sobra (nota interna N04).",
+      "mensaje": "N04",
+      "verificado": true,
+      "datos": {
+        "servicio": "Canva Pro",
+        "cobros_al_mes": 2,
+        "asientos": 1,
+        "meses": 3
+      }
+    },
+    {
+      "id": "H10",
+      "tipo": "suscripcion_duplicada_o_huerfana",
+      "subtipo": "huerfana",
+      "titulo": "Pagas la licencia de Google Workspace de alguien que ya se fue",
+      "descripcion": "La licencia de Google Workspace de bruno@climatizacionaustral-ficticia.cl sigue activa y cuesta $8.600 al mes, pero Bruno Ficticio Vera dejó la empresa el 31/07/2026. En el periodo la pagaste 3 meses sin que nadie la use.",
+      "monto_clp": 8600,
+      "impacto_clp": 25800,
+      "impacto_mensual_clp": 8600,
+      "recurrente": true,
+      "confianza": "alta",
+      "evidencia": [
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 7,
+          "fecha": "2026-08-02",
+          "monto_clp": 34400,
+          "detalle": "COMPRA TARJETA GOOGLE*WORKSPACE",
+          "fila_original": "02/08/2026;COMPRA TARJETA GOOGLE*WORKSPACE;000000;34.400;;3.765.600"
+        },
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 31,
+          "fecha": "2026-09-02",
+          "monto_clp": 34400,
+          "detalle": "COMPRA TARJETA GOOGLE*WORKSPACE",
+          "fila_original": "02/09/2026;COMPRA TARJETA GOOGLE*WORKSPACE;190056;34.400;;6.640.167"
+        },
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 65,
+          "fecha": "2026-10-02",
+          "monto_clp": 34400,
+          "detalle": "COMPRA TARJETA GOOGLE*WORKSPACE",
+          "fila_original": "02/10/2026;COMPRA TARJETA GOOGLE*WORKSPACE;459302;34.400;;9.793.821"
+        },
+        {
+          "archivo": "licencias.csv",
+          "fila": 5,
+          "fecha": null,
+          "monto_clp": 8600,
+          "detalle": "Licencia Google Workspace de bruno@climatizacionaustral-ficticia.cl, estado activa",
+          "fila_original": "Google Workspace,bruno@climatizacionaustral-ficticia.cl,Business Starter,8600,Activa"
+        },
+        {
+          "archivo": "equipo.csv",
+          "fila": 5,
+          "fecha": "2026-07-31",
+          "monto_clp": null,
+          "detalle": "Bruno Ficticio Vera, inactivo, salida 31/07/2026",
+          "fila_original": "Bruno Ficticio Vera,bruno@climatizacionaustral-ficticia.cl,Tecnico,Inactivo,2022-02-01,2026-07-31"
+        }
+      ],
+      "accion_sugerida": "Da de baja la licencia de bruno@climatizacionaustral-ficticia.cl en Google Workspace (nota interna N05).",
+      "mensaje": "N05",
+      "verificado": true,
+      "datos": {
+        "servicio": "Google Workspace",
+        "usuario": "bruno@climatizacionaustral-ficticia.cl",
+        "persona": "Bruno Ficticio Vera",
+        "meses": 3,
+        "fecha_salida": "2026-07-31"
+      }
+    },
+    {
+      "id": "H11",
+      "tipo": "abono_sin_documento",
+      "subtipo": "banco",
+      "titulo": "Entró plata al banco sin boleta ni factura",
+      "descripcion": "El 27/08/2026 entraron $157.000 a tu cuenta (\"TRANSF. DE 23.564.221-2 BENJAMIN FICTICIO SILVA\") y no encontré boleta ni factura por ese monto. IVA en riesgo: $25.067. Riesgo de multa del SII [sin verificar el monto de la multa]. Ojo: llegó al comienzo del periodo, así que podría ser el pago de un documento emitido antes de lo que cubren tus archivos.",
+      "monto_clp": 157000,
+      "impacto_clp": 25067,
+      "impacto_mensual_clp": 8356,
+      "recurrente": false,
+      "confianza": "media",
+      "evidencia": [
+        {
+          "archivo": "cartola_banco.csv",
+          "fila": 23,
+          "fecha": "2026-08-27",
+          "monto_clp": 157000,
+          "detalle": "TRANSF. DE 23.564.221-2 BENJAMIN FICTICIO SILVA",
+          "fila_original": "27/08/2026;TRANSF. DE 23.564.221-2 BENJAMIN FICTICIO SILVA;126704;;157.000;6.524.290"
+        }
+      ],
+      "accion_sugerida": "Emite la boleta o factura que falta (nota interna N06).",
+      "mensaje": "N06",
+      "verificado": true,
+      "datos": {
+        "origen": "banco",
+        "glosa": "TRANSF. DE 23.564.221-2 BENJAMIN FICTICIO SILVA",
+        "ruts": [
+          "23.564.221-2"
+        ],
+        "iva_en_riesgo": 25067
+      }
+    },
+    {
+      "id": "H12",
+      "tipo": "abono_sin_documento",
+      "subtipo": "pos",
+      "titulo": "Venta con tarjeta sin boleta",
+      "descripcion": "El 18/09/2026 se aprobó una venta con tarjeta por $73.500 (Mantencion preventiva domicilio, operación 70002411866) y no encontré su boleta de ese día ni del día siguiente. IVA en riesgo: $11.735. Riesgo de multa del SII [sin verificar el monto de la multa].",
+      "monto_clp": 73500,
+      "impacto_clp": 11735,
+      "impacto_mensual_clp": 3912,
+      "recurrente": false,
+      "confianza": "alta",
+      "evidencia": [
+        {
+          "archivo": "ventas_mercadopago.csv",
+          "fila": 25,
+          "fecha": "2026-09-18",
+          "monto_clp": 73500,
+          "detalle": "Mantencion preventiva domicilio, operación 70002411866",
+          "fila_original": "2026-09-18T14:48:00-03:00,70002411866,Mantencion preventiva domicilio,73500.00,2565.00,70935.00,approved,qr"
+        }
+      ],
+      "accion_sugerida": "Emite la boleta que falta (nota interna N07).",
+      "mensaje": "N07",
+      "verificado": true,
+      "datos": {
+        "origen": "pos",
+        "glosa": "Mantencion preventiva domicilio, operación 70002411866",
+        "iva_en_riesgo": 11735
+      }
+    }
+  ],
+  "no_revisado": [],
+  "avisos": [
+    "'cotizaciones.xlsx' y 'cotizaciones.csv' traen las mismas filas: usé solo 'cotizaciones.xlsx' para no contar nada dos veces.",
+    "Dejé fuera 14 abonos que no son ventas (aportes de socios, devoluciones, liquidaciones de tarjetas), según tu configuración."
+  ]
+}
