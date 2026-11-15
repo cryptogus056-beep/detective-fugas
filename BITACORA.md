@@ -191,6 +191,41 @@ Formato de cada entrada:
 - Qué cambié: `salida/demo/verificacion_agente.json`, `salida/pyme_ambigua/` (con `clasificaciones.json`) y `tests/datos/pyme_ambigua/`.
 - Cómo lo verifiqué: comparé `hallazgos.json` del modo agéntico con el de la CLI para demo A (sin contar la hora de generación): idénticos, 12 hallazgos. `python scripts/evaluar.py --dataset data/demo`: 12 de 12, 0 falsos. `python -m pytest -q`: 164 passed.
 
+## 2026-11-15 13:48 · Fase 6 · Pyodide: versión comprobada en el CDN, no de memoria
+
+- Qué pasó: antes de escribir la web consulté el CDN oficial: la última versión estable de Pyodide es la 314.0.8 (Python 3.14), y `openpyxl` no viene incluido en ninguna versión que revisé.
+- Por qué: mi recuerdo de las versiones de Pyodide era antiguo (0.26). Fijar una versión sin comprobarla habría sido adivinar.
+- Qué cambié: `web/app.js` fija `PYODIDE_VERSION = "314.0.8"`. Para leer Excel en el navegador, `scripts/construir_web.py` empaqueta `openpyxl` y `et_xmlfile` (Python puro, licencia MIT, con sus licencias dentro) en `web/vendor/openpyxl.zip`, servido desde el mismo sitio. No hizo falta `web/vercel.json`: es un sitio estático.
+- Cómo lo verifiqué: en Chromium real, "Volver a calcular la demo aquí" lee `cotizaciones.xlsx` y da 12 fugas; los dominios contactados fueron solo el sitio local y `cdn.jsdelivr.net`.
+
+## 2026-11-15 13:48 · Fase 6 · Privacidad con candado del navegador, no solo con promesas
+
+- Qué pasó: decisión de diseño: además de no tener código que envíe datos, la página declara una política de seguridad (Content-Security-Policy) que solo permite conexiones al propio sitio y a la carpeta de Pyodide en su CDN.
+- Por qué: "Tus archivos no salen de tu computador" es la promesa central. Con esa política, aunque alguien agregara por error una llamada a otro dominio, el navegador la bloquearía.
+- Qué cambié: `web/index.html` (meta de la política, sin formularios), `web/app.js` (solo descargas con GET de archivos propios), `web/puente.py` (los archivos del usuario viven en una carpeta virtual en memoria).
+- Cómo lo verifiqué: `tests/test_web.py`: revisa todas las direcciones escritas en `web/`, prohíbe las formas de enviar datos y, con navegador real, comprueba que el único método HTTP usado fue GET.
+
+## 2026-11-15 13:48 · Fase 6 · Corrección: la comprobación de la web daba una falsa alarma
+
+- Qué pasó: `python scripts/construir_web.py --comprobar` decía "web/py/manifiesto.json está desactualizado" justo después de construir.
+- Por qué: la comprobación arma una copia temporal sin el lector de Excel, y el manifiesto anotaba "xlsx: false" en la copia y "true" en la real.
+- Qué cambié: `scripts/construir_web.py`: al comprobar, el dato del lector de Excel se toma de la carpeta `web/` real.
+- Cómo lo verifiqué: `python scripts/construir_web.py --comprobar`: "web/ está al día."
+
+## 2026-11-15 13:48 · Fase 6 · Corrección: una prueba de privacidad confundía "import json" con "import js"
+
+- Qué pasó: `test_privacidad_...` falló acusando a `detective/__main__.py` de usar el puente a JavaScript.
+- Por qué: busqué el texto "import js" tal cual, y "import json" lo contiene.
+- Qué cambié: `tests/test_web.py`: ahora es una expresión regular que exige la palabra completa al inicio de la línea.
+- Cómo lo verifiqué: `python -m pytest -q`: 172 passed in 9.16s (incluye la prueba con navegador real).
+
+## 2026-11-15 13:48 · Fase 6 · Cierre de fase 6: la web da lo mismo que la línea de comandos
+
+- Qué pasó: la página muestra el informe de la demo ya calculado, deja subir archivos, reconoce qué es cada uno (y permite cambiarlo o quitarlo), corre el mismo paquete `detective/` con Pyodide y deja descargar `informe.md`, `hallazgos.json`, `mensajes_cobro.md` e `informe.html`. El proceso de la sesión se reinició una vez durante esta fase y se retomó sin pérdidas.
+- Por qué: checkpoint de la spec: la demo se ve y subir los CSV de demo B da el mismo informe que la CLI.
+- Qué cambié: `scripts/construir_web.py`, `web/` (página, estilos, `app.js`, `puente.py`, copias de código, plantillas y demo), `tests/test_web.py`, `tests/navegador/prueba_web.cjs`.
+- Cómo lo verifiqué: prueba con Chromium: `hallazgos.json`, `informe.md` y `mensajes_cobro.md` del navegador son idénticos a los de la CLI para demo B; 0 errores en la consola; capturas revisadas en ancho de computador (1200) y de celular (390, sin desborde horizontal). La prueba con navegador se salta sola si no hay Node con Playwright o no hay acceso al CDN.
+
 ## Crítico
 
 (Fable completa esta sección en la fase 7: los máximo 5 problemas encontrados y qué se hizo con cada uno.)

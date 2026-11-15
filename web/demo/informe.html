@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Informe de fugas: Climatizacion Austral Ficticia SpA</title>
+<style>body{background:#fff;margin:0 auto;max-width:1040px;padding:1.5rem 1rem 3rem}</style>
+</head>
+<body>
+<style>
+.informe{--tinta:#1c2733;--suave:#5b6875;--linea:#dfe5ea;--fondo:#ffffff;--papel:#f5f7f9;--acento:#0b6e4f;--alerta:#9a3412;
+  color:var(--tinta);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.informe h1{font-size:1.6rem;line-height:1.25;margin:0 0 .3rem}
+.informe h2{font-size:1.2rem;margin:2rem 0 .7rem;padding-top:1rem;border-top:1px solid var(--linea)}
+.informe h3{font-size:1.02rem;margin:0 0 .5rem}
+.informe .periodo{color:var(--suave);margin:0}
+.informe .resumen{background:var(--papel);border-left:4px solid var(--acento);border-radius:6px;margin:0;padding:.9rem 1rem .9rem 2.2rem}
+.informe .resumen li{margin:.3rem 0}
+.informe table{border-collapse:collapse;width:100%;font-size:.92rem}
+.informe th,.informe td{border-bottom:1px solid var(--linea);padding:.55rem .5rem;text-align:left;vertical-align:top}
+.informe th{background:var(--papel);font-weight:600}
+.informe td.monto{white-space:nowrap;font-variant-numeric:tabular-nums}
+.informe .nota{color:var(--suave);font-size:.9rem}
+.informe .fuga{border:1px solid var(--linea);border-radius:8px;margin:0 0 1rem;padding:1rem}
+.informe .fuga .tipo{color:var(--acento);font-size:.8rem;font-weight:600;letter-spacing:.03em;text-transform:uppercase}
+.informe .fuga dl{display:grid;grid-template-columns:11rem 1fr;gap:.35rem .8rem;margin:.4rem 0}
+.informe .fuga dt{color:var(--suave)}
+.informe .fuga dd{margin:0}
+.informe .evidencia{margin:.6rem 0 0;padding:0;list-style:none}
+.informe .evidencia li{margin:.6rem 0}
+.informe pre{background:var(--papel);border:1px solid var(--linea);border-radius:6px;font:.82rem/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  margin:.3rem 0 0;overflow-x:auto;padding:.55rem .7rem;white-space:pre-wrap;word-break:break-word}
+.informe code{background:var(--papel);border-radius:4px;font:.88em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:.05rem .3rem}
+.informe .pie{border-top:1px solid var(--linea);color:var(--suave);margin-top:2rem;padding-top:1rem}
+@media (max-width:760px){
+  .informe table,.informe tbody,.informe tr,.informe td{display:block;width:auto}
+  .informe thead{display:none}
+  .informe tr{border:1px solid var(--linea);border-radius:8px;margin:0 0 .8rem;padding:.4rem .7rem}
+  .informe td{border:0;padding:.25rem 0}
+  .informe td::before{color:var(--suave);content:attr(data-etiqueta) ": ";font-size:.85rem}
+  .informe td.monto{white-space:normal}
+  .informe .fuga dl{grid-template-columns:1fr}
+  .informe .fuga dt{margin-top:.4rem}
+}
+@media print{.informe .fuga,.informe tr{break-inside:avoid}}
+</style>
+<article class="informe">
+<h1>Informe de fugas: Climatizacion Austral Ficticia SpA</h1>
+<p class="periodo">Periodo revisado: 01/08/2026 al 31/10/2026 (3 meses). Fecha de corte: 31/10/2026.</p>
+<h2>Resumen en 5 líneas</h2>
+<ol class="resumen">
+<li><strong>En juego:</strong> $3.738.472 en los 3 meses revisados (unos $1.246.158 al mes).</li>
+<li><strong>Qué encontré:</strong> 12 fugas: 3 ingresos sin boleta ni factura, 3 cotizaciones aceptadas sin facturar, 2 facturas impagas, 2 pagos de software de más y 2 diferencias de IVA.</li>
+<li><strong>La más grande:</strong> COT-0118: Restaurante Ficticio La Caleta Ltda la aceptó el 03/09/2026 y nunca se facturó ($1.499.400, H01).</li>
+<li><strong>Qué hacer primero esta semana:</strong> Emite la factura y envía el mensaje de cobro M01. Después sigue con la tabla, de arriba hacia abajo.</li>
+<li><strong>Si cobras lo pendiente:</strong> recuperas $3.373.650 (3 cotizaciones sin facturar y 2 facturas impagas). Los mensajes ya están redactados en <code>mensajes_cobro.md</code>.</li>
+</ol>
+<h2>Fugas encontradas, de mayor a menor impacto mensual</h2>
+<table>
+<thead><tr><th>N°</th><th>Tipo</th><th>Qué pasó</th><th>Monto</th><th>Impacto mensual</th><th>Evidencia</th><th>Acción</th></tr></thead>
+<tbody>
+<tr><td data-etiqueta="N°">1</td><td data-etiqueta="Tipo">Trabajo aceptado que nunca se facturó</td><td data-etiqueta="Qué pasó">COT-0118: Restaurante Ficticio La Caleta Ltda la aceptó el 03/09/2026 y nunca se facturó</td><td data-etiqueta="Monto" class=monto>$1.499.400</td><td data-etiqueta="Impacto mensual" class=monto>$499.800 (promedio mensual)</td><td data-etiqueta="Evidencia"><code>cotizaciones.xlsx</code> fila 20, 03/09/2026, $1.499.400</td><td data-etiqueta="Acción">Emite la factura y envía el mensaje de cobro M01.</td></tr>
+<tr><td data-etiqueta="N°">2</td><td data-etiqueta="Tipo">Factura que no te han pagado</td><td data-etiqueta="Qué pasó">Factura folio 1203 a Minimarket Ficticio Las Lomas SpA: 72 días sin pago</td><td data-etiqueta="Monto" class=monto>$791.350</td><td data-etiqueta="Impacto mensual" class=monto>$263.783 (promedio mensual)</td><td data-etiqueta="Evidencia"><code>rcv_ventas.csv</code> fila 17, 20/08/2026, $791.350</td><td data-etiqueta="Acción">Llama al cliente y envía el mensaje de cobro M02.</td></tr>
+<tr><td data-etiqueta="N°">3</td><td data-etiqueta="Tipo">Trabajo aceptado que nunca se facturó</td><td data-etiqueta="Qué pasó">COT-0108: Oficina Contable Demo Cuentas Claras SpA la aceptó el 12/08/2026 y nunca se facturó</td><td data-etiqueta="Monto" class=monto>$476.000</td><td data-etiqueta="Impacto mensual" class=monto>$158.667 (promedio mensual)</td><td data-etiqueta="Evidencia"><code>cotizaciones.xlsx</code> fila 10, 12/08/2026, $476.000</td><td data-etiqueta="Acción">Emite la factura y envía el mensaje de cobro M03.</td></tr>
+<tr><td data-etiqueta="N°">4</td><td data-etiqueta="Tipo">Factura que no te han pagado</td><td data-etiqueta="Qué pasó">Factura folio 1216 a Gimnasio Demo Fuerza Sur SpA: 46 días sin pago</td><td data-etiqueta="Monto" class=monto>$386.750</td><td data-etiqueta="Impacto mensual" class=monto>$128.917 (promedio mensual)</td><td data-etiqueta="Evidencia"><code>rcv_ventas.csv</code> fila 40, 15/09/2026, $386.750</td><td data-etiqueta="Acción">Llama al cliente y envía el mensaje de cobro M04.</td></tr>
+<tr><td data-etiqueta="N°">5</td><td data-etiqueta="Tipo">Trabajo aceptado que nunca se facturó</td><td data-etiqueta="Qué pasó">COT-0134: Tamara Ficticia Morales la aceptó el 29/09/2026 y nunca se facturó</td><td data-etiqueta="Monto" class=monto>$220.150</td><td data-etiqueta="Impacto mensual" class=monto>$73.383 (promedio mensual)</td><td data-etiqueta="Evidencia"><code>cotizaciones.xlsx</code> fila 36, 29/09/2026, $220.150</td><td data-etiqueta="Acción">Emite la factura y envía el mensaje de cobro M05.</td></tr>
+<tr><td data-etiqueta="N°">6</td><td data-etiqueta="Tipo">IVA que salió de tu bolsillo</td><td data-etiqueta="Qué pasó">COT-0121 de Colegio Demo Los Aromos: se facturó el neto como si fuera el total (folio 1212)</td><td data-etiqueta="Monto" class=monto>$835.000</td><td data-etiqueta="Impacto mensual" class=monto>$52.883 (promedio mensual)</td><td data-etiqueta="Evidencia"><code>rcv_ventas.csv</code> fila 33, 10/09/2026, $835.000 (y 2 filas más en el detalle)</td><td data-etiqueta="Acción">Revisa con tu contador cómo corregir el documento y cobra la diferencia al cliente (nota interna N01).</td></tr>
+<tr><td data-etiqueta="N°">7</td><td data-etiqueta="Tipo">Plata que entró sin boleta ni factura</td><td data-etiqueta="Qué pasó">Abono del 09/10/2026 sin boleta ni factura (TRANSF. DE 77.436.922-8 VETERINARIA FICTICIA...)</td><td data-etiqueta="Monto" class=monto>$398.650</td><td data-etiqueta="Impacto mensual" class=monto>$21.217 (promedio mensual)</td><td data-etiqueta="Evidencia"><code>cartola_banco.csv</code> fila 74, 09/10/2026, $398.650</td><td data-etiqueta="Acción">Emite la boleta o factura que falta (nota interna N02).</td></tr>
+<tr><td data-etiqueta="N°">8</td><td data-etiqueta="Tipo">IVA que salió de tu bolsillo</td><td data-etiqueta="Qué pasó">Documento folio 1222 a Inmobiliaria Ficticia Altos del Sur SpA: IVA mal calculado</td><td data-etiqueta="Monto" class=monto>$500.500</td><td data-etiqueta="Impacto mensual" class=monto>$13.650 (promedio mensual)</td><td data-etiqueta="Evidencia"><code>rcv_ventas.csv</code> fila 57, 06/10/2026, $500.500</td><td data-etiqueta="Acción">Revisa con tu contador si corresponde una nota de débito y cobra la diferencia (nota interna N03).</td></tr>
+<tr><td data-etiqueta="N°">9</td><td data-etiqueta="Tipo">Software que pagas de más</td><td data-etiqueta="Qué pasó">Canva Pro: 2 cobros al mes con 1 licencia</td><td data-etiqueta="Monto" class=monto>$12.990</td><td data-etiqueta="Impacto mensual" class=monto>$12.990 cada mes</td><td data-etiqueta="Evidencia"><code>cartola_banco.csv</code> fila 8, 03/08/2026, $12.990 (y 6 filas más en el detalle)</td><td data-etiqueta="Acción">Entra a la cuenta de Canva Pro, revisa por qué hay más de un cobro y cancela el que sobra (nota interna N04).</td></tr>
+<tr><td data-etiqueta="N°">10</td><td data-etiqueta="Tipo">Software que pagas de más</td><td data-etiqueta="Qué pasó">Licencia de Google Workspace de Bruno Ficticio Vera, que ya no trabaja contigo</td><td data-etiqueta="Monto" class=monto>$8.600</td><td data-etiqueta="Impacto mensual" class=monto>$8.600 cada mes</td><td data-etiqueta="Evidencia"><code>cartola_banco.csv</code> fila 7, 02/08/2026, $34.400 (y 4 filas más en el detalle)</td><td data-etiqueta="Acción">Da de baja la licencia de bruno@climatizacionaustral-ficticia.cl en Google Workspace (nota interna N05).</td></tr>
+<tr><td data-etiqueta="N°">11</td><td data-etiqueta="Tipo">Plata que entró sin boleta ni factura</td><td data-etiqueta="Qué pasó">Abono del 27/08/2026 sin boleta ni factura (TRANSF. DE 23.564.221-2 BENJAMIN FICTICIO SILVA)</td><td data-etiqueta="Monto" class=monto>$157.000</td><td data-etiqueta="Impacto mensual" class=monto>$8.356 (promedio mensual)</td><td data-etiqueta="Evidencia"><code>cartola_banco.csv</code> fila 23, 27/08/2026, $157.000</td><td data-etiqueta="Acción">Emite la boleta o factura que falta (nota interna N06).</td></tr>
+<tr><td data-etiqueta="N°">12</td><td data-etiqueta="Tipo">Plata que entró sin boleta ni factura</td><td data-etiqueta="Qué pasó">Venta con tarjeta del 18/09/2026 sin boleta (Mantencion preventiva domicilio, operación 70...)</td><td data-etiqueta="Monto" class=monto>$73.500</td><td data-etiqueta="Impacto mensual" class=monto>$3.912 (promedio mensual)</td><td data-etiqueta="Evidencia"><code>ventas_mercadopago.csv</code> fila 25, 18/09/2026, $73.500</td><td data-etiqueta="Acción">Emite la boleta que falta (nota interna N07).</td></tr>
+</tbody>
+</table>
+<p class="nota">"Promedio mensual" quiere decir que la fuga pasó una vez y la repartí entre los meses del periodo. "Cada mes" quiere decir que se repite todos los meses hasta que la arregles.</p>
+<h2>Detalle de cada fuga</h2>
+<section class="fuga" id="H01">
+<div class="tipo">Trabajo aceptado que nunca se facturó</div>
+<h3>H01 · Cotización aceptada que nunca se facturó</h3>
+<dl>
+<dt>Qué pasó</dt><dd>COT-0118 fue aceptada por Restaurante Ficticio La Caleta Ltda el 03/09/2026 por $1.499.400 (neto $1.260.000 más IVA). Pasaron 58 días y no encontré factura, boleta ni pago por ese trabajo.</dd>
+<dt>Monto</dt><dd>$1.499.400</dd>
+<dt>Impacto en el periodo</dt><dd>$1.499.400</dd>
+<dt>Impacto mensual</dt><dd>$499.800 (promedio mensual)</dd>
+<dt>Qué hacer</dt><dd>Emite la factura y envía el mensaje de cobro M01.</dd>
+</dl>
+<strong>Evidencia</strong>
+<ul class="evidencia">
+<li><code>cotizaciones.xlsx</code> fila 20, 03/09/2026, $1.499.400. COT-0118 Aceptada Restaurante Ficticio La Caleta Ltda: Reparacion compresor<pre>COT-0118 | 30/08/2026 | Restaurante Ficticio La Caleta Ltda | 77.424.781-5 | Reparacion compresor | 1260000 | 239400 | 1499400 | Aceptada | 03/09/2026</pre></li>
+</ul>
+</section>
+<section class="fuga" id="H02">
+<div class="tipo">Factura que no te han pagado</div>
+<h3>H02 · Factura emitida que no te han pagado</h3>
+<dl>
+<dt>Qué pasó</dt><dd>La factura folio 1203 a Minimarket Ficticio Las Lomas SpA, del 20/08/2026, por $791.350, no tiene pago en tu banco. Lleva 72 días al 31/10/2026 (42 sobre el plazo de 30 días).</dd>
+<dt>Monto</dt><dd>$791.350</dd>
+<dt>Impacto en el periodo</dt><dd>$791.350</dd>
+<dt>Impacto mensual</dt><dd>$263.783 (promedio mensual)</dd>
+<dt>Qué hacer</dt><dd>Llama al cliente y envía el mensaje de cobro M02.</dd>
+</dl>
+<strong>Evidencia</strong>
+<ul class="evidencia">
+<li><code>rcv_ventas.csv</code> fila 17, 20/08/2026, $791.350. Factura folio 1203 a Minimarket Ficticio Las Lomas SpA<pre>16;33;Del Giro;76.658.994-4;Minimarket Ficticio Las Lomas SpA;1203;20/08/2026;20/08/2026 12:00:00;;0;665000;126350;791350</pre></li>
+</ul>
+</section>
+<section class="fuga" id="H03">
+<div class="tipo">Trabajo aceptado que nunca se facturó</div>
+<h3>H03 · Cotización aceptada que nunca se facturó</h3>
+<dl>
+<dt>Qué pasó</dt><dd>COT-0108 fue aceptada por Oficina Contable Demo Cuentas Claras SpA el 12/08/2026 por $476.000 (neto $400.000 más IVA). Pasaron 80 días y no encontré factura, boleta ni pago por ese trabajo.</dd>
+<dt>Monto</dt><dd>$476.000</dd>
+<dt>Impacto en el periodo</dt><dd>$476.000</dd>
+<dt>Impacto mensual</dt><dd>$158.667 (promedio mensual)</dd>
+<dt>Qué hacer</dt><dd>Emite la factura y envía el mensaje de cobro M03.</dd>
+</dl>
+<strong>Evidencia</strong>
+<ul class="evidencia">
+<li><code>cotizaciones.xlsx</code> fila 10, 12/08/2026, $476.000. COT-0108 Aceptada Oficina Contable Demo Cuentas Claras SpA: Instalacion equipo 24.000 BTU<pre>COT-0108 | 08/08/2026 | Oficina Contable Demo Cuentas Claras SpA | 77.028.205-5 | Instalacion equipo 24.000 BTU | 400000 | 76000 | 476000 | Aceptada | 12/08/2026</pre></li>
+</ul>
+</section>
+<section class="fuga" id="H04">
+<div class="tipo">Factura que no te han pagado</div>
+<h3>H04 · Factura emitida que no te han pagado</h3>
+<dl>
+<dt>Qué pasó</dt><dd>La factura folio 1216 a Gimnasio Demo Fuerza Sur SpA, del 15/09/2026, por $386.750, no tiene pago en tu banco. Lleva 46 días al 31/10/2026 (16 sobre el plazo de 30 días).</dd>
+<dt>Monto</dt><dd>$386.750</dd>
+<dt>Impacto en el periodo</dt><dd>$386.750</dd>
+<dt>Impacto mensual</dt><dd>$128.917 (promedio mensual)</dd>
+<dt>Qué hacer</dt><dd>Llama al cliente y envía el mensaje de cobro M04.</dd>
+</dl>
+<strong>Evidencia</strong>
+<ul class="evidencia">
+<li><code>rcv_ventas.csv</code> fila 40, 15/09/2026, $386.750. Factura folio 1216 a Gimnasio Demo Fuerza Sur SpA<pre>39;33;Del Giro;76.602.386-K;Gimnasio Demo Fuerza Sur SpA;1216;15/09/2026;15/09/2026 12:00:00;;0;325000;61750;386750</pre></li>
+</ul>
+</section>
+<section class="fuga" id="H05">
+<div class="tipo">Trabajo aceptado que nunca se facturó</div>
+<h3>H05 · Cotización aceptada que nunca se facturó</h3>
+<dl>
+<dt>Qué pasó</dt><dd>COT-0134 fue aceptada por Tamara Ficticia Morales el 29/09/2026 por $220.150 (neto $185.000 más IVA). Pasaron 32 días y no encontré factura, boleta ni pago por ese trabajo.</dd>
+<dt>Monto</dt><dd>$220.150</dd>
+<dt>Impacto en el periodo</dt><dd>$220.150</dd>
+<dt>Impacto mensual</dt><dd>$73.383 (promedio mensual)</dd>
+<dt>Qué hacer</dt><dd>Emite la factura y envía el mensaje de cobro M05.</dd>
+</dl>
+<strong>Evidencia</strong>
+<ul class="evidencia">
+<li><code>cotizaciones.xlsx</code> fila 36, 29/09/2026, $220.150. COT-0134 Aceptada Tamara Ficticia Morales: Contrato mantencion trimestral<pre>COT-0134 | 25/09/2026 | Tamara Ficticia Morales | 21.661.927-7 | Contrato mantencion trimestral | 185000 | 35150 | 220150 | Aceptada | 29/09/2026</pre></li>
+</ul>
+</section>
+<section class="fuga" id="H06">
+<div class="tipo">IVA que salió de tu bolsillo</div>
+<h3>H06 · Cobraste el neto como si fuera el total</h3>
+<dl>
+<dt>Qué pasó</dt><dd>COT-0121 cotizó a Colegio Demo Los Aromos $835.000 más IVA (total $993.650), pero el documento folio 1212 del 10/09/2026 se emitió por $835.000 en total. El IVA ($158.650) salió de tu bolsillo.</dd>
+<dt>Monto</dt><dd>$835.000</dd>
+<dt>Impacto en el periodo</dt><dd>$158.650</dd>
+<dt>Impacto mensual</dt><dd>$52.883 (promedio mensual)</dd>
+<dt>Qué hacer</dt><dd>Revisa con tu contador cómo corregir el documento y cobra la diferencia al cliente (nota interna N01).</dd>
+</dl>
+<strong>Evidencia</strong>
+<ul class="evidencia">
+<li><code>rcv_ventas.csv</code> fila 33, 10/09/2026, $835.000. Documento folio 1212: neto $701.681, IVA $133.319, total $835.000<pre>32;33;Del Giro;76.205.629-1;Colegio Demo Los Aromos;1212;10/09/2026;10/09/2026 12:00:00;;0;701681;133319;835000</pre></li>
+<li><code>cotizaciones.xlsx</code> fila 23, 04/09/2026, $835.000. COT-0121 Aceptada: neto $835.000 más IVA<pre>COT-0121 | 02/09/2026 | Colegio Demo Los Aromos | 76.205.629-1 | Instalacion equipo 24.000 BTU | 835000 | 158650 | 993650 | Aceptada | 04/09/2026</pre></li>
+<li><code>cartola_banco.csv</code> fila 54, 22/09/2026, $835.000. Pago recibido: TRANSF. DE 76.205.629-1 COLEGIO DEMO LOS AROMOS<pre>22/09/2026;TRANSF. DE 76.205.629-1 COLEGIO DEMO LOS AROMOS;372193;;835.000;8.749.848</pre></li>
+</ul>
+</section>
+<section class="fuga" id="H07">
+<div class="tipo">Plata que entró sin boleta ni factura</div>
+<h3>H07 · Entró plata al banco sin boleta ni factura</h3>
+<dl>
+<dt>Qué pasó</dt><dd>El 09/10/2026 entraron $398.650 a tu cuenta (&quot;TRANSF. DE 77.436.922-8 VETERINARIA FICTICIA PATITAS SPA&quot;) y no encontré boleta ni factura por ese monto. IVA en riesgo: $63.650. Riesgo de multa del SII [sin verificar el monto de la multa].</dd>
+<dt>Monto</dt><dd>$398.650</dd>
+<dt>Impacto en el periodo</dt><dd>$63.650</dd>
+<dt>Impacto mensual</dt><dd>$21.217 (promedio mensual)</dd>
+<dt>Qué hacer</dt><dd>Emite la boleta o factura que falta (nota interna N02).</dd>
+</dl>
+<strong>Evidencia</strong>
+<ul class="evidencia">
+<li><code>cartola_banco.csv</code> fila 74, 09/10/2026, $398.650. TRANSF. DE 77.436.922-8 VETERINARIA FICTICIA PATITAS SPA<pre>09/10/2026;TRANSF. DE 77.436.922-8 VETERINARIA FICTICIA PATITAS SPA;530573;;398.650;10.766.434</pre></li>
+</ul>
+</section>
+<section class="fuga" id="H08">
+<div class="tipo">IVA que salió de tu bolsillo</div>
+<h3>H08 · Documento con el IVA mal calculado</h3>
+<dl>
+<dt>Qué pasó</dt><dd>El documento folio 1222 a Inmobiliaria Ficticia Altos del Sur SpA, del 06/10/2026, tiene neto $455.000 con IVA $45.500 (10%) en vez de $86.450 (19%). Cobraste $40.950 de menos y esa parte del IVA la terminas poniendo tú.</dd>
+<dt>Monto</dt><dd>$500.500</dd>
+<dt>Impacto en el periodo</dt><dd>$40.950</dd>
+<dt>Impacto mensual</dt><dd>$13.650 (promedio mensual)</dd>
+<dt>Qué hacer</dt><dd>Revisa con tu contador si corresponde una nota de débito y cobra la diferencia (nota interna N03).</dd>
+</dl>
+<strong>Evidencia</strong>
+<ul class="evidencia">
+<li><code>rcv_ventas.csv</code> fila 57, 06/10/2026, $500.500. Documento folio 1222: neto $455.000, IVA $45.500, total $500.500<pre>56;33;Del Giro;76.024.093-1;Inmobiliaria Ficticia Altos del Sur SpA;1222;06/10/2026;06/10/2026 12:00:00;;0;455000;45500;500500</pre></li>
+</ul>
+</section>
+<section class="fuga" id="H09">
+<div class="tipo">Software que pagas de más</div>
+<h3>H09 · Canva Pro se cobra dos veces al mes</h3>
+<dl>
+<dt>Qué pasó</dt><dd>Canva Pro se cobra dos veces al mes por $12.990 (los días 3 y 17) y hay una sola licencia registrada. Pasó en 3 meses del periodo. Pagas $12.990 de más cada mes.</dd>
+<dt>Monto</dt><dd>$12.990</dd>
+<dt>Impacto en el periodo</dt><dd>$38.970</dd>
+<dt>Impacto mensual</dt><dd>$12.990 cada mes</dd>
+<dt>Qué hacer</dt><dd>Entra a la cuenta de Canva Pro, revisa por qué hay más de un cobro y cancela el que sobra (nota interna N04).</dd>
+</dl>
+<strong>Evidencia</strong>
+<ul class="evidencia">
+<li><code>cartola_banco.csv</code> fila 8, 03/08/2026, $12.990. COMPRA TARJETA CANVA* PRO<pre>03/08/2026;COMPRA TARJETA CANVA* PRO;007919;12.990;;3.752.610</pre></li>
+<li><code>cartola_banco.csv</code> fila 18, 17/08/2026, $12.990. COMPRA TARJETA CANVA* PRO<pre>17/08/2026;COMPRA TARJETA CANVA* PRO;087109;12.990;;5.559.596</pre></li>
+<li><code>cartola_banco.csv</code> fila 32, 03/09/2026, $12.990. COMPRA TARJETA CANVA* PRO<pre>03/09/2026;COMPRA TARJETA CANVA* PRO;197975;12.990;;6.627.177</pre></li>
+<li><code>cartola_banco.csv</code> fila 48, 17/09/2026, $12.990. COMPRA TARJETA CANVA* PRO<pre>17/09/2026;COMPRA TARJETA CANVA* PRO;324679;12.990;;7.709.412</pre></li>
+<li><code>cartola_banco.csv</code> fila 67, 03/10/2026, $12.990. COMPRA TARJETA CANVA* PRO<pre>03/10/2026;COMPRA TARJETA CANVA* PRO;475140;12.990;;9.804.631</pre></li>
+<li><code>cartola_banco.csv</code> fila 82, 17/10/2026, $12.990. COMPRA TARJETA CANVA* PRO<pre>17/10/2026;COMPRA TARJETA CANVA* PRO;593925;12.990;;12.775.784</pre></li>
+<li><code>licencias.csv</code> fila 6, $12.990. Licencia Canva Pro de camila@climatizacionaustral-ficticia.cl (Pro individual)<pre>Canva Pro,camila@climatizacionaustral-ficticia.cl,Pro individual,12990,Activa</pre></li>
+</ul>
+</section>
+<section class="fuga" id="H10">
+<div class="tipo">Software que pagas de más</div>
+<h3>H10 · Pagas la licencia de Google Workspace de alguien que ya se fue</h3>
+<dl>
+<dt>Qué pasó</dt><dd>La licencia de Google Workspace de bruno@climatizacionaustral-ficticia.cl sigue activa y cuesta $8.600 al mes, pero Bruno Ficticio Vera dejó la empresa el 31/07/2026. En el periodo la pagaste 3 meses sin que nadie la use. El cobro de $34.400 que ves en el banco es por todas las licencias de Google Workspace; la de esta persona es $8.600 de ese total.</dd>
+<dt>Monto</dt><dd>$8.600</dd>
+<dt>Impacto en el periodo</dt><dd>$25.800</dd>
+<dt>Impacto mensual</dt><dd>$8.600 cada mes</dd>
+<dt>Qué hacer</dt><dd>Da de baja la licencia de bruno@climatizacionaustral-ficticia.cl en Google Workspace (nota interna N05).</dd>
+</dl>
+<strong>Evidencia</strong>
+<ul class="evidencia">
+<li><code>cartola_banco.csv</code> fila 7, 02/08/2026, $34.400. COMPRA TARJETA GOOGLE*WORKSPACE (cobro mensual de todas las licencias del servicio; incluye esta)<pre>02/08/2026;COMPRA TARJETA GOOGLE*WORKSPACE;000000;34.400;;3.765.600</pre></li>
+<li><code>cartola_banco.csv</code> fila 31, 02/09/2026, $34.400. COMPRA TARJETA GOOGLE*WORKSPACE (cobro mensual de todas las licencias del servicio; incluye esta)<pre>02/09/2026;COMPRA TARJETA GOOGLE*WORKSPACE;190056;34.400;;6.640.167</pre></li>
+<li><code>cartola_banco.csv</code> fila 65, 02/10/2026, $34.400. COMPRA TARJETA GOOGLE*WORKSPACE (cobro mensual de todas las licencias del servicio; incluye esta)<pre>02/10/2026;COMPRA TARJETA GOOGLE*WORKSPACE;459302;34.400;;9.793.821</pre></li>
+<li><code>licencias.csv</code> fila 5, $8.600. Licencia Google Workspace de bruno@climatizacionaustral-ficticia.cl, estado activa<pre>Google Workspace,bruno@climatizacionaustral-ficticia.cl,Business Starter,8600,Activa</pre></li>
+<li><code>equipo.csv</code> fila 5, 31/07/2026. Bruno Ficticio Vera, inactivo, salida 31/07/2026<pre>Bruno Ficticio Vera,bruno@climatizacionaustral-ficticia.cl,Tecnico,Inactivo,2022-02-01,2026-07-31</pre></li>
+</ul>
+</section>
+<section class="fuga" id="H11">
+<div class="tipo">Plata que entró sin boleta ni factura</div>
+<h3>H11 · Entró plata al banco sin boleta ni factura</h3>
+<dl>
+<dt>Qué pasó</dt><dd>El 27/08/2026 entraron $157.000 a tu cuenta (&quot;TRANSF. DE 23.564.221-2 BENJAMIN FICTICIO SILVA&quot;) y no encontré boleta ni factura por ese monto. IVA en riesgo: $25.067. Riesgo de multa del SII [sin verificar el monto de la multa]. Ojo: llegó al comienzo del periodo, así que podría ser el pago de un documento emitido antes de lo que cubren tus archivos.</dd>
+<dt>Monto</dt><dd>$157.000</dd>
+<dt>Impacto en el periodo</dt><dd>$25.067</dd>
+<dt>Impacto mensual</dt><dd>$8.356 (promedio mensual)</dd>
+<dt>Qué hacer</dt><dd>Emite la boleta o factura que falta (nota interna N06).</dd>
+<dt>Confianza</dt><dd>media: revísalo antes de actuar.</dd>
+</dl>
+<strong>Evidencia</strong>
+<ul class="evidencia">
+<li><code>cartola_banco.csv</code> fila 23, 27/08/2026, $157.000. TRANSF. DE 23.564.221-2 BENJAMIN FICTICIO SILVA<pre>27/08/2026;TRANSF. DE 23.564.221-2 BENJAMIN FICTICIO SILVA;126704;;157.000;6.524.290</pre></li>
+</ul>
+</section>
+<section class="fuga" id="H12">
+<div class="tipo">Plata que entró sin boleta ni factura</div>
+<h3>H12 · Venta con tarjeta sin boleta</h3>
+<dl>
+<dt>Qué pasó</dt><dd>El 18/09/2026 se aprobó una venta con tarjeta por $73.500 (Mantencion preventiva domicilio, operación 70002411866) y no encontré su boleta de ese día ni del día siguiente. IVA en riesgo: $11.735. Riesgo de multa del SII [sin verificar el monto de la multa].</dd>
+<dt>Monto</dt><dd>$73.500</dd>
+<dt>Impacto en el periodo</dt><dd>$11.735</dd>
+<dt>Impacto mensual</dt><dd>$3.912 (promedio mensual)</dd>
+<dt>Qué hacer</dt><dd>Emite la boleta que falta (nota interna N07).</dd>
+</dl>
+<strong>Evidencia</strong>
+<ul class="evidencia">
+<li><code>ventas_mercadopago.csv</code> fila 25, 18/09/2026, $73.500. Mantencion preventiva domicilio, operación 70002411866<pre>2026-09-18T14:48:00-03:00,70002411866,Mantencion preventiva domicilio,73500.00,2565.00,70935.00,approved,qr</pre></li>
+</ul>
+</section>
+<h2>Cómo verificar este informe</h2>
+<ol>
+<li>Elige cualquier hallazgo y mira su evidencia: dice el archivo, la fila, la fecha y el monto.</li>
+<li>Abre ese archivo en Excel o en cualquier editor y ve a esa fila. La fila 1 es la primera línea del archivo, así que los títulos y encabezados también cuentan: es el mismo número que muestra Excel a la izquierda.</li>
+<li>Compara la fecha y el monto de la fila con los del informe. Deben ser iguales.</li>
+<li>En el detalle de cada hallazgo está copiada la fila original, para que la reconozcas sin buscar.</li>
+<li>El detector hizo esta misma comprobación antes de escribir el informe: lo que no calzó no aparece aquí.</li>
+</ol>
+<p>Archivos que leí:</p>
+<ul>
+<li><code>cartola_banco.csv</code>: cartola o movimientos del banco, 86 filas leídas.</li>
+<li><code>cotizaciones.csv</code>: cotizaciones o presupuestos, 49 filas leídas. No lo usé porque repite a otro archivo.</li>
+<li><code>cotizaciones.xlsx</code>: cotizaciones o presupuestos, 49 filas leídas.</li>
+<li><code>equipo.csv</code>: personas del equipo, 5 filas leídas.</li>
+<li><code>licencias.csv</code>: licencias de software por usuario, 7 filas leídas.</li>
+<li><code>rcv_compras.csv</code>: registro de compras del sii, 12 filas leídas.</li>
+<li><code>rcv_ventas.csv</code>: registro de ventas del sii, 78 filas leídas.</li>
+<li><code>ventas_mercadopago.csv</code>: ventas con tarjeta o link de pago, 47 filas leídas.</li>
+</ul>
+<h2>Lo que no pude revisar</h2>
+<p>Revisé todos los tipos de fuga: no faltó ningún archivo.</p>
+<p>Ten en cuenta:</p>
+<ul>
+<li>&#x27;cotizaciones.xlsx&#x27; y &#x27;cotizaciones.csv&#x27; traen las mismas filas: usé solo &#x27;cotizaciones.xlsx&#x27; para no contar nada dos veces.</li>
+<li>Dejé fuera 14 abonos que no son ventas (aportes de socios, devoluciones, liquidaciones de tarjetas), según tu configuración.</li>
+</ul>
+<p class="pie">Este informe no reemplaza a tu contador. Montos en CLP.</p>
+</article>
+</body>
+</html>

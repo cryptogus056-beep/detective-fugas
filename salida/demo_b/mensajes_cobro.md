@@ -12,7 +12,7 @@ Estos textos los escribió el Detective de Fugas a partir del informe. Nadie los
 - **Asunto:** Cotización PRE-0519: documento y pago pendientes ($1.332.800)
 - **Monto:** $1.332.800
 
-> Buenos días, Clinica Dental Demo Sonrisa SpA:
+> Estimado equipo de Clinica Dental Demo Sonrisa SpA:
 >
 > Junto con saludar, le escribo por la cotización PRE-0519 (Reparacion compresor), que usted aceptó el 03/09/2026 por $1.332.800 (neto $1.120.000 más IVA).
 >
@@ -20,7 +20,7 @@ Estos textos los escribió el Detective de Fugas a partir del informe. Nadie los
 >
 > ¿Nos puede confirmar sus datos de facturación y la fecha en que podría hacer el pago? Si ya pagó o hay algún error de nuestra parte, le agradecería avisarnos para corregirlo de inmediato.
 >
-> Quedo atento a su respuesta.
+> Quedamos atentos a su respuesta.
 >
 > Saludos cordiales,
 > Climatizacion Austral Ficticia SpA
@@ -31,7 +31,7 @@ Estos textos los escribió el Detective de Fugas a partir del informe. Nadie los
 - **Asunto:** Factura N° 3404 pendiente de pago ($815.150)
 - **Monto:** $815.150
 
-> Buenos días, Cafeteria Demo Grano Fino SpA:
+> Estimado equipo de Cafeteria Demo Grano Fino SpA:
 >
 > Junto con saludar, le escribo por la factura N° 3404, emitida el 20/08/2026 por $815.150.
 >
@@ -39,7 +39,7 @@ Estos textos los escribió el Detective de Fugas a partir del informe. Nadie los
 >
 > Si ya la pagó, le agradecería enviarnos el comprobante para dejarla al día. Y si hay algún problema con la factura o con el servicio, conversemos para resolverlo.
 >
-> Quedo atento a su respuesta.
+> Quedamos atentos a su respuesta.
 >
 > Saludos cordiales,
 > Climatizacion Austral Ficticia SpA
@@ -50,7 +50,7 @@ Estos textos los escribió el Detective de Fugas a partir del informe. Nadie los
 - **Asunto:** Cotización PRE-0505: documento y pago pendientes ($595.000)
 - **Monto:** $595.000
 
-> Buenos días, Colegio Demo Los Aromos:
+> Estimado equipo de Colegio Demo Los Aromos:
 >
 > Junto con saludar, le escribo por la cotización PRE-0505 (Instalacion equipo 24.000 BTU), que usted aceptó el 12/08/2026 por $595.000 (neto $500.000 más IVA).
 >
@@ -58,7 +58,7 @@ Estos textos los escribió el Detective de Fugas a partir del informe. Nadie los
 >
 > ¿Nos puede confirmar sus datos de facturación y la fecha en que podría hacer el pago? Si ya pagó o hay algún error de nuestra parte, le agradecería avisarnos para corregirlo de inmediato.
 >
-> Quedo atento a su respuesta.
+> Quedamos atentos a su respuesta.
 >
 > Saludos cordiales,
 > Climatizacion Austral Ficticia SpA
@@ -69,7 +69,7 @@ Estos textos los escribió el Detective de Fugas a partir del informe. Nadie los
 - **Asunto:** Factura N° 3415 pendiente de pago ($440.300)
 - **Monto:** $440.300
 
-> Buenos días, Bodega Ficticia Austral SpA:
+> Estimado equipo de Bodega Ficticia Austral SpA:
 >
 > Junto con saludar, le escribo por la factura N° 3415, emitida el 15/09/2026 por $440.300.
 >
@@ -77,7 +77,7 @@ Estos textos los escribió el Detective de Fugas a partir del informe. Nadie los
 >
 > Si ya la pagó, le agradecería enviarnos el comprobante para dejarla al día. Y si hay algún problema con la factura o con el servicio, conversemos para resolverlo.
 >
-> Quedo atento a su respuesta.
+> Quedamos atentos a su respuesta.
 >
 > Saludos cordiales,
 > Climatizacion Austral Ficticia SpA
@@ -96,7 +96,7 @@ Estos textos los escribió el Detective de Fugas a partir del informe. Nadie los
 >
 > ¿Nos puede confirmar sus datos de facturación y la fecha en que podría hacer el pago? Si ya pagó o hay algún error de nuestra parte, le agradecería avisarnos para corregirlo de inmediato.
 >
-> Quedo atento a su respuesta.
+> Quedamos atentos a su respuesta.
 >
 > Saludos cordiales,
 > Climatizacion Austral Ficticia SpA
@@ -109,7 +109,7 @@ Revisa con tu contador el documento folio 3413 de Restaurante Ficticio La Caleta
 
 ### N02 · Entró plata al banco sin boleta ni factura (H07)
 
-Emite la boleta o factura por $374.850 del abono del 09/10/2026 ("TRANSF. DE 76.468.166-5 INMOBILIARIA FICTICIA ALTOS DEL SUR"). Si no era una venta (un préstamo, un aporte, una devolución), agrega una palabra de esa glosa a "palabras_excluidas_abonos" en tu config.json y no volverá a aparecer.
+Emite la boleta o factura por $374.850 del abono del 09/10/2026 ("TRANSF. DE 76.468.166-5 INMOBILIARIA FICTICIA ALTOS DEL SUR"). Si no era una venta (un préstamo, un aporte, una devolución), agrega una palabra de esa descripción a "palabras_excluidas_abonos" en tu config.json y no volverá a aparecer.
 
 ### N03 · Documento con el IVA mal calculado (H08)
 
@@ -121,7 +121,7 @@ Entra a la cuenta de Canva Pro y revisa por qué hay 2 cobros al mes de $12.990 
 
 ### N05 · Entró plata al banco sin boleta ni factura (H10)
 
-Emite la boleta o factura por $201.000 del abono del 27/08/2026 ("TRANSF. DE 12.737.842-8 NICOLAS FICTICIO VARGAS"). Si no era una venta (un préstamo, un aporte, una devolución), agrega una palabra de esa glosa a "palabras_excluidas_abonos" en tu config.json y no volverá a aparecer.
+Emite la boleta o factura por $201.000 del abono del 27/08/2026 ("TRANSF. DE 12.737.842-8 NICOLAS FICTICIO VARGAS"). Si no era una venta (un préstamo, un aporte, una devolución), agrega una palabra de esa descripción a "palabras_excluidas_abonos" en tu config.json y no volverá a aparecer.
 
 ### N06 · Pagas la licencia de Google Workspace de alguien que ya se fue (H11)
 

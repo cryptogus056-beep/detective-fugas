@@ -1,0 +1,54 @@
+{
+  "nombre": "cotizaciones_generica",
+  "rol": "cotizaciones",
+  "descripcion": "Planilla de cotizaciones con neto, IVA y total. Sirve para XLSX y para CSV; puede tener un título antes del encabezado.",
+  "deteccion": {
+    "encabezado_contiene": [
+      "Cotizacion",
+      "Neto",
+      "Total",
+      "Estado"
+    ]
+  },
+  "formato_fecha": [
+    "%d/%m/%Y"
+  ],
+  "numeros": "chileno",
+  "columnas": {
+    "numero": [
+      "N Cotizacion",
+      "N° Cotizacion",
+      "N° Cotización",
+      "Nro Cotizacion",
+      "Cotizacion"
+    ],
+    "fecha": "Fecha",
+    "cliente": "Cliente",
+    "rut": "RUT",
+    "servicio": [
+      "Servicio",
+      "Detalle",
+      "Descripcion"
+    ],
+    "neto": "Neto",
+    "iva": "IVA",
+    "total": "Total",
+    "estado": "Estado",
+    "fecha_aceptacion": [
+      "Fecha aceptacion",
+      "Fecha aceptación",
+      "Fecha de aceptacion"
+    ]
+  },
+  "estados": {
+    "aceptada": [
+      "Aceptada"
+    ],
+    "rechazada": [
+      "Rechazada"
+    ],
+    "pendiente": [
+      "Pendiente"
+    ]
+  }
+}

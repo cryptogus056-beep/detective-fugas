@@ -1,0 +1,46 @@
+{
+  "nombre": "banco_cargos_abonos_separados",
+  "rol": "banco",
+  "descripcion": "Cartolas con columnas Cargos y Abonos separadas, separador ';', fechas dd/mm/aaaa y punto de miles. Puede traer líneas de preámbulo antes del encabezado.",
+  "deteccion": {
+    "encabezado_contiene": [
+      "Fecha",
+      "Cargos",
+      "Abonos"
+    ]
+  },
+  "separador": ";",
+  "formato_fecha": [
+    "%d/%m/%Y"
+  ],
+  "numeros": "chileno",
+  "columnas": {
+    "fecha": "Fecha",
+    "descripcion": [
+      "Descripcion",
+      "Descripción",
+      "Detalle",
+      "Glosa"
+    ],
+    "cargo": [
+      "Cargos ($)",
+      "Cargos",
+      "Cargo"
+    ],
+    "abono": [
+      "Abonos ($)",
+      "Abonos",
+      "Abono"
+    ],
+    "documento": [
+      "N Documento",
+      "N° Documento",
+      "Nro Documento",
+      "Documento"
+    ],
+    "saldo": [
+      "Saldo ($)",
+      "Saldo"
+    ]
+  }
+}

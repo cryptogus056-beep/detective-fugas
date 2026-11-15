@@ -1,0 +1,23 @@
+{
+  "nombre": "licencias",
+  "rol": "licencias",
+  "descripcion": "Asientos de software: un usuario por fila, con el costo mensual y el estado.",
+  "deteccion": {
+    "encabezado_contiene": [
+      "servicio",
+      "usuario",
+      "costo_mensual"
+    ]
+  },
+  "numeros": "chileno",
+  "columnas": {
+    "servicio": "servicio",
+    "usuario": "usuario",
+    "plan": "plan",
+    "costo_mensual": [
+      "costo_mensual_clp",
+      "costo_mensual"
+    ],
+    "estado": "estado"
+  }
+}

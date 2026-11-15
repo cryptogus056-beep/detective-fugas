@@ -1,0 +1,51 @@
+Registro de cotizaciones 2026 (FICTICIO)
+N Cotizacion;Fecha;Cliente;RUT;Servicio;Neto;IVA;Total;Estado;Fecha aceptacion
+COT-0101;25/07/2026;Clinica Dental Demo Sonrisa SpA;77.288.079-0;Mantencion preventiva equipo split;1110000;210900;1320900;Aceptada;27/07/2026
+COT-0102;27/07/2026;Carla Ficticia Fuentes;24.459.457-3;Revision sistema de ventilacion;267227;50773;318000;Aceptada;28/07/2026
+COT-0103;28/07/2026;Elena Ficticia Soto;9.808.451-7;Carga de gas refrigerante;360000;68400;428400;Rechazada;
+COT-0104;29/07/2026;Benjamin Ficticio Morales;19.858.725-7;Limpieza de ductos;312605;59395;372000;Aceptada;30/07/2026
+COT-0105;31/07/2026;Cafeteria Demo Grano Fino SpA;77.868.486-1;Instalacion equipo 24.000 BTU;275000;52250;327250;Rechazada;
+COT-0106;08/08/2026;Cafeteria Demo Grano Fino SpA;77.868.486-1;Limpieza de ductos;330000;62700;392700;Aceptada;09/08/2026
+COT-0107;08/08/2026;Karen Ficticio Silva;19.036.459-3;Revision sistema de ventilacion;88655;16845;105500;Aceptada;09/08/2026
+COT-0108;08/08/2026;Oficina Contable Demo Cuentas Claras SpA;77.028.205-5;Instalacion equipo 24.000 BTU;400000;76000;476000;Aceptada;12/08/2026
+COT-0109;09/08/2026;Taller Ficticio Motores del Valle Ltda;76.169.289-5;Instalacion equipo 12.000 BTU;660000;125400;785400;Aceptada;11/08/2026
+COT-0110;10/08/2026;Olga Ficticia Perez;18.183.075-1;Diagnostico y reparacion tarjeta electronica;295000;56050;351050;Rechazada;
+COT-0111;12/08/2026;Benjamin Ficticio Rojas;20.926.632-6;Mantencion camara de frio;135714;25786;161500;Aceptada;13/08/2026
+COT-0112;13/08/2026;Minimarket Ficticio Las Lomas SpA;76.658.994-4;Reparacion compresor;665000;126350;791350;Aceptada;15/08/2026
+COT-0113;14/08/2026;Nicolas Ficticio Perez;19.875.508-7;Limpieza de ductos;163445;31055;194500;Aceptada;15/08/2026
+COT-0114;15/08/2026;Optica Demo Mirada SpA;76.942.994-8;Carga de gas refrigerante;340000;64600;404600;Aceptada;18/08/2026
+COT-0115;15/08/2026;Panaderia Demo El Trigal SpA;76.503.178-8;Revision sistema de ventilacion;1355000;257450;1612450;Aceptada;17/08/2026
+COT-0116;23/08/2026;Bodega Ficticia Austral SpA;76.005.315-5;Instalacion equipo 12.000 BTU;1145000;217550;1362550;Aceptada;25/08/2026
+COT-0117;29/08/2026;Gimnasio Demo Fuerza Sur SpA;76.602.386-K;Mantencion preventiva equipo split;300000;57000;357000;Aceptada;30/08/2026
+COT-0118;30/08/2026;Restaurante Ficticio La Caleta Ltda;77.424.781-5;Reparacion compresor;1260000;239400;1499400;Aceptada;03/09/2026
+COT-0119;31/08/2026;Clinica Dental Demo Sonrisa SpA;77.288.079-0;Carga de gas refrigerante;535000;101650;636650;Aceptada;01/09/2026
+COT-0120;01/09/2026;Bodega Ficticia Austral SpA;76.005.315-5;Carga de gas refrigerante;865000;164350;1029350;Aceptada;03/09/2026
+COT-0121;02/09/2026;Colegio Demo Los Aromos;76.205.629-1;Instalacion equipo 24.000 BTU;835000;158650;993650;Aceptada;04/09/2026
+COT-0122;02/09/2026;Panaderia Demo El Trigal SpA;76.503.178-8;Mantencion camara de frio;570000;108300;678300;Aceptada;03/09/2026
+COT-0123;03/09/2026;Colegio Demo Los Aromos;76.205.629-1;Contrato mantencion trimestral;1340000;254600;1594600;Aceptada;05/09/2026
+COT-0124;05/09/2026;Optica Demo Mirada SpA;76.942.994-8;Carga de gas refrigerante;205000;38950;243950;Aceptada;06/09/2026
+COT-0125;06/09/2026;Colegio Demo Los Aromos;76.205.629-1;Revision sistema de ventilacion;460000;87400;547400;Aceptada;09/09/2026
+COT-0126;07/09/2026;Inmobiliaria Ficticia Altos del Sur SpA;76.024.093-1;Contrato mantencion trimestral;800000;152000;952000;Aceptada;09/09/2026
+COT-0127;08/09/2026;Gimnasio Demo Fuerza Sur SpA;76.602.386-K;Reparacion compresor;325000;61750;386750;Aceptada;10/09/2026
+COT-0128;09/09/2026;Isidora Ficticia Soto;24.618.863-7;Mantencion camara de frio;195000;37050;232050;Pendiente;
+COT-0129;12/09/2026;Vicente Ficticio Vargas;23.075.753-4;Revision sistema de ventilacion;167647;31853;199500;Aceptada;13/09/2026
+COT-0130;18/09/2026;Farmacia Ficticia Vida SpA;77.712.872-8;Instalacion equipo 24.000 BTU;905000;171950;1076950;Aceptada;21/09/2026
+COT-0131;18/09/2026;Rocio Ficticio Morales;20.383.312-1;Instalacion equipo 24.000 BTU;322689;61311;384000;Aceptada;19/09/2026
+COT-0132;25/09/2026;Hotel Demo Bahia Azul SpA;76.232.231-5;Mantencion camara de frio;1290000;245100;1535100;Aceptada;26/09/2026
+COT-0133;25/09/2026;Taller Ficticio Motores del Valle Ltda;76.169.289-5;Instalacion equipo 24.000 BTU;1120000;212800;1332800;Aceptada;27/09/2026
+COT-0134;25/09/2026;Tamara Ficticia Morales;21.661.927-7;Contrato mantencion trimestral;185000;35150;220150;Aceptada;29/09/2026
+COT-0135;28/09/2026;Inmobiliaria Ficticia Altos del Sur SpA;76.024.093-1;Mantencion preventiva equipo split;680000;129200;809200;Pendiente;
+COT-0136;29/09/2026;Inmobiliaria Ficticia Altos del Sur SpA;76.024.093-1;Revision sistema de ventilacion;605000;114950;719950;Aceptada;01/10/2026
+COT-0137;30/09/2026;Panaderia Demo El Trigal SpA;76.503.178-8;Instalacion equipo 24.000 BTU;410000;77900;487900;Aceptada;03/10/2026
+COT-0138;01/10/2026;Inmobiliaria Ficticia Altos del Sur SpA;76.024.093-1;Reparacion compresor;455000;86450;541450;Aceptada;03/10/2026
+COT-0139;02/10/2026;Hotel Demo Bahia Azul SpA;76.232.231-5;Revision sistema de ventilacion;955000;181450;1136450;Aceptada;04/10/2026
+COT-0140;03/10/2026;Olga Ficticia Perez;18.183.075-1;Reparacion compresor;174370;33130;207500;Aceptada;04/10/2026
+COT-0141;06/10/2026;Farmacia Ficticia Vida SpA;77.712.872-8;Instalacion equipo 12.000 BTU;1240000;235600;1475600;Aceptada;09/10/2026
+COT-0142;06/10/2026;Hostal Ficticio Rio Claro Ltda;77.708.681-2;Instalacion equipo 12.000 BTU;395000;75050;470050;Aceptada;08/10/2026
+COT-0143;13/10/2026;Gimnasio Demo Fuerza Sur SpA;76.602.386-K;Revision sistema de ventilacion;155000;29450;184450;Aceptada;15/10/2026
+COT-0144;15/10/2026;Benjamin Ficticio Morales;19.858.725-7;Revision sistema de ventilacion;705000;133950;838950;Rechazada;
+COT-0145;15/10/2026;Joaquin Ficticio Contreras;12.914.569-2;Mantencion camara de frio;134874;25626;160500;Aceptada;16/10/2026
+COT-0146;17/10/2026;Elena Ficticia Fuentes;12.279.843-7;Limpieza de ductos;214286;40714;255000;Aceptada;18/10/2026
+COT-0147;18/10/2026;Ana Ficticia Morales;11.908.563-2;Instalacion equipo 12.000 BTU;322269;61231;383500;Aceptada;19/10/2026
+COT-0148;20/10/2026;Gabriela Ficticia Perez;9.758.944-5;Contrato mantencion trimestral;495000;94050;589050;Pendiente;
+COT-0149;22/10/2026;Taller Ficticio Motores del Valle Ltda;76.169.289-5;Instalacion equipo 24.000 BTU;500000;95000;595000;Aceptada;24/10/2026

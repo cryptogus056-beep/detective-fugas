@@ -238,7 +238,7 @@
 <div class="tipo">Software que pagas de más</div>
 <h3>H11 · Pagas la licencia de Google Workspace de alguien que ya se fue</h3>
 <dl>
-<dt>Qué pasó</dt><dd>La licencia de Google Workspace de bruno@climatizacionaustral-ficticia.cl sigue activa y cuesta $8.600 al mes, pero Bruno Ficticio Vera dejó la empresa el 31/07/2026. En el periodo la pagaste 3 meses sin que nadie la use.</dd>
+<dt>Qué pasó</dt><dd>La licencia de Google Workspace de bruno@climatizacionaustral-ficticia.cl sigue activa y cuesta $8.600 al mes, pero Bruno Ficticio Vera dejó la empresa el 31/07/2026. En el periodo la pagaste 3 meses sin que nadie la use. El cobro de $34.400 que ves en el banco es por todas las licencias de Google Workspace; la de esta persona es $8.600 de ese total.</dd>
 <dt>Monto</dt><dd>$8.600</dd>
 <dt>Impacto en el periodo</dt><dd>$25.800</dd>
 <dt>Impacto mensual</dt><dd>$8.600 cada mes</dd>
@@ -246,9 +246,9 @@
 </dl>
 <strong>Evidencia</strong>
 <ul class="evidencia">
-<li><code>movimientos_cuenta.csv</code> fila 2, 02/08/2026, $34.400. COMPRA TARJETA GOOGLE*WORKSPACE<pre>2026-08-02,COMPRA TARJETA GOOGLE*WORKSPACE,OFICINA CENTRAL,-34400,3765600</pre></li>
-<li><code>movimientos_cuenta.csv</code> fila 26, 02/09/2026, $34.400. COMPRA TARJETA GOOGLE*WORKSPACE<pre>2026-09-02,COMPRA TARJETA GOOGLE*WORKSPACE,OFICINA CENTRAL,-34400,5687408</pre></li>
-<li><code>movimientos_cuenta.csv</code> fila 59, 02/10/2026, $34.400. COMPRA TARJETA GOOGLE*WORKSPACE<pre>2026-10-02,COMPRA TARJETA GOOGLE*WORKSPACE,OFICINA CENTRAL,-34400,10281548</pre></li>
+<li><code>movimientos_cuenta.csv</code> fila 2, 02/08/2026, $34.400. COMPRA TARJETA GOOGLE*WORKSPACE (cobro mensual de todas las licencias del servicio; incluye esta)<pre>2026-08-02,COMPRA TARJETA GOOGLE*WORKSPACE,OFICINA CENTRAL,-34400,3765600</pre></li>
+<li><code>movimientos_cuenta.csv</code> fila 26, 02/09/2026, $34.400. COMPRA TARJETA GOOGLE*WORKSPACE (cobro mensual de todas las licencias del servicio; incluye esta)<pre>2026-09-02,COMPRA TARJETA GOOGLE*WORKSPACE,OFICINA CENTRAL,-34400,5687408</pre></li>
+<li><code>movimientos_cuenta.csv</code> fila 59, 02/10/2026, $34.400. COMPRA TARJETA GOOGLE*WORKSPACE (cobro mensual de todas las licencias del servicio; incluye esta)<pre>2026-10-02,COMPRA TARJETA GOOGLE*WORKSPACE,OFICINA CENTRAL,-34400,10281548</pre></li>
 <li><code>licencias.csv</code> fila 5, $8.600. Licencia Google Workspace de bruno@climatizacionaustral-ficticia.cl, estado activa<pre>Google Workspace,bruno@climatizacionaustral-ficticia.cl,Business Starter,8600,Activa</pre></li>
 <li><code>equipo.csv</code> fila 5, 31/07/2026. Bruno Ficticio Vera, inactivo, salida 31/07/2026<pre>Bruno Ficticio Vera,bruno@climatizacionaustral-ficticia.cl,Tecnico,Inactivo,2022-02-01,2026-07-31</pre></li>
 </ul>
@@ -278,13 +278,13 @@
 </ol>
 <p>Archivos que leí:</p>
 <ul>
-<li><code>equipo.csv</code>: 5 filas leídas (equipo).</li>
-<li><code>licencias.csv</code>: 7 filas leídas (licencias).</li>
-<li><code>movimientos_cuenta.csv</code>: 85 filas leídas (banco_monto_con_signo).</li>
-<li><code>presupuestos.csv</code>: 44 filas leídas (presupuestos_generica).</li>
-<li><code>rcv_compras.csv</code>: 12 filas leídas (sii_rcv_compras).</li>
-<li><code>rcv_ventas.csv</code>: 78 filas leídas (sii_rcv_ventas).</li>
-<li><code>ventas_transbank.csv</code>: 48 filas leídas (transbank_ventas).</li>
+<li><code>equipo.csv</code>: personas del equipo, 5 filas leídas.</li>
+<li><code>licencias.csv</code>: licencias de software por usuario, 7 filas leídas.</li>
+<li><code>movimientos_cuenta.csv</code>: cartola o movimientos del banco, 85 filas leídas.</li>
+<li><code>presupuestos.csv</code>: cotizaciones o presupuestos, 44 filas leídas.</li>
+<li><code>rcv_compras.csv</code>: registro de compras del sii, 12 filas leídas.</li>
+<li><code>rcv_ventas.csv</code>: registro de ventas del sii, 78 filas leídas.</li>
+<li><code>ventas_transbank.csv</code>: ventas con tarjeta o link de pago, 48 filas leídas.</li>
 </ul>
 <h2>Lo que no pude revisar</h2>
 <p>Revisé todos los tipos de fuga: no faltó ningún archivo.</p>

@@ -1,0 +1,57 @@
+{
+  "nombre": "presupuestos_generica",
+  "rol": "cotizaciones",
+  "descripcion": "Planilla de presupuestos que solo trae el valor neto: el total se calcula con la tasa de IVA de config.json.",
+  "deteccion": {
+    "encabezado_contiene": [
+      "Presupuesto",
+      "Valor Neto",
+      "Estado"
+    ]
+  },
+  "formato_fecha": [
+    "%Y-%m-%d"
+  ],
+  "numeros": "chileno",
+  "columnas": {
+    "numero": [
+      "Folio Presupuesto",
+      "N Presupuesto",
+      "Presupuesto"
+    ],
+    "fecha": [
+      "Fecha Emision",
+      "Fecha Emisión"
+    ],
+    "cliente": [
+      "Razon Social",
+      "Razón Social",
+      "Cliente"
+    ],
+    "rut": [
+      "RUT Cliente",
+      "RUT"
+    ],
+    "servicio": [
+      "Detalle",
+      "Servicio"
+    ],
+    "neto": "Valor Neto",
+    "estado": "Estado",
+    "fecha_aceptacion": [
+      "Aceptado El",
+      "Fecha aceptacion"
+    ]
+  },
+  "estados": {
+    "aceptada": [
+      "APROBADO"
+    ],
+    "rechazada": [
+      "RECHAZADO"
+    ],
+    "pendiente": [
+      "ENVIADO"
+    ]
+  }
+}

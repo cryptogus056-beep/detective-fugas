@@ -1,0 +1,6 @@
+nombre,email,cargo,estado,fecha_ingreso,fecha_salida
+Camila Ficticia Rojas,camila@climatizacionaustral-ficticia.cl,Socia gerente,Activo,2021-03-01,
+Diego Ficticio Lagos,diego@climatizacionaustral-ficticia.cl,Tecnico,Activo,2022-06-15,
+Sofia Ficticia Mella,sofia@climatizacionaustral-ficticia.cl,Administracion,Activo,2023-01-09,
+Bruno Ficticio Vera,bruno@climatizacionaustral-ficticia.cl,Tecnico,Inactivo,2022-02-01,2026-07-31
+Matias Ficticio Reyes,matias@climatizacionaustral-ficticia.cl,Ayudante,Inactivo,2024-03-01,2026-05-31

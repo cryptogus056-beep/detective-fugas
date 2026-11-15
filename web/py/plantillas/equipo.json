@@ -1,0 +1,28 @@
+{
+  "nombre": "equipo",
+  "rol": "equipo",
+  "descripcion": "Lista de personas de la empresa con su estado (Activo o Inactivo) y fecha de salida.",
+  "deteccion": {
+    "encabezado_contiene": [
+      "nombre",
+      "email",
+      "estado",
+      "fecha_salida"
+    ]
+  },
+  "formato_fecha": [
+    "%Y-%m-%d"
+  ],
+  "numeros": "chileno",
+  "columnas": {
+    "nombre": "nombre",
+    "email": [
+      "email",
+      "correo"
+    ],
+    "cargo": "cargo",
+    "estado": "estado",
+    "fecha_ingreso": "fecha_ingreso",
+    "fecha_salida": "fecha_salida"
+  }
+}

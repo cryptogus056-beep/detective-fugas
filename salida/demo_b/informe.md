@@ -232,26 +232,26 @@ Periodo revisado: 01/08/2026 al 31/10/2026 (3 meses). Fecha de corte: 31/10/2026
 
 ### H11 · Pagas la licencia de Google Workspace de alguien que ya se fue
 
-- **Qué pasó:** La licencia de Google Workspace de bruno@climatizacionaustral-ficticia.cl sigue activa y cuesta $8.600 al mes, pero Bruno Ficticio Vera dejó la empresa el 31/07/2026. En el periodo la pagaste 3 meses sin que nadie la use.
+- **Qué pasó:** La licencia de Google Workspace de bruno@climatizacionaustral-ficticia.cl sigue activa y cuesta $8.600 al mes, pero Bruno Ficticio Vera dejó la empresa el 31/07/2026. En el periodo la pagaste 3 meses sin que nadie la use. El cobro de $34.400 que ves en el banco es por todas las licencias de Google Workspace; la de esta persona es $8.600 de ese total.
 - **Monto:** $8.600
 - **Impacto en el periodo:** $25.800
 - **Impacto mensual:** $8.600 cada mes
 - **Qué hacer:** Da de baja la licencia de bruno@climatizacionaustral-ficticia.cl en Google Workspace (nota interna N06).
 - **Evidencia:**
 
-  - `movimientos_cuenta.csv` fila 2, 02/08/2026, $34.400. COMPRA TARJETA GOOGLE*WORKSPACE
+  - `movimientos_cuenta.csv` fila 2, 02/08/2026, $34.400. COMPRA TARJETA GOOGLE*WORKSPACE (cobro mensual de todas las licencias del servicio; incluye esta)
 
     ```text
     2026-08-02,COMPRA TARJETA GOOGLE*WORKSPACE,OFICINA CENTRAL,-34400,3765600
     ```
 
-  - `movimientos_cuenta.csv` fila 26, 02/09/2026, $34.400. COMPRA TARJETA GOOGLE*WORKSPACE
+  - `movimientos_cuenta.csv` fila 26, 02/09/2026, $34.400. COMPRA TARJETA GOOGLE*WORKSPACE (cobro mensual de todas las licencias del servicio; incluye esta)
 
     ```text
     2026-09-02,COMPRA TARJETA GOOGLE*WORKSPACE,OFICINA CENTRAL,-34400,5687408
     ```
 
-  - `movimientos_cuenta.csv` fila 59, 02/10/2026, $34.400. COMPRA TARJETA GOOGLE*WORKSPACE
+  - `movimientos_cuenta.csv` fila 59, 02/10/2026, $34.400. COMPRA TARJETA GOOGLE*WORKSPACE (cobro mensual de todas las licencias del servicio; incluye esta)
 
     ```text
     2026-10-02,COMPRA TARJETA GOOGLE*WORKSPACE,OFICINA CENTRAL,-34400,10281548
@@ -294,13 +294,13 @@ Periodo revisado: 01/08/2026 al 31/10/2026 (3 meses). Fecha de corte: 31/10/2026
 
 Archivos que leí:
 
-- `equipo.csv`: 5 filas leídas (equipo).
-- `licencias.csv`: 7 filas leídas (licencias).
-- `movimientos_cuenta.csv`: 85 filas leídas (banco_monto_con_signo).
-- `presupuestos.csv`: 44 filas leídas (presupuestos_generica).
-- `rcv_compras.csv`: 12 filas leídas (sii_rcv_compras).
-- `rcv_ventas.csv`: 78 filas leídas (sii_rcv_ventas).
-- `ventas_transbank.csv`: 48 filas leídas (transbank_ventas).
+- `equipo.csv`: personas del equipo, 5 filas leídas.
+- `licencias.csv`: licencias de software por usuario, 7 filas leídas.
+- `movimientos_cuenta.csv`: cartola o movimientos del banco, 85 filas leídas.
+- `presupuestos.csv`: cotizaciones o presupuestos, 44 filas leídas.
+- `rcv_compras.csv`: registro de compras del sii, 12 filas leídas.
+- `rcv_ventas.csv`: registro de ventas del sii, 78 filas leídas.
+- `ventas_transbank.csv`: ventas con tarjeta o link de pago, 48 filas leídas.
 
 ## Lo que no pude revisar
 

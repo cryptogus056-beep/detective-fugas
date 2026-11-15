@@ -158,12 +158,12 @@ Cada fase cierra con: pruebas en verde, este plan actualizado, entrada en `BITAC
 
 ### Fase 6 · Web
 
-- [ ] 6.1 `scripts/construir_web.py`: copia el código, las plantillas y la demo (sin la llave) y deja el informe de la demo ya calculado
-- [ ] 6.2 `web/index.html`, `estilo.css`, `app.js`: título, la frase, aviso "Datos 100% ficticios", aviso "Tus archivos no salen de tu computador", diseño legible en celular
-- [ ] 6.3 Pyodide con versión fija desde su CDN oficial, ejecutando el mismo paquete `detective/`
-- [ ] 6.4 "Usar mis archivos": arrastrar y soltar, detectar la plantilla de cada archivo, mostrar el rol asignado y permitir cambiarlo, correr la auditoría, mostrar el informe y descargar `informe.md`, `hallazgos.json` y `mensajes_cobro.md`
-- [ ] 6.5 XLSX en el navegador: copia local de `openpyxl` en `web/vendor/`. Si no carga, la web acepta solo CSV y lo explica en pantalla (decisión a la bitácora)
-- [ ] 6.6 Pruebas: (a) siempre: los archivos copiados existen, están al día con el código y la web no tiene llamadas de red a dominios que no sean el CDN de Pyodide; (b) opcional con navegador real: la demo se ve, no hay errores en la consola y subir los CSV de demo B da el mismo `hallazgos.json` que la CLI
+- [x] 6.1 `scripts/construir_web.py`: copia el código, las plantillas y la demo (sin la llave) y deja el informe de la demo ya calculado
+- [x] 6.2 `web/index.html`, `estilo.css`, `app.js`: título, la frase, aviso "Datos 100% ficticios", aviso "Tus archivos no salen de tu computador", diseño legible en celular
+- [x] 6.3 Pyodide con versión fija desde su CDN oficial, ejecutando el mismo paquete `detective/`
+- [x] 6.4 "Usar mis archivos": arrastrar y soltar, detectar la plantilla de cada archivo, mostrar el rol asignado y permitir cambiarlo, correr la auditoría, mostrar el informe y descargar `informe.md`, `hallazgos.json` y `mensajes_cobro.md`
+- [x] 6.5 XLSX en el navegador: copia local de `openpyxl` en `web/vendor/`. Si no carga, la web acepta solo CSV y lo explica en pantalla (decisión a la bitácora)
+- [x] 6.6 Pruebas: (a) siempre: los archivos copiados existen, están al día con el código y la web no tiene llamadas de red a dominios que no sean el CDN de Pyodide; (b) opcional con navegador real: la demo se ve, no hay errores en la consola y subir los CSV de demo B da el mismo `hallazgos.json` que la CLI
 
 **Verificación:** `python scripts/construir_web.py`, servidor local, prueba con navegador real y captura de pantalla en ancho de computador y de celular.
 

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net/pyodide/ 'wasm-unsafe-eval'; connect-src 'self' https://cdn.jsdelivr.net/pyodide/; style-src 'self' 'unsafe-inline'; img-src 'self' data:; form-action 'none'; base-uri 'none'">
+<meta name="description" content="Encuentra la plata que tu pyme pierde sin darse cuenta: cotizaciones sin facturar, facturas impagas, ingresos sin boleta, software pagado de más e IVA mal calculado. Con la fila exacta que lo prueba.">
+<title>Detective de Fugas Pyme</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<header class="cabecera">
+  <div class="ancho">
+    <h1>Detective de Fugas Pyme</h1>
+    <p class="lema">La plata que se pierde no hace ruido: hay que contarla fila por fila.</p>
+    <p class="privado"><strong>Tus archivos no salen de tu computador.</strong> Todo el cálculo ocurre dentro de este navegador: nada se sube a ningún servidor.</p>
+  </div>
+</header>
+
+<nav class="modos ancho" aria-label="Qué quieres ver">
+  <button type="button" id="boton-demo" class="modo activo" aria-pressed="true">Ver la demo</button>
+  <button type="button" id="boton-mios" class="modo" aria-pressed="false">Usar mis archivos</button>
+</nav>
+
+<main class="ancho">
+  <section id="vista-demo">
+    <div class="aviso ficticio">
+      <strong>Datos 100% ficticios.</strong> Esta demo usa una empresa inventada (Climatizacion Austral Ficticia SpA) con fugas escondidas a propósito. Ningún nombre, RUT ni monto es real.
+      <span id="puntaje"></span>
+    </div>
+    <p class="explica">Así se ve un informe: cada fuga dice cuánta plata es, en qué archivo y en qué fila está la prueba, y qué hacer. Baja y míralo, o prueba con los tuyos en "Usar mis archivos".</p>
+    <div class="acciones">
+      <a class="boton secundario" href="demo/informe.md" download>Descargar informe.md</a>
+      <a class="boton secundario" href="demo/hallazgos.json" download>Descargar hallazgos.json</a>
+      <a class="boton secundario" href="demo/mensajes_cobro.md" download>Descargar mensajes_cobro.md</a>
+      <button type="button" class="boton secundario" id="recalcular">Volver a calcular la demo aquí</button>
+    </div>
+    <p id="estado-demo" class="estado" role="status" aria-live="polite"></p>
+    <div id="informe-demo" class="hoja"><p class="cargando">Cargando el informe de la demo...</p></div>
+  </section>
+
+  <section id="vista-mios" hidden>
+    <ol class="pasos">
+      <li>
+        <h2>Elige tus archivos</h2>
+        <p>Exporta lo que tengas desde tu banco y tus sistemas, y arrástralo aquí. El único obligatorio es la cartola del banco; con más archivos, encuentro más fugas.</p>
+        <ul class="tipos">
+          <li><strong>Cartola del banco</strong> (CSV o Excel)</li>
+          <li><strong>Ventas con tarjeta</strong> (Mercado Pago, Transbank)</li>
+          <li><strong>Registro de Ventas y de Compras del SII</strong></li>
+          <li><strong>Planilla de cotizaciones</strong> o presupuestos</li>
+          <li><strong>Equipo y licencias</strong> de software</li>
+        </ul>
+        <input type="file" id="archivos" multiple accept=".csv,.xlsx,.xlsm,.txt,.json" class="oculto">
+        <label id="zona" class="zona" for="archivos">
+          <span class="zona-titulo">Arrastra tus archivos aquí</span>
+          <span class="zona-sub">o haz clic para elegirlos (CSV y XLSX; puedes elegir varios)</span>
+        </label>
+        <p class="nota">¿No tienes archivos a mano? Baja los de la demo y súbelos para probar:
+          <span id="archivos-demo"></span>
+        </p>
+      </li>
+      <li id="paso-revisar" hidden>
+        <h2>Revisa qué es cada archivo</h2>
+        <p>Reconocí cada archivo por sus columnas. Si me equivoqué, cámbialo en la lista.</p>
+        <div class="tabla-scroll">
+          <table id="tabla-archivos">
+            <thead><tr><th>Archivo</th><th>Qué es</th><th>Filas leídas</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="opciones">
+          <label>¿Cómo tratas a tus clientes en los mensajes de cobro?
+            <select id="tratamiento">
+              <option value="usted">De usted</option>
+              <option value="tu">De tú</option>
+            </select>
+          </label>
+        </div>
+        <div class="acciones">
+          <button type="button" class="boton" id="auditar">Buscar fugas</button>
+          <button type="button" class="boton secundario" id="limpiar">Empezar de nuevo</button>
+        </div>
+      </li>
+    </ol>
+    <p id="estado-mios" class="estado" role="status" aria-live="polite"></p>
+    <div id="resultado" hidden>
+      <div class="acciones" id="descargas"></div>
+      <div id="informe-mio" class="hoja"></div>
+      <details class="mensajes">
+        <summary>Ver los borradores de mensajes de cobro</summary>
+        <pre id="texto-mensajes"></pre>
+      </details>
+    </div>
+  </section>
+</main>
+
+<footer class="pie ancho">
+  <p>Este informe no reemplaza a tu contador. Montos en CLP. Código abierto con licencia MIT.</p>
+  <p>Construido con Claude Fable 5.2 para el concurso "Built with FABLE" de Imperio Agéntico.</p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>
