@@ -52,3 +52,123 @@ body{background:var(--papel);color:var(--tinta);font:16px/1.55 system-ui,-apple-
   .modo{flex:1;padding:.6rem .5rem}
   .acciones .boton{flex:1 1 100%;text-align:center}
 }
+
+/* ---------------------------------------------------------------- guia: como se usa */
+.como{margin-top:1.4rem}
+.como h2{font-size:1.35rem;margin:0 0 .3rem}
+.como-intro{margin:0 0 1rem;max-width:52rem}
+.tres-pasos{display:grid;gap:.8rem;grid-template-columns:repeat(3,minmax(0,1fr));list-style:none;margin:0 0 1rem;padding:0}
+.tres-pasos li{background:#fff;border:1px solid var(--linea);border-radius:10px;padding:1rem}
+.tres-pasos h3{font-size:1.05rem;margin:.5rem 0 .3rem}
+.tres-pasos p{color:var(--suave);font-size:.95rem;margin:0}
+.paso-num{align-items:center;background:var(--acento);border-radius:50%;color:#fff;display:inline-flex;font-weight:700;height:2rem;justify-content:center;width:2rem}
+.nota{color:var(--suave);font-size:.92rem}
+.subtitulo{font-size:1.05rem;margin:1.4rem 0 .3rem}
+
+/* ---------------------------------------------------------------- ayuda "que hago aqui" */
+.ayuda{background:#eaf4f0;border-left:4px solid var(--acento);border-radius:8px;margin:0 0 1rem;padding:.8rem 1rem}
+.ayuda p{margin:.3rem 0 0}
+.ayuda .boton{margin-top:.7rem}
+
+/* ---------------------------------------------------------------- indicador de avance */
+.stepper{counter-reset:paso;display:flex;gap:.4rem;list-style:none;margin:0 0 1rem;padding:0}
+.stepper li{align-items:center;background:#fff;border:1px solid var(--linea);border-radius:999px;color:var(--suave);display:flex;flex:1;font-size:.92rem;font-weight:600;gap:.5rem;padding:.45rem .8rem}
+.stepper li span{align-items:center;background:var(--linea);border-radius:50%;color:var(--tinta);display:inline-flex;flex:none;font-size:.85rem;height:1.6rem;justify-content:center;width:1.6rem}
+.stepper li.actual{border-color:var(--acento);color:var(--tinta)}
+.stepper li.actual span{background:var(--acento);color:#fff}
+.stepper li.hecho{color:var(--acento-oscuro)}
+.stepper li.hecho span{background:#cfe7dd;color:var(--acento-oscuro)}
+.tarjeta-paso{background:#fff;border:1px solid var(--linea);border-radius:10px;margin:0 0 1rem;padding:1.1rem}
+.tarjeta-paso>h2{font-size:1.2rem;margin:0 0 .7rem}
+.zona{margin-top:.4rem}
+
+/* ---------------------------------------------------------------- tarjetas de archivos */
+.lista-archivos{align-items:start;display:grid;gap:.6rem;grid-template-columns:repeat(2,minmax(0,1fr))}
+.tarjeta{background:var(--papel);min-width:0;border:1px solid var(--linea);border-left:4px solid #b9c6d0;border-radius:8px}
+.tarjeta.prioridad-imprescindible,.tarjeta.prioridad-muy{border-left-color:#d08a1e}
+.tarjeta.listo{background:#f1f8f5;border-left-color:var(--acento)}
+.tarjeta summary{cursor:pointer;display:block;list-style:none;padding:.7rem .9rem}
+.tarjeta summary::-webkit-details-marker{display:none}
+.tarjeta-cabeza{align-items:center;display:flex;flex-wrap:wrap;gap:.4rem}
+.tarjeta-titulo{font-weight:700}
+.insignia{background:#fff;border:1px solid var(--linea);border-radius:999px;font-size:.75rem;padding:.05rem .5rem}
+.prioridad-imprescindible .insignia,.prioridad-muy .insignia{background:#fff4d6;border-color:var(--ficticio-borde)}
+.tarjeta-estado{color:var(--suave);display:block;font-size:.85rem;font-weight:600;margin:.25rem 0}
+.tarjeta.listo .tarjeta-estado{color:var(--acento-oscuro)}
+.tarjeta.listo .tarjeta-estado::before{content:"✓ "}
+.tarjeta-para{display:block;font-size:.92rem}
+.tarjeta summary::after{color:var(--acento-oscuro);content:"Ver cómo conseguirlo ▾";display:block;font-size:.85rem;font-weight:600;margin-top:.35rem}
+.tarjeta[open] summary::after{content:"Ocultar ▴"}
+.tarjeta-cuerpo{border-top:1px solid var(--linea);padding:.6rem .9rem .9rem}
+.tarjeta-cuerpo ol{margin:.3rem 0 .7rem;padding-left:1.2rem}
+.tarjeta-cuerpo li{margin:.2rem 0}
+table.ejemplo{border-collapse:collapse;font-size:.8rem}
+table.ejemplo th,table.ejemplo td{background:#fff;border:1px solid var(--linea);padding:.25rem .4rem;white-space:nowrap}
+table.ejemplo th{background:#e9eef2}
+
+/* ---------------------------------------------------------------- que puedo revisar */
+.cobertura{background:var(--papel);border:1px solid var(--linea);border-radius:8px;margin:1rem 0 0;padding:.8rem 1rem}
+.cobertura.completa{background:#f1f8f5;border-color:#b5d9c9}
+.cobertura ul{list-style:none;margin:.5rem 0 0;padding:0}
+.cobertura li{align-items:baseline;display:flex;flex-wrap:wrap;gap:.2rem .5rem;padding:.2rem 0}
+.cobertura .marca{border-radius:4px;font-size:.75rem;font-weight:700;min-width:2rem;padding:.05rem .35rem;text-align:center}
+.cobertura .si .marca{background:#cfe7dd;color:var(--acento-oscuro)}
+.cobertura .no .marca{background:#e9eef2;color:var(--suave)}
+.cobertura .no>span:not(.marca){color:var(--suave)}
+.cobertura small{color:var(--suave);flex-basis:100%;font-size:.82rem;padding-left:2.5rem}
+
+/* ---------------------------------------------------------------- plan de accion */
+.plan{background:#fff;border:1px solid var(--linea);border-radius:10px;margin:0 0 1rem;padding:1.1rem}
+.plan h2{font-size:1.25rem;margin:0 0 .3rem}
+.plan .intro{color:var(--suave);margin:0 0 .8rem}
+.grupo{border-top:1px solid var(--linea);padding:.8rem 0 .4rem}
+.grupo h3{align-items:center;display:flex;flex-wrap:wrap;font-size:1.05rem;gap:.5rem;margin:0}
+.grupo .num{align-items:center;background:var(--acento);border-radius:50%;color:#fff;display:inline-flex;flex:none;font-size:.85rem;height:1.6rem;justify-content:center;width:1.6rem}
+.grupo .total{color:var(--acento-oscuro);margin-left:auto}
+.grupo .explica{color:var(--suave);margin:.3rem 0 .4rem}
+.pasos-plan{margin:.2rem 0 .6rem;padding-left:1.3rem}
+.pasos-plan li{margin:.15rem 0}
+.items{list-style:none;margin:0;padding:0}
+.items li{align-items:baseline;border-top:1px dashed var(--linea);display:flex;gap:.6rem;padding:.45rem 0}
+.items .ir{background:var(--papel);border:1px solid var(--linea);border-radius:6px;color:var(--acento-oscuro);flex:none;font-size:.82rem;font-weight:700;padding:.05rem .4rem;text-decoration:none}
+.items .texto{flex:1}
+.items .monto{flex:none;font-variant-numeric:tabular-nums;white-space:nowrap}
+.etiqueta{background:var(--papel);border-radius:4px;color:var(--suave);display:inline-block;font-size:.75rem;margin-left:.4rem;padding:.02rem .35rem}
+.etiqueta.confirmar{background:#fff4d6;color:#7a4d00}
+.informe .fuga.resaltado{box-shadow:0 0 0 3px #f2c14e;transition:box-shadow .3s}
+
+/* ---------------------------------------------------------------- mensajes y lectura */
+.guia-lectura{background:#fff;border:1px solid var(--linea);border-radius:10px;margin:0 0 1rem;padding:.8rem 1rem}
+.guia-lectura summary{cursor:pointer;font-weight:600}
+.guia-lectura ol{margin:.6rem 0 0;padding-left:1.3rem}
+.guia-lectura li{margin:.3rem 0}
+.mensajes-cobro{background:#fff;border:1px solid var(--linea);border-radius:10px;margin:0 0 1rem;padding:1.1rem}
+.mensajes-cobro h2{font-size:1.25rem;margin:0 0 .3rem}
+.mensajes-cobro .intro{color:var(--suave);margin:0 0 .6rem}
+.mensaje{border-top:1px solid var(--linea)}
+.mensaje summary{align-items:baseline;cursor:pointer;display:flex;gap:.6rem;padding:.6rem 0}
+.mensaje .codigo{background:var(--papel);border-radius:6px;font-size:.82rem;font-weight:700;padding:.05rem .4rem}
+.mensaje .para{flex:1;font-weight:600}
+.mensaje .monto{font-variant-numeric:tabular-nums;white-space:nowrap}
+.mensaje .antes{background:#fff4d6;border-radius:6px;font-size:.92rem;margin:0 0 .5rem;padding:.5rem .7rem}
+.mensaje .asunto{margin:.3rem 0}
+.mensaje pre{background:var(--papel);border:1px solid var(--linea);border-radius:6px;font:.9rem/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;margin:.3rem 0 .6rem;padding:.7rem .8rem;white-space:pre-wrap;word-break:break-word}
+.mensaje .boton{margin-bottom:.8rem}
+.resumen-corto{font-size:1.1rem;font-weight:600;margin:0 0 .8rem}
+.descargas{display:grid;gap:.5rem;grid-template-columns:repeat(2,minmax(0,1fr));margin:0 0 1rem}
+.descarga{align-items:flex-start;display:flex;flex-direction:column;gap:.25rem}
+
+/* ---------------------------------------------------------------- preguntas frecuentes */
+.faq{margin-top:2rem}
+.faq h2{font-size:1.25rem;margin:0 0 .6rem}
+.faq details{background:#fff;border:1px solid var(--linea);border-radius:8px;margin:0 0 .5rem;padding:.7rem 1rem}
+.faq summary{cursor:pointer;font-weight:600}
+.faq details p{margin:.5rem 0 0}
+
+@media (max-width:760px){
+  .tres-pasos,.lista-archivos,.descargas{grid-template-columns:minmax(0,1fr)}
+  .stepper li{border-radius:10px;flex-direction:column;font-size:.8rem;gap:.25rem;padding:.4rem .3rem;text-align:center}
+  .grupo .total{margin-left:0;width:100%}
+  .items li{flex-wrap:wrap}
+  .items .monto{margin-left:auto}
+}

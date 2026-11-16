@@ -2,7 +2,7 @@
 
 Plan vivo. Cada tarea se marca con [x] cuando está hecha y verificada. Al retomar una sesión: leer este archivo y `BITACORA.md`, correr `python -m pytest -q` y `python scripts/evaluar.py`, y seguir desde la primera tarea sin marcar.
 
-- Estado: **Todas las fases terminadas y verificadas el 15/11/2026.** Resultado: demo A y demo B con 12 de 12 fugas y 0 falsos positivos; 174 pruebas en verde. Web publicada en https://detective-fugas-web.vercel.app Pendiente solo lo que le toca a Gustavo (sección 7.3): respaldo, push, despliegue y publicación.
+- Estado: **Todas las fases terminadas y verificadas el 15/11/2026.** Resultado: demo A y demo B con 12 de 12 fugas y 0 falsos positivos; 182 pruebas en verde. Web publicada en https://detective-fugas-web.vercel.app Pendiente solo lo que le toca a Gustavo (sección 7.3): respaldo, push, despliegue y publicación.
 - Entrega del concurso: jueves 19 de noviembre de 2026, 23:59 (hora de Chile).
 - Meta de puntaje: 12 de 12 fugas en las dos demos, con 0 falsos positivos (el mínimo exigido es 10 de 12).
 

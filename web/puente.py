@@ -8,11 +8,12 @@ from pathlib import Path
 
 from detective import __version__, mensajes
 from detective.auditoria import NOMBRE_CONFIG, Entrada, auditar
-from detective.informe import archivos_de_salida, cuerpo_html
-from detective.lectores import ErrorLectura, es_tabla
+from detective.informe import archivos_de_salida, cuerpo_html, plan_html
+from detective.lectores import ErrorLectura, es_tabla, leer_tabla
 from detective.modelo import cargar_registros
 from detective.config import cargar_config
-from detective.plantillas import ROLES, cargar_plantillas, reconocer_archivo
+from detective.plantillas import (ROLES, PlantillaNoEncontrada, cargar_plantillas, fila_de_encabezado_probable,
+                                  reconocer_archivo)
 
 ENTRADA = Path("/entrada")
 _PLANTILLAS = None
@@ -27,6 +28,20 @@ def _plantillas():
 
 def _entradas():
     return [Entrada(p.name, p.read_bytes()) for p in sorted(ENTRADA.iterdir()) if p.is_file()]
+
+
+def _no_reconocido(e) -> str:
+    """Explicacion para personas (sin comandos ni nombres de carpetas del proyecto)."""
+    try:
+        fila = fila_de_encabezado_probable(leer_tabla(e.nombre, e.datos))
+    except ErrorLectura:
+        fila = None
+    columnas = ""
+    if fila:
+        nombres = [str(c).strip() for c in fila.celdas if c is not None and str(c).strip()][:8]
+        columnas = " Encontré estas columnas: " + ", ".join(nombres) + "."
+    return ("No reconocí qué es este archivo." + columnas + " Puede que tu banco o tu sistema lo exporte con otros "
+            "nombres de columna. Mira la pregunta \"Mi archivo sale como no reconocido\" más abajo.")
 
 
 def roles() -> str:
@@ -53,7 +68,10 @@ def reconocer() -> str:
             lectura = reconocer_archivo(e.nombre, e.datos, _plantillas())
             filas = len(cargar_registros(lectura, cargar_config(None)).registros)
             resultado.append({"nombre": e.nombre, "rol": lectura.plantilla.rol,
-                              "titulo": ROLES[lectura.plantilla.rol]["titulo"], "filas": filas, "error": ""})
+                              "titulo": ROLES[lectura.plantilla.rol]["titulo"], "filas": filas,
+                              "error": "" if filas else "El archivo no tiene filas con datos: ¿lo llenaste y lo guardaste?"})
+        except PlantillaNoEncontrada:
+            resultado.append({"nombre": e.nombre, "rol": "", "titulo": "", "filas": None, "error": _no_reconocido(e)})
         except ErrorLectura as error:
             resultado.append({"nombre": e.nombre, "rol": "", "titulo": "", "filas": None, "error": str(error)})
     return json.dumps(resultado, ensure_ascii=False)
@@ -70,6 +88,9 @@ def auditar_entrada(roles_json: str = "{}", tratamiento: str = "usted") -> str:
     return json.dumps({
         "error": "",
         "cuerpo_html": cuerpo_html(res),
+        "plan_html": plan_html(res),
+        "borradores": [{k: b[k] for k in ("clase", "codigo", "hallazgo", "para", "asunto", "monto", "cuerpo", "antes")}
+                       for b in borradores],
         "archivos": {n: salidas[n] for n in ("informe.md", "hallazgos.json", "mensajes_cobro.md", "informe.html")},
         "hallazgos": len(res.hallazgos),
         "total_clp": sum(h.impacto_clp for h in res.hallazgos),

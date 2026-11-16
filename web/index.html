@@ -17,8 +17,35 @@
   </div>
 </header>
 
+<section class="como ancho" aria-labelledby="titulo-como">
+  <h2 id="titulo-como">Cómo se usa, en 3 pasos</h2>
+  <p class="como-intro">Esta herramienta revisa los archivos que ya descargas de tu banco y del SII, y te muestra la plata que se te está escapando: trabajos que nadie cobró, facturas impagas, ingresos sin boleta, software pagado de más e IVA mal calculado.</p>
+  <ol class="tres-pasos">
+    <li>
+      <span class="paso-num">1</span>
+      <h3>Descarga tus archivos</h3>
+      <p>La cartola de tu banco y el Registro de Ventas del SII de los últimos 3 meses. Si tienes más (ventas con tarjeta, cotizaciones), mejor. Te explico dónde está cada uno.</p>
+    </li>
+    <li>
+      <span class="paso-num">2</span>
+      <h3>Súbelos aquí</h3>
+      <p>Arrástralos a la página. Reconozco solo qué es cada archivo y te digo qué puedo revisar con lo que subiste.</p>
+    </li>
+    <li>
+      <span class="paso-num">3</span>
+      <h3>Sigue tu plan de acción</h3>
+      <p>Te muestro cada fuga con la fila del archivo que la prueba, qué hacer primero y los mensajes de cobro ya redactados.</p>
+    </li>
+  </ol>
+  <div class="acciones">
+    <button type="button" class="boton" id="empezar">Empezar con mis archivos</button>
+    <button type="button" class="boton secundario" id="ver-ejemplo">Primero ver un ejemplo</button>
+  </div>
+  <p class="nota">Toma unos 15 minutos la primera vez (casi todo es descargar los archivos). No necesitas crear una cuenta ni pagar nada.</p>
+</section>
+
 <nav class="modos ancho" aria-label="Qué quieres ver">
-  <button type="button" id="boton-demo" class="modo activo" aria-pressed="true">Ver la demo</button>
+  <button type="button" id="boton-demo" class="modo activo" aria-pressed="true">Ver el ejemplo</button>
   <button type="button" id="boton-mios" class="modo" aria-pressed="false">Usar mis archivos</button>
 </nav>
 
@@ -29,79 +56,145 @@
       <span id="puntaje"></span>
       <span class="ojo">Ojo: todavía no se ha probado con archivos reales de bancos. Con los tuyos, revisa cada hallazgo contra tu archivo y con tu contador antes de cobrar o emitir algo.</span>
     </div>
-    <p class="explica">Así se ve un informe: cada fuga dice cuánta plata es, en qué archivo y en qué fila está la prueba, y qué hacer. Baja y míralo, o prueba con los tuyos en "Usar mis archivos".</p>
+    <div class="ayuda">
+      <strong>¿Qué estás viendo?</strong>
+      <p>El resultado que obtendrías con tus propios archivos, usando una empresa de ejemplo. Arriba está tu <b>plan de acción</b> (qué hacer y en qué orden), después los <b>mensajes de cobro</b> listos para copiar y al final el <b>informe completo</b> con la prueba de cada fuga. Cuando quieras, prueba con los tuyos.</p>
+      <button type="button" class="boton" id="ir-a-mios">Probar con mis archivos</button>
+    </div>
+    <div id="guia-demo"></div>
+    <div id="plan-demo"></div>
+    <div id="mensajes-demo"></div>
     <div class="acciones">
-      <a class="boton secundario" href="demo/informe.md" download>Descargar informe.md</a>
-      <a class="boton secundario" href="demo/hallazgos.json" download>Descargar hallazgos.json</a>
-      <a class="boton secundario" href="demo/mensajes_cobro.md" download>Descargar mensajes_cobro.md</a>
-      <button type="button" class="boton secundario" id="recalcular">Volver a calcular la demo aquí</button>
+      <a class="boton secundario" href="demo/informe.html" download>Descargar informe para imprimir</a>
+      <a class="boton secundario" href="demo/mensajes_cobro.md" download>Descargar mensajes de cobro</a>
+      <button type="button" class="boton secundario" id="recalcular">Volver a calcular el ejemplo aquí</button>
     </div>
     <p id="estado-demo" class="estado" role="status" aria-live="polite"></p>
-    <div id="informe-demo" class="hoja"><p class="cargando">Cargando el informe de la demo...</p></div>
+    <div id="informe-demo" class="hoja"><p class="cargando">Cargando el informe de ejemplo...</p></div>
   </section>
 
   <section id="vista-mios" hidden>
-    <ol class="pasos">
-      <li>
-        <h2>Elige tus archivos</h2>
-        <p>Exporta lo que tengas desde tu banco y tus sistemas, y arrástralo aquí. El único obligatorio es la cartola del banco; con más archivos, encuentro más fugas.</p>
-        <ul class="tipos">
-          <li><strong>Cartola del banco</strong> (CSV o Excel)</li>
-          <li><strong>Ventas con tarjeta</strong> (Mercado Pago, Transbank)</li>
-          <li><strong>Registro de Ventas y de Compras del SII</strong></li>
-          <li><strong>Planilla de cotizaciones</strong> o presupuestos</li>
-          <li><strong>Equipo y licencias</strong> de software</li>
-        </ul>
-        <input type="file" id="archivos" multiple accept=".csv,.xlsx,.xlsm,.txt,.json" class="oculto">
-        <label id="zona" class="zona" for="archivos">
-          <span class="zona-titulo">Arrastra tus archivos aquí</span>
-          <span class="zona-sub">o haz clic para elegirlos (CSV y XLSX; puedes elegir varios)</span>
-        </label>
-        <p class="nota">¿No tienes archivos a mano? Baja los de la demo y súbelos para probar:
-          <span id="archivos-demo"></span>
-        </p>
-      </li>
-      <li id="paso-revisar" hidden>
-        <h2>Revisa qué es cada archivo</h2>
-        <p>Reconocí cada archivo por sus columnas. Si me equivoqué, cámbialo en la lista.</p>
-        <div class="tabla-scroll">
-          <table id="tabla-archivos">
-            <thead><tr><th>Archivo</th><th>Qué es</th><th>Filas leídas</th><th></th></tr></thead>
-            <tbody></tbody>
-          </table>
-        </div>
-        <div class="opciones" id="sin-config" hidden>
-          <p><strong>Datos de tu empresa.</strong> Sirven para el título del informe y para saber hasta qué día revisar.</p>
-          <label>Nombre de tu empresa
-            <input type="text" id="empresa" autocomplete="organization" placeholder="Por ejemplo: Taller Los Aromos SpA">
-          </label>
-          <label>Último día que cubren tus archivos (si lo dejas vacío, uso la última fecha que encuentre)
-            <input type="date" id="corte">
-          </label>
-        </div>
-        <div class="opciones">
-          <label>¿Cómo tratas a tus clientes en los mensajes de cobro?
-            <select id="tratamiento">
-              <option value="usted">De usted</option>
-              <option value="tu">De tú</option>
-            </select>
-          </label>
-        </div>
-        <div class="acciones">
-          <button type="button" class="boton" id="auditar">Buscar fugas</button>
-          <button type="button" class="boton secundario" id="limpiar">Empezar de nuevo</button>
-        </div>
-      </li>
+    <ol class="stepper" aria-label="Avance">
+      <li id="etapa-1" class="actual"><span>1</span>Sube tus archivos</li>
+      <li id="etapa-2"><span>2</span>Revisa</li>
+      <li id="etapa-3"><span>3</span>Tu informe</li>
     </ol>
-    <p id="estado-mios" class="estado" role="status" aria-live="polite"></p>
-    <div id="resultado" hidden>
-      <div class="acciones" id="descargas"></div>
-      <div id="informe-mio" class="hoja"></div>
-      <details class="mensajes">
-        <summary>Ver los borradores de mensajes de cobro</summary>
-        <pre id="texto-mensajes"></pre>
-      </details>
+
+    <div class="tarjeta-paso" id="paso-subir">
+      <h2>Paso 1: junta y sube tus archivos</h2>
+      <div class="ayuda">
+        <strong>¿Qué hago aquí?</strong>
+        <p>Descarga desde tu banco y desde el SII los archivos de los <b>últimos 3 meses</b> (los mismos meses en todos) y arrástralos al recuadro de abajo. No necesitas tenerlos todos: con la <b>cartola del banco</b> y el <b>Registro de Ventas del SII</b> ya reviso la mayoría de las fugas. Más abajo te explico dónde conseguir cada archivo y para qué sirve.</p>
+      </div>
+      <input type="file" id="archivos" multiple accept=".csv,.xlsx,.xlsm,.txt,.json" class="oculto">
+      <label id="zona" class="zona" for="archivos">
+        <span class="zona-titulo">Arrastra tus archivos aquí</span>
+        <span class="zona-sub">o haz clic para elegirlos. Sirven Excel (.xlsx) y CSV, y puedes subir varios a la vez, incluso uno por mes.</span>
+      </label>
+      <p class="nota">¿Solo quieres probar? Descarga los archivos del ejemplo y súbelos: <span id="archivos-demo"></span></p>
+      <p id="estado-mios" class="estado" role="status" aria-live="polite"></p>
+
+      <div class="cobertura" id="cobertura" aria-live="polite"></div>
+
+      <h3 class="subtitulo">Qué archivos sirven y dónde conseguirlos</h3>
+      <p class="nota">Toca cada uno para ver los pasos. Los que no puedo comprobar en el sitio oficial van marcados [sin verificar]: el nombre exacto del menú puede cambiar.</p>
+      <div class="lista-archivos" id="lista-archivos"></div>
     </div>
+
+    <div class="tarjeta-paso" id="paso-revisar" hidden>
+      <h2>Paso 2: revisa que reconocí bien cada archivo</h2>
+      <div class="ayuda">
+        <strong>¿Qué hago aquí?</strong>
+        <p>Mira la columna "Qué es": ahí te digo qué reconocí en cada archivo. Si me equivoqué, cámbialo en la lista. Si un archivo no sirve, elige "No usar este archivo". Puedes seguir agregando archivos en el paso 1 cuando quieras. Cuando esté todo bien, aprieta <b>Buscar fugas</b>.</p>
+      </div>
+      <div class="tabla-scroll">
+        <table id="tabla-archivos">
+          <thead><tr><th>Archivo</th><th>Qué es</th><th>Filas leídas</th><th></th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="opciones" id="sin-config" hidden>
+        <p><strong>Datos de tu empresa</strong></p>
+        <p class="nota">Sirven para el título del informe y para saber hasta qué día revisar. Si los dejas vacíos, igual funciona.</p>
+        <label>Nombre de tu empresa
+          <input type="text" id="empresa" autocomplete="organization" placeholder="Por ejemplo: Taller Los Aromos SpA">
+        </label>
+        <label>Último día que cubren tus archivos (si lo dejas vacío, uso la última fecha que encuentre)
+          <input type="date" id="corte">
+        </label>
+      </div>
+      <div class="opciones">
+        <label>¿Cómo tratas a tus clientes en los mensajes de cobro?
+          <select id="tratamiento">
+            <option value="usted">De usted (más formal)</option>
+            <option value="tu">De tú (más cercano)</option>
+          </select>
+        </label>
+      </div>
+      <div class="acciones">
+        <button type="button" class="boton" id="auditar">Buscar fugas</button>
+        <button type="button" class="boton secundario" id="limpiar">Empezar de nuevo</button>
+      </div>
+    </div>
+
+    <div class="tarjeta-paso" id="resultado" hidden>
+      <h2>Paso 3: tu informe</h2>
+      <p id="resumen-mio" class="resumen-corto"></p>
+      <div class="ayuda">
+        <strong>¿Qué hago ahora?</strong>
+        <p>Empieza por tu <b>plan de acción</b>: está ordenado para que recuperes primero la plata más fácil. Antes de cobrar o emitir algo, comprueba la fuga: cada una dice el archivo y la fila exacta, ábrelo en Excel y ve a esa fila. Guarda el informe para imprimir: es el que le muestras a tu contador.</p>
+      </div>
+      <div id="guia-mio"></div>
+      <div id="plan-mio"></div>
+      <div id="mensajes-mio"></div>
+      <h3 class="subtitulo">Guarda tus resultados</h3>
+      <div class="descargas" id="descargas"></div>
+      <div id="informe-mio" class="hoja"></div>
+    </div>
+  </section>
+
+  <section class="faq" aria-labelledby="titulo-faq">
+    <h2 id="titulo-faq">Preguntas frecuentes</h2>
+    <details>
+      <summary>¿Mis archivos están seguros?</summary>
+      <p>Sí. La página lee tus archivos dentro de tu navegador y no los envía a ningún servidor: ni a nosotros ni a nadie. Lo único que descarga de internet es el motor de cálculo. Cuando cierras la pestaña, los datos desaparecen.</p>
+    </details>
+    <details>
+      <summary>¿Qué archivos necesito como mínimo?</summary>
+      <p>La cartola del banco. Pero si además subes el Registro de Ventas del SII, reviso 4 de los 5 tipos de fuga, así que vale la pena sacarlo. El recuadro "Qué puedo revisar con lo que subiste" te dice en todo momento qué te falta.</p>
+    </details>
+    <details>
+      <summary>¿De cuántos meses descargo los archivos?</summary>
+      <p>De los últimos 3 meses es un buen comienzo, y los mismos meses en todos los archivos. Si subes menos de 2 meses, algunas fugas no alcanzan a verse (por ejemplo, una factura impaga necesita más de 30 días).</p>
+    </details>
+    <details>
+      <summary>Mi archivo sale como "no reconocido". ¿Qué hago?</summary>
+      <p>Cada banco y cada sistema le pone nombres distintos a sus columnas, y la herramienta aún no conoce todos. Prueba esto: (1) descarga el archivo en otro formato (si bajaste Excel, prueba CSV, o al revés); (2) no le cambies ni le borres nada antes de subirlo; (3) si igual no lo reconoce, quien te ayude con la tecnología puede agregar tu banco en 2 minutos siguiendo la guía del README del proyecto. Mientras tanto, elige "No usar este archivo" y sigue con los demás.</p>
+    </details>
+    <details>
+      <summary>No tengo planilla de cotizaciones, ni de licencias, ni del equipo.</summary>
+      <p>Son opcionales. Si quieres revisar esas fugas, en el paso 1 cada una tiene una <b>planilla para llenar</b>: descárgala, ábrela con Excel, llénala con tus datos (deja la primera fila tal cual) y súbela. Al guardar, elige el formato "CSV UTF-8" o "Libro de Excel".</p>
+    </details>
+    <details>
+      <summary>Encontró una fuga que no es tal. ¿Está malo?</summary>
+      <p>Puede pasar, porque la herramienta solo ve lo que hay en tus archivos. Por ejemplo, si un cliente te pagó dos facturas en una sola transferencia, o si un ingreso fue un préstamo, lo marcará igual. Por eso cada fuga trae la fila que la prueba: compruébala y, si no corresponde, ignórala. Las que dicen "confírmala antes de actuar" son las más dudosas.</p>
+    </details>
+    <details>
+      <summary>¿Envía los mensajes de cobro por mí?</summary>
+      <p>No, nunca. Solo los redacta. Tú completas lo que está entre corchetes (tus datos para el pago, tu contacto y tu nombre), los copias y los mandas desde tu correo o WhatsApp.</p>
+    </details>
+    <details>
+      <summary>¿Reemplaza a mi contador?</summary>
+      <p>No. Es una lista de cosas para revisar. Lo que tenga que ver con el SII o con corregir facturas, decídelo con tu contador: llévale el informe para imprimir.</p>
+    </details>
+    <details>
+      <summary>¿Por qué tarda la primera vez?</summary>
+      <p>Porque el navegador descarga el motor de cálculo (unos 15 MB). Después queda guardado y es mucho más rápido.</p>
+    </details>
+    <details>
+      <summary>¿Cuánto cuesta?</summary>
+      <p>Nada. Es gratis y de código abierto.</p>
+    </details>
   </section>
 </main>
 

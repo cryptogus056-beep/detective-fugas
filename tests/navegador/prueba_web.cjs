@@ -27,6 +27,8 @@ const { chromium } = require("playwright");
   salida.cabecera = await pagina.textContent("header");
   salida.aviso_demo = await pagina.textContent("#vista-demo .aviso");
   salida.fugas_demo = await pagina.locator("#informe-demo .fuga").count();
+  salida.plan_demo_grupos = await pagina.locator("#plan-demo .grupo").count();
+  salida.mensajes_demo = await pagina.locator("#mensajes-demo details.mensaje").count();
   salida.titulo_informe = await pagina.textContent("#informe-demo .informe h1");
   salida.dominios_solo_demo = [...visto.dominios];
   if (capturas) await pagina.screenshot({ path: path.join(capturas, "demo_escritorio.png"), fullPage: false });
@@ -41,6 +43,8 @@ const { chromium } = require("playwright");
     const select = tr.querySelector("select");
     return [tr.children[0].textContent, select ? select.value : "config", tr.children[2].textContent];
   }));
+  salida.cobertura = await pagina.evaluate(() => document.getElementById("cobertura").innerText.split("\n")[0]);
+  salida.tarjetas_listas = await pagina.locator(".tarjeta.listo").count();
   if (capturas) await pagina.screenshot({ path: path.join(capturas, "mios_revisar.png"), fullPage: true });
   await pagina.click("#auditar");
   await pagina.waitForSelector("#resultado:not([hidden]) .informe h1", { timeout: 120000 });
@@ -50,6 +54,15 @@ const { chromium } = require("playwright");
   salida.mensajes_md = await pagina.evaluate(() => estado.ultimo.archivos["mensajes_cobro.md"]);
   salida.descargas = await pagina.$$eval("#descargas a", (as) => as.map((a) => a.download));
   salida.xlsx = await pagina.evaluate(() => estado.xlsx);
+  salida.plan_grupos = await pagina.locator("#plan-mio .grupo").count();
+  salida.mensajes_tarjetas = await pagina.locator("#mensajes-mio details.mensaje").count();
+  salida.etapas = await pagina.$$eval(".stepper li", (lis) => lis.map((l) => l.className));
+  await pagina.click("#plan-mio a.ir");
+  await pagina.waitForTimeout(1500);
+  salida.plan_lleva_al_detalle = await pagina.evaluate(() => {
+    const e = document.querySelector('#informe-mio [id="H01"]'); const r = e.getBoundingClientRect();
+    return r.top >= -5 && r.top < window.innerHeight;
+  });
   if (capturas) await pagina.screenshot({ path: path.join(capturas, "mios_resultado.png"), fullPage: false });
 
   // Sin archivo de datos de empresa: la página pregunta el nombre y el último día

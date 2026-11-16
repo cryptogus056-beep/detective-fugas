@@ -39,6 +39,8 @@ def test_archivos_necesarios_y_ninguno_de_mas(web):
     for nombre in ("index.html", "estilo.css", "app.js", "puente.py", "py/manifiesto.json", "py/detective/auditoria.py",
                    "py/detective/reglas/diferencia_iva.py", "py/plantillas/banco_monto_con_signo.json",
                    "demo/informe_cuerpo.html", "demo/hallazgos.json", "demo/informe.md", "demo/mensajes_cobro.md",
+                   "demo/plan_cuerpo.html", "demo/borradores.json", "llenar/cotizaciones.csv", "llenar/equipo.csv",
+                   "llenar/licencias.csv",
                    "demo/datos/cartola_banco.csv", "demo/datos/cotizaciones.xlsx", "demo/datos/config.json"):
         assert (web / nombre).is_file(), f"falta web/{nombre}"
     assert not (web / "py" / "detective" / "llm.py").exists(), "la web no debe llevar el módulo que llama a una API"
@@ -56,7 +58,9 @@ def test_textos_obligatorios_de_la_pagina(web):
     pagina = (web / "index.html").read_text(encoding="utf-8")
     assert '<html lang="es">' in pagina and "viewport" in pagina
     for texto in ("Detective de Fugas Pyme", "La plata que se pierde no hace ruido: hay que contarla fila por fila.",
-                  "Datos 100% ficticios", "Tus archivos no salen de tu computador", "Usar mis archivos"):
+                  "Datos 100% ficticios", "Tus archivos no salen de tu computador", "Usar mis archivos",
+                  "Cómo se usa, en 3 pasos", "¿Qué hago aquí?", "¿Qué hago ahora?", "Preguntas frecuentes",
+                  "Paso 1: junta y sube tus archivos", "Paso 2: revisa", "Paso 3: tu informe"):
         assert texto in pagina, texto
     demo = (web / "demo" / "informe_cuerpo.html").read_text(encoding="utf-8")
     assert demo.count('<section class="fuga"') == 12 and "Resumen en 5 líneas" in demo
@@ -161,7 +165,16 @@ def test_navegador_subir_demo_b_da_el_mismo_resultado_que_la_cli(navegador, raiz
     assert roles == {"config.json": "config", "equipo.csv": "equipo", "licencias.csv": "licencias",
                      "movimientos_cuenta.csv": "banco", "presupuestos.csv": "cotizaciones",
                      "rcv_compras.csv": "rcv_compras", "rcv_ventas.csv": "rcv_ventas", "ventas_transbank.csv": "pos"}
-    assert navegador["descargas"] == ["informe.md", "hallazgos.json", "mensajes_cobro.md", "informe.html"]
+    assert navegador["descargas"] == ["informe.html", "mensajes_cobro.md", "informe.md", "hallazgos.json"]
+
+
+def test_navegador_la_guia_acompana_todo_el_proceso(navegador):
+    assert navegador["plan_demo_grupos"] == 4 and navegador["mensajes_demo"] == 5         # el ejemplo trae plan y mensajes
+    assert navegador["cobertura"] == "Qué puedo revisar con lo que subiste: 5 de 5 tipos de fuga"
+    assert navegador["tarjetas_listas"] == 7                                               # cada tipo de archivo se marca
+    assert navegador["plan_grupos"] == 4 and navegador["mensajes_tarjetas"] == 5
+    assert navegador["etapas"] == ["hecho", "hecho", "actual"]                             # el indicador avanza al paso 3
+    assert navegador["plan_lleva_al_detalle"] is True
 
 
 def test_navegador_sin_archivo_de_empresa_la_pagina_pregunta_los_datos(navegador):

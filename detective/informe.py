@@ -415,3 +415,78 @@ def archivos_de_salida(res, borradores: list = None, tratamiento: str = "usted")
         "descartados.json": texto_json(descartados_json(res)),
         "ambiguas.json": texto_json(res.ambiguas),
     }
+
+
+# --------------------------------------------------------------------------- plan de accion (web)
+
+GRUPOS_PLAN = [
+    ("cobrar", ("cotizacion_sin_cobro", "pago_pendiente_30d"), "Cobra lo que te deben",
+     "Es la plata más directa de recuperar: alguien te debe por un trabajo que ya hiciste.",
+     ["Antes de cobrar, revisa en tu banco que el pago no haya llegado después del último día que cubren tus archivos.",
+      "Si es una cotización sin facturar, emite primero la factura o la boleta.",
+      "Abre \"Mensajes de cobro listos para enviar\", completa lo que está entre corchetes y envíalo tú por correo "
+      "o WhatsApp."]),
+    ("documentos", ("abono_sin_documento",), "Regulariza la plata que entró sin boleta ni factura",
+     "Si fue una venta y no tiene documento, el SII lo puede detectar.",
+     ["Confirma con tu contador, o revisando tus registros, si cada ingreso fue una venta.",
+      "Si fue una venta y no tiene documento, emite la boleta o la factura.",
+      "Si no fue una venta (un préstamo, un aporte tuyo o de un socio, una devolución), no emitas nada y "
+      "cuéntaselo a tu contador."]),
+    ("software", ("suscripcion_duplicada_o_huerfana",), "Deja de pagar software de más",
+     "Es un ahorro que se repite todos los meses.",
+     ["Entra a la cuenta de cada servicio y cancela la suscripción o la licencia que sobra.",
+      "Si te cobraron dos veces lo mismo, pide el reembolso."]),
+    ("iva", ("diferencia_iva",), "Revisa el IVA con tu contador",
+     "Son errores en documentos ya emitidos: se corrigen con tu contador, no por tu cuenta.",
+     ["Descarga el informe para imprimir y llévaselo a tu contador.",
+      "Decidan juntos si corresponde una nota de crédito o de débito, y si hay que cobrarle la diferencia al cliente."]),
+]
+
+
+def plan_de_accion(res) -> list:
+    """Los hallazgos agrupados por lo que hay que hacer con ellos, en el orden en que conviene hacerlo."""
+    grupos = []
+    for clave, tipos, titulo, explica, pasos in GRUPOS_PLAN:
+        hallazgos = sorted((h for h in res.hallazgos if h.tipo in tipos), key=lambda h: (-h.impacto_clp, h.id))
+        if not hallazgos:
+            continue
+        items = []
+        for h in hallazgos:
+            nota = []
+            if h.tipo in TIPOS_DE_COBRO and h.mensaje:
+                nota.append(f"mensaje {h.mensaje}")
+            if h.recurrente:
+                nota.append(f"{formato_clp(h.impacto_mensual_clp)} cada mes")
+            items.append({"id": h.id, "texto": referencia(h), "monto": h.impacto_clp, "notas": nota,
+                          "confirmar": h.confianza != "alta"})
+        grupos.append({"clave": clave, "titulo": titulo, "explica": explica, "pasos": pasos, "items": items,
+                       "total": sum(h.impacto_clp for h in hallazgos)})
+    return grupos
+
+
+def plan_html(res) -> str:
+    grupos = plan_de_accion(res)
+    s = ['<section class="plan">', "<h2>Tu plan de acción</h2>"]
+    if not grupos:
+        s += ["<p>No encontré fugas con evidencia en tus archivos: por ahora no hay nada que hacer. Revisa "
+              "\"Lo que no pude revisar\" en el informe por si faltó algún archivo.</p>", "</section>"]
+        return "\n".join(s) + "\n"
+    s.append('<p class="intro">Hazlo en este orden: primero lo que te devuelve más plata con menos trabajo. '
+             'Toca el código de una fuga (por ejemplo H01) para ver su detalle y su evidencia en el informe.</p>')
+    for n, g in enumerate(grupos, start=1):
+        s += [f'<div class="grupo grupo-{g["clave"]}">',
+              f'<h3><span class="num">{n}</span>{_marcas(g["titulo"])}'
+              f'<span class="total">{formato_clp(g["total"])}</span></h3>',
+              f'<p class="explica">{_marcas(g["explica"])}</p>', '<ol class="pasos-plan">']
+        s += [f"<li>{_marcas(p)}</li>" for p in g["pasos"]]
+        s += ["</ol>", '<ul class="items">']
+        for it in g["items"]:
+            extra = "".join(f'<span class="etiqueta">{_marcas(x)}</span>' for x in it["notas"])
+            if it["confirmar"]:
+                extra += '<span class="etiqueta confirmar">confírmala antes de actuar</span>'
+            s.append(f'<li><a class="ir" href="#{it["id"]}" data-id="{it["id"]}">{it["id"]}</a>'
+                     f'<span class="texto">{_marcas(it["texto"])}{extra}</span>'
+                     f'<strong class="monto">{formato_clp(it["monto"])}</strong></li>')
+        s += ["</ul>", "</div>"]
+    s.append("</section>")
+    return "\n".join(s) + "\n"

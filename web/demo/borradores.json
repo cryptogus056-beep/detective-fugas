@@ -1,0 +1,137 @@
+[
+  {
+    "clase": "mensaje",
+    "codigo": "M01",
+    "hallazgo": "H01",
+    "para": "Restaurante Ficticio La Caleta Ltda",
+    "asunto": "Cotización COT-0118: documento y pago pendientes ($1.499.400)",
+    "monto": "$1.499.400",
+    "cuerpo": "Buenos días, equipo de Restaurante Ficticio La Caleta Ltda:\n\nJunto con saludar, le escribo por la cotización COT-0118 (Reparacion compresor), que usted aceptó el 03/09/2026 por $1.499.400 (neto $1.260.000 más IVA).\n\nAl revisar nuestros registros notamos que quedó pendiente enviarle la factura por ese trabajo. Le pedimos disculpas por la demora: se la adjuntamos en este mensaje, por $1.499.400.\n\nPuede pagar por transferencia a: [tu banco, tipo y número de cuenta, RUT y correo para el comprobante].\n\nSi ya pagó o ve algún error de nuestra parte, le agradecería avisarnos para corregirlo de inmediato.\n\nCualquier duda, escríbame a [tu correo o teléfono].\n\nSaludos cordiales,\n[Tu nombre]\nClimatizacion Austral Ficticia SpA",
+    "antes": [
+      "Emite la factura por $1.499.400 y adjúntala al mensaje.",
+      "Completa lo que está entre corchetes: tus datos para el pago, tu contacto y tu nombre."
+    ]
+  },
+  {
+    "clase": "mensaje",
+    "codigo": "M02",
+    "hallazgo": "H02",
+    "para": "Minimarket Ficticio Las Lomas SpA",
+    "asunto": "Factura N° 1203 pendiente de pago ($791.350)",
+    "monto": "$791.350",
+    "cuerpo": "Buenos días, equipo de Minimarket Ficticio Las Lomas SpA:\n\nJunto con saludar, le escribo por la factura N° 1203, emitida el 20/08/2026 por $791.350, que en nuestros registros figura sin pago.\n\n¿Nos puede confirmar en qué fecha podrá pagarla? Si ya la pagó, le agradecería enviarnos el comprobante para dejarla al día.\n\nPuede pagar por transferencia a: [tu banco, tipo y número de cuenta, RUT y correo para el comprobante].\n\nSi hay algún problema con la factura o con el servicio, conversemos para resolverlo.\n\nCualquier duda, escríbame a [tu correo o teléfono].\n\nSaludos cordiales,\n[Tu nombre]\nClimatizacion Austral Ficticia SpA",
+    "antes": [
+      "Revisa en tu banco que el pago no haya llegado después del 31/10/2026 (a esa fecha llevaba 72 días sin pago).",
+      "Completa lo que está entre corchetes: tus datos para el pago, tu contacto y tu nombre."
+    ]
+  },
+  {
+    "clase": "mensaje",
+    "codigo": "M03",
+    "hallazgo": "H03",
+    "para": "Oficina Contable Demo Cuentas Claras SpA",
+    "asunto": "Cotización COT-0108: documento y pago pendientes ($476.000)",
+    "monto": "$476.000",
+    "cuerpo": "Buenos días, equipo de Oficina Contable Demo Cuentas Claras SpA:\n\nJunto con saludar, le escribo por la cotización COT-0108 (Instalacion equipo 24.000 BTU), que usted aceptó el 12/08/2026 por $476.000 (neto $400.000 más IVA).\n\nAl revisar nuestros registros notamos que quedó pendiente enviarle la factura por ese trabajo. Le pedimos disculpas por la demora: se la adjuntamos en este mensaje, por $476.000.\n\nPuede pagar por transferencia a: [tu banco, tipo y número de cuenta, RUT y correo para el comprobante].\n\nSi ya pagó o ve algún error de nuestra parte, le agradecería avisarnos para corregirlo de inmediato.\n\nCualquier duda, escríbame a [tu correo o teléfono].\n\nSaludos cordiales,\n[Tu nombre]\nClimatizacion Austral Ficticia SpA",
+    "antes": [
+      "Emite la factura por $476.000 y adjúntala al mensaje.",
+      "Completa lo que está entre corchetes: tus datos para el pago, tu contacto y tu nombre."
+    ]
+  },
+  {
+    "clase": "mensaje",
+    "codigo": "M04",
+    "hallazgo": "H04",
+    "para": "Gimnasio Demo Fuerza Sur SpA",
+    "asunto": "Factura N° 1216 pendiente de pago ($386.750)",
+    "monto": "$386.750",
+    "cuerpo": "Buenos días, equipo de Gimnasio Demo Fuerza Sur SpA:\n\nJunto con saludar, le escribo por la factura N° 1216, emitida el 15/09/2026 por $386.750, que en nuestros registros figura sin pago.\n\n¿Nos puede confirmar en qué fecha podrá pagarla? Si ya la pagó, le agradecería enviarnos el comprobante para dejarla al día.\n\nPuede pagar por transferencia a: [tu banco, tipo y número de cuenta, RUT y correo para el comprobante].\n\nSi hay algún problema con la factura o con el servicio, conversemos para resolverlo.\n\nCualquier duda, escríbame a [tu correo o teléfono].\n\nSaludos cordiales,\n[Tu nombre]\nClimatizacion Austral Ficticia SpA",
+    "antes": [
+      "Revisa en tu banco que el pago no haya llegado después del 31/10/2026 (a esa fecha llevaba 46 días sin pago).",
+      "Completa lo que está entre corchetes: tus datos para el pago, tu contacto y tu nombre."
+    ]
+  },
+  {
+    "clase": "mensaje",
+    "codigo": "M05",
+    "hallazgo": "H05",
+    "para": "Tamara Ficticia Morales",
+    "asunto": "Cotización COT-0134: documento y pago pendientes ($220.150)",
+    "monto": "$220.150",
+    "cuerpo": "Buenos días, Tamara Ficticia Morales:\n\nJunto con saludar, le escribo por la cotización COT-0134 (Contrato mantencion trimestral), que usted aceptó el 29/09/2026 por $220.150 (neto $185.000 más IVA).\n\nAl revisar nuestros registros notamos que quedó pendiente enviarle la boleta o factura por ese trabajo. Le pedimos disculpas por la demora: se la adjuntamos en este mensaje, por $220.150.\n\nPuede pagar por transferencia a: [tu banco, tipo y número de cuenta, RUT y correo para el comprobante].\n\nSi ya pagó o ve algún error de nuestra parte, le agradecería avisarnos para corregirlo de inmediato.\n\nCualquier duda, escríbame a [tu correo o teléfono].\n\nSaludos cordiales,\n[Tu nombre]\nClimatizacion Austral Ficticia SpA",
+    "antes": [
+      "Emite la boleta o factura por $220.150 y adjúntala al mensaje.",
+      "Completa lo que está entre corchetes: tus datos para el pago, tu contacto y tu nombre."
+    ]
+  },
+  {
+    "clase": "nota",
+    "codigo": "N01",
+    "hallazgo": "H06",
+    "para": "",
+    "asunto": "Cobraste el neto como si fuera el total",
+    "monto": "$835.000",
+    "cuerpo": "Revisa con tu contador el documento folio 1212 de Colegio Demo Los Aromos: se emitió por el neto cotizado en COT-0121 como si fuera el total. La diferencia es $158.650. Decidan si corresponde corregir el documento y cobrar esa diferencia al cliente.",
+    "antes": []
+  },
+  {
+    "clase": "nota",
+    "codigo": "N02",
+    "hallazgo": "H07",
+    "para": "",
+    "asunto": "Entró plata al banco sin boleta ni factura",
+    "monto": "$398.650",
+    "cuerpo": "Confirma primero qué fue el abono del 09/10/2026 por $398.650 (\"TRANSF. DE 77.436.922-8 VETERINARIA FICTICIA PATITAS SPA\"). Si fue una venta y no tiene documento, emite la boleta o factura. Si no fue una venta (por ejemplo un préstamo, un aporte de un socio o una devolución), no emitas nada y avísale a tu contador; el README explica cómo anotar esos casos para que no vuelvan a aparecer.",
+    "antes": []
+  },
+  {
+    "clase": "nota",
+    "codigo": "N03",
+    "hallazgo": "H08",
+    "para": "",
+    "asunto": "Documento con el IVA mal calculado",
+    "monto": "$500.500",
+    "cuerpo": "Revisa con tu contador el documento folio 1222 de Inmobiliaria Ficticia Altos del Sur SpA: el IVA no es el 19% del neto. La diferencia es $40.950. Decidan si corresponde una nota de débito o de crédito.",
+    "antes": []
+  },
+  {
+    "clase": "nota",
+    "codigo": "N04",
+    "hallazgo": "H09",
+    "para": "",
+    "asunto": "Canva Pro se cobra dos veces al mes",
+    "monto": "$12.990",
+    "cuerpo": "Entra a la cuenta de Canva Pro y revisa por qué hay 2 cobros al mes de $12.990 si tienes 1 licencia. Cancela la suscripción que sobra y pide el reembolso de lo cobrado de más ($38.970 en el periodo).",
+    "antes": []
+  },
+  {
+    "clase": "nota",
+    "codigo": "N05",
+    "hallazgo": "H10",
+    "para": "",
+    "asunto": "Pagas la licencia de Google Workspace de alguien que ya se fue",
+    "monto": "$8.600",
+    "cuerpo": "Da de baja la licencia de Google Workspace de bruno@climatizacionaustral-ficticia.cl: Bruno Ficticio Vera ya no trabaja contigo. Ahorras $8.600 cada mes. Antes de borrarla, respalda sus archivos y correos si los necesitas.",
+    "antes": []
+  },
+  {
+    "clase": "nota",
+    "codigo": "N06",
+    "hallazgo": "H11",
+    "para": "",
+    "asunto": "Entró plata al banco sin boleta ni factura",
+    "monto": "$157.000",
+    "cuerpo": "Confirma primero qué fue el abono del 27/08/2026 por $157.000 (\"TRANSF. DE 23.564.221-2 BENJAMIN FICTICIO SILVA\"). Si fue una venta y no tiene documento, emite la boleta o factura. Si no fue una venta (por ejemplo un préstamo, un aporte de un socio o una devolución), no emitas nada y avísale a tu contador; el README explica cómo anotar esos casos para que no vuelvan a aparecer.",
+    "antes": []
+  },
+  {
+    "clase": "nota",
+    "codigo": "N07",
+    "hallazgo": "H12",
+    "para": "",
+    "asunto": "Venta con tarjeta sin boleta",
+    "monto": "$73.500",
+    "cuerpo": "Busca la boleta de la venta con tarjeta del 18/09/2026 por $73.500 (Mantencion preventiva domicilio, operación 70002411866). Si existe con otra fecha u otro monto, revisa por qué no coinciden. Si no existe, emítela.",
+    "antes": []
+  }
+]

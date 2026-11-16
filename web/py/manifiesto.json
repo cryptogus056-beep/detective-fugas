@@ -24,7 +24,9 @@
     "plantillas/banco_monto_con_signo.json",
     "plantillas/cotizaciones_generica.json",
     "plantillas/equipo.json",
+    "plantillas/equipo_planilla.json",
     "plantillas/licencias.json",
+    "plantillas/licencias_planilla.json",
     "plantillas/mercadopago_ventas.json",
     "plantillas/presupuestos_generica.json",
     "plantillas/sii_rcv_compras.json",
@@ -41,6 +43,11 @@
     "rcv_compras.csv",
     "rcv_ventas.csv",
     "ventas_mercadopago.csv"
+  ],
+  "llenar": [
+    "cotizaciones.csv",
+    "equipo.csv",
+    "licencias.csv"
   ],
   "xlsx": true,
   "empresa_demo": "Climatizacion Austral Ficticia SpA",

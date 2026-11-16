@@ -1,0 +1,10 @@
+{
+  "nombre": "equipo_planilla",
+  "rol": "equipo",
+  "descripcion": "Planilla para llenar del equipo (plantillas_para_llenar/equipo.csv): una persona por fila.",
+  "deteccion": {"encabezado_contiene": ["Nombre", "Correo", "Estado", "Fecha de salida"]},
+  "formato_fecha": ["%d/%m/%Y", "%d-%m-%Y", "%Y-%m-%d"],
+  "numeros": "chileno",
+  "columnas": {"nombre": "Nombre", "email": "Correo", "cargo": "Cargo", "estado": "Estado",
+               "fecha_ingreso": "Fecha de ingreso", "fecha_salida": "Fecha de salida"}
+}

@@ -1,0 +1,9 @@
+{
+  "nombre": "licencias_planilla",
+  "rol": "licencias",
+  "descripcion": "Planilla para llenar de licencias (plantillas_para_llenar/licencias.csv): un usuario de un servicio por fila.",
+  "deteccion": {"encabezado_contiene": ["Servicio", "Usuario", "Costo mensual"]},
+  "numeros": "chileno",
+  "columnas": {"servicio": "Servicio", "usuario": ["Usuario o correo", "Usuario"], "plan": "Plan",
+               "costo_mensual": ["Costo mensual", "Costo mensual ($)"], "estado": "Estado"}
+}

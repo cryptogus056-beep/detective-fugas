@@ -96,10 +96,15 @@ python -m http.server -d web 8000
 
 Abre `http://localhost:8000` en tu navegador.
 
-1. Al abrir ves el informe de la demo ficticia, ya calculado.
-2. Aprieta **Usar mis archivos** y arrastra tus archivos CSV o Excel.
-3. La página te muestra qué reconoció en cada archivo. Si se equivocó, lo cambias en la lista. Si no subiste un archivo con los datos de tu empresa, te pregunta el nombre y el último día que cubren tus archivos.
-4. Aprieta **Buscar fugas**. Ves el informe y puedes descargar `informe.md`, `hallazgos.json`, `mensajes_cobro.md` e `informe.html`.
+La página te guía sola, paso a paso:
+
+1. **Arriba, "Cómo se usa, en 3 pasos"** resume todo el proceso. Si es tu primera vez, aprieta **Primero ver un ejemplo**: verás el resultado completo con una empresa inventada.
+2. **Usar mis archivos, paso 1:** arrastra tus archivos. Debajo hay una tarjeta por cada tipo de archivo que te dice para qué sirve, si es imprescindible u opcional, y los pasos para conseguirlo. Cada tarjeta se marca con un ✓ cuando subes ese archivo, y el recuadro **"Qué puedo revisar con lo que subiste"** te dice cuántos de los 5 tipos de fuga puedo revisar y qué archivo te falta para el resto.
+3. **Paso 2:** revisa que reconocí bien cada archivo (si no, lo cambias en la lista), escribe el nombre de tu empresa y elige si tratas a tus clientes de usted o de tú. Aprieta **Buscar fugas**.
+4. **Paso 3:** tu **plan de acción** agrupa las fugas por lo que hay que hacer (cobrar, regularizar boletas, cortar software, revisar el IVA con tu contador) y en qué orden. Los **mensajes de cobro** tienen un botón para copiarlos. Al final está el informe completo y los botones para guardarlo.
+5. Abajo hay **preguntas frecuentes**: qué hacer si un archivo no se reconoce, de cuántos meses descargar, si los datos están seguros, etc.
+
+¿No tienes planilla de cotizaciones, de licencias de software o del equipo? En el paso 1 cada una trae una **planilla para llenar** (también están en la carpeta `plantillas_para_llenar/`): la abres con Excel, la llenas y la subes.
 
 La página hace todos los cálculos dentro de tu navegador. Lo único que descarga de internet es el motor de cálculo (se llama Pyodide y pesa unos 15 MB la primera vez; después queda guardado en tu navegador).
 
@@ -180,7 +185,7 @@ Estructura del proyecto:
 |---|---|
 | `detective/` | El detector: lectores, plantillas, emparejamiento, reglas, verificador, informe y mensajes |
 | `plantillas/` | Un archivo JSON por formato de banco o sistema |
-| `tests/` | 174 pruebas automáticas (`python -m pytest -q`) |
+| `tests/` | 182 pruebas automáticas (`python -m pytest -q`) |
 | `scripts/` | Generador de las demos, evaluador y constructor de la web |
 | `web/` | La página de demostración |
 | `data/` | Las dos demos ficticias |

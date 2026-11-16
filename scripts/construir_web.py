@@ -12,7 +12,8 @@ Que copia:
     detective/*.py          -> web/py/detective/   (sin llm.py: la web no llama a ninguna API)
     plantillas/*.json       -> web/py/plantillas/
     data/demo/ (1er nivel)  -> web/demo/datos/     (solo los archivos de entrada)
-    informe de la demo      -> web/demo/           (ya calculado, para mostrarlo al abrir)
+    informe de la demo      -> web/demo/           (ya calculado, con su plan de accion y sus mensajes)
+    plantillas_para_llenar/ -> web/llenar/         (planillas vacias para quien no tiene esos archivos)
     openpyxl (lector Excel) -> web/vendor/openpyxl.zip
 """
 import argparse
@@ -29,7 +30,8 @@ sys.path.insert(0, str(RAIZ))
 
 from detective import __version__  # noqa: E402
 from detective.auditoria import Entrada, auditar  # noqa: E402
-from detective.informe import archivos_de_salida, cuerpo_html  # noqa: E402
+from detective import mensajes  # noqa: E402
+from detective.informe import archivos_de_salida, cuerpo_html, plan_html  # noqa: E402
 from detective.plantillas import cargar_plantillas  # noqa: E402
 
 NO_COPIAR = {"llm.py"}
@@ -130,6 +132,17 @@ def construir(web: Path, con_vendor: bool = True, web_real: Path = None) -> dict
         vigentes.add(web / "demo" / nombre)
     _escribir_estable(web / "demo" / "informe_cuerpo.html", cuerpo_html(res))
     vigentes.add(web / "demo" / "informe_cuerpo.html")
+    _escribir_estable(web / "demo" / "plan_cuerpo.html", plan_html(res))
+    vigentes.add(web / "demo" / "plan_cuerpo.html")
+    borradores = [{k: b[k] for k in ("clase", "codigo", "hallazgo", "para", "asunto", "monto", "cuerpo", "antes")}
+                  for b in mensajes.borradores(res)]
+    _escribir_estable(web / "demo" / "borradores.json", json.dumps(borradores, ensure_ascii=False, indent=2) + "\n")
+    vigentes.add(web / "demo" / "borradores.json")
+    llenar = []
+    for ruta in sorted((RAIZ / "plantillas_para_llenar").glob("*.csv")):
+        _copiar_texto(ruta, web / "llenar" / ruta.name)
+        vigentes.add(web / "llenar" / ruta.name)
+        llenar.append(ruta.name)
     puntaje = _puntaje(web / "demo")
     if puntaje:
         _escribir_estable(web / "demo" / "puntaje.json", json.dumps(puntaje, ensure_ascii=False) + "\n")
@@ -138,19 +151,20 @@ def construir(web: Path, con_vendor: bool = True, web_real: Path = None) -> dict
     xlsx = ((web_real or web) / "vendor" / "openpyxl.zip").exists()
     if con_vendor:
         xlsx = _zip_openpyxl(web / "vendor" / "openpyxl.zip")
-    manifiesto = {"version": __version__, "codigo": codigo, "demo": datos_demo, "xlsx": xlsx,
+    manifiesto = {"version": __version__, "codigo": codigo, "demo": datos_demo, "llenar": llenar, "xlsx": xlsx,
                   "empresa_demo": res.config.empresa, "hallazgos_demo": len(res.hallazgos)}
     _escribir_estable(web / "py" / "manifiesto.json", json.dumps(manifiesto, ensure_ascii=False, indent=2) + "\n")
     vigentes.add(web / "py" / "manifiesto.json")
     _limpiar(web / "py", vigentes)
     _limpiar(web / "demo", vigentes)
+    _limpiar(web / "llenar", vigentes)
     return manifiesto
 
 
 def _diferencias(esperado: Path, real: Path) -> list:
     """Archivos de py/ y demo/ que faltan, sobran o cambiaron (sin contar la hora de generacion)."""
     problemas = []
-    for sub in ("py", "demo"):
+    for sub in ("py", "demo", "llenar"):
         nombres = {p.relative_to(esperado) for p in (esperado / sub).rglob("*") if p.is_file()}
         nombres |= {p.relative_to(real) for p in (real / sub).rglob("*") if p.is_file()}
         for nombre in sorted(nombres):

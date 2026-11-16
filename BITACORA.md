@@ -2,7 +2,7 @@
 
 Aquí queda registrado cada error, corrección y decisión durante la construcción con Claude Fable 5.2. Es la base de la parte "cómo lo hice" del post del concurso.
 
-**Resumen:** Fable corrigió 18 cosas (12 que detectó con sus propias pruebas y relecturas, 5 que encontró el crítico y 1 que vio Gustavo al revisar la web publicada); las 3 más importantes fueron:
+**Resumen:** Fable corrigió 19 cosas (12 que detectó con sus propias pruebas y relecturas, 5 que encontró el crítico y 2 a partir de lo que vio Gustavo al usar la web publicada: la tabla que se salía de su recuadro y la falta de una guía de uso); las 3 más importantes fueron:
 
 1. **El informe mezclaba montos.** El crítico (como dueña de pyme) no podía saber cuánta plata era suya: la columna "Monto" a veces era la deuda y a veces el total de un documento cuya pérdida real era otra, y el resumen decía "al mes" para cosas que pasaron una sola vez. Fable separó "monto del documento" de "plata en juego" y reescribió el resumen.
 2. **Los mensajes de cobro envejecían al enviarlos.** Decían "al 31/10 lleva 72 días sin pago" y prometían "le enviaremos la factura esta semana", sin datos para transferir. Ahora no citan fechas que cambian, adjuntan el documento, piden disculpas por la demora y traen entre corchetes lo que el dueño debe completar.
@@ -252,6 +252,13 @@ Formato de cada entrada:
 - Por qué: al agregar las columnas que pidió el crítico ("Plata en juego" y "Qué tan seguro") no volví a medir la tabla en pantalla ancha: la prueba con navegador solo revisaba el celular.
 - Qué cambié: `detective/informe.py`: en la versión HTML el tipo de fuga va como etiqueta encima de "Qué pasó" (8 columnas en vez de 9), montos alineados a la derecha, "Plata en juego" en negrita, la nota del impacto mensual en una segunda línea pequeña, anchos mínimos por columna y un estilo intermedio para pantallas de 900 a 1100 px. `web/estilo.css`: página más ancha (1240 px). `web/index.html`: pie sin la frase repetida. `detective/auditoria.py`: nombres de archivo como código. El informe en Markdown no cambió de estructura.
 - Cómo lo verifiqué: medí en Chromium a 1440, 1280, 1024, 768 y 390 px: la tabla queda dentro de su recuadro en todos y la fila más alta bajó de 201 a 124 px. Nueva prueba `test_navegador_la_tabla_no_se_sale_de_su_recuadro_en_ningun_ancho`. `python -m pytest -q`: 174 passed. Demo A y demo B siguen en 12 de 12, 0 falsos.
+
+## 2026-11-16 09:17 · Fase 9 · Guía paso a paso dentro de la web, a pedido de Gustavo
+
+- Qué pasó: Gustavo, al usar la web publicada, dijo que ni él sabía bien cómo usarla ni cómo sacarle provecho, y pidió una guía para que cualquier dueño de pyme pueda usarla de forma intuitiva.
+- Por qué: la página asumía que la persona ya sabía qué archivos descargar, dónde conseguirlos, qué hacer si le faltaba alguno y qué hacer con el informe. Un informe largo sin un "qué hago ahora" no se aprovecha.
+- Qué cambié: `web/index.html` y `web/app.js`: sección "Cómo se usa, en 3 pasos"; "Usar mis archivos" convertido en un asistente de 3 pasos con indicador de avance y una ayuda "¿Qué hago aquí?" en cada paso; una tarjeta por tipo de archivo (para qué sirve, prioridad, cómo conseguirlo con **[sin verificar]** donde corresponde) que se marca con ✓ al subirlo; recuadro "Qué puedo revisar con lo que subiste" que dice qué falta para cada tipo de fuga; plan de acción agrupado por lo que hay que hacer (`detective/informe.py`, `plan_de_accion`), con códigos que llevan al detalle; mensajes de cobro con botón "Copiar mensaje"; guía "¿Cómo leo este informe?"; descargas con nombres y explicación en palabras simples; 10 preguntas frecuentes. Planillas para llenar (`plantillas_para_llenar/`: cotizaciones, licencias y equipo) con dos plantillas nuevas que las reconocen (`equipo_planilla`, `licencias_planilla`). Los archivos no reconocidos ahora se explican sin comandos ni nombres de carpetas.
+- Cómo lo verifiqué: recorrido completo en Chromium a 1440 y 390 px con capturas revisadas: sin errores de consola, sin desborde horizontal, el recuadro pasa de 3 de 5 a 5 de 5 al subir los archivos, las 7 tarjetas se marcan, el plan tiene 4 grupos y el código H01 lleva al detalle. Corrección en el camino: una tabla de ejemplo dentro de una tarjeta abierta estiraba la columna en celular (se arregló con `minmax(0,1fr)`). Pruebas nuevas en `tests/test_guia.py` y `tests/test_web.py`. `python -m pytest -q`: 182 passed.
 
 ## Crítico
 
