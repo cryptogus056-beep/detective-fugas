@@ -311,8 +311,8 @@ Archivos que leí:
 - `licencias.csv`: licencias de software por usuario, 7 filas leídas.
 - `movimientos_cuenta.csv`: cartola o movimientos del banco, 85 filas leídas.
 - `presupuestos.csv`: cotizaciones o presupuestos, 44 filas leídas.
-- `rcv_compras.csv`: registro de compras del sii, 12 filas leídas.
-- `rcv_ventas.csv`: registro de ventas del sii, 78 filas leídas.
+- `rcv_compras.csv`: registro de Compras del SII, 12 filas leídas.
+- `rcv_ventas.csv`: registro de Ventas del SII, 78 filas leídas.
 - `ventas_transbank.csv`: ventas con tarjeta o link de pago, 48 filas leídas.
 
 ## Lo que no pude revisar

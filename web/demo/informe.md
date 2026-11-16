@@ -312,8 +312,8 @@ Archivos que leí:
 - `cotizaciones.xlsx`: cotizaciones o presupuestos, 49 filas leídas.
 - `equipo.csv`: personas del equipo, 5 filas leídas.
 - `licencias.csv`: licencias de software por usuario, 7 filas leídas.
-- `rcv_compras.csv`: registro de compras del sii, 12 filas leídas.
-- `rcv_ventas.csv`: registro de ventas del sii, 78 filas leídas.
+- `rcv_compras.csv`: registro de Compras del SII, 12 filas leídas.
+- `rcv_ventas.csv`: registro de Ventas del SII, 78 filas leídas.
 - `ventas_mercadopago.csv`: ventas con tarjeta o link de pago, 47 filas leídas.
 
 ## Lo que no pude revisar
@@ -322,7 +322,7 @@ Revisé todos los tipos de fuga: no faltó ningún archivo.
 
 Ten en cuenta:
 
-- 'cotizaciones.xlsx' y 'cotizaciones.csv' traen las mismas filas: usé solo 'cotizaciones.xlsx' para no contar nada dos veces.
+- `cotizaciones.xlsx` y `cotizaciones.csv` traen las mismas filas: usé solo `cotizaciones.xlsx` para no contar nada dos veces.
 - Dejé fuera 14 abonos que no son ventas (aportes de socios, devoluciones, liquidaciones de tarjetas), según tu configuración.
 
 ---

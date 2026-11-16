@@ -8,7 +8,7 @@ Funciona en tu computador, sin claves ni cuentas, y tus archivos no salen de ah�
 
 > **Antes de confiar en un resultado:** todos los datos de ejemplo son 100% ficticios y el detector todavía no se ha probado con archivos reales de bancos. Con tus archivos, revisa cada hallazgo contra la fila que cita y con tu contador antes de cobrar o emitir algo. Este proyecto no reemplaza a tu contador.
 
-**¿No programas?** No necesitas la terminal: usa la página web, que hace lo mismo con dos clics. Dirección: [[LINK_WEB]]. Los pasos están en "Cómo usar la web".
+**¿No programas?** No necesitas la terminal: usa la página web, que hace lo mismo con dos clics. Dirección: https://detective-fugas-web.vercel.app (los pasos están en "Cómo usar la web").
 
 ## Resultado en la demo
 
@@ -84,7 +84,7 @@ El detector no sabe si una plata que entró fue una venta, un préstamo o un apo
 
 ## Cómo usar la web
 
-La misma herramienta funciona en una página web, sin instalar programas. Si alguien ya la publicó, solo abre la dirección ([[LINK_WEB]]). Para levantarla en tu propio computador:
+La misma herramienta funciona en una página web, sin instalar programas. Si alguien ya la publicó, solo abre la dirección (https://detective-fugas-web.vercel.app). Para levantarla en tu propio computador:
 
 ```bash
 python scripts/construir_web.py
@@ -180,7 +180,7 @@ Estructura del proyecto:
 |---|---|
 | `detective/` | El detector: lectores, plantillas, emparejamiento, reglas, verificador, informe y mensajes |
 | `plantillas/` | Un archivo JSON por formato de banco o sistema |
-| `tests/` | 173 pruebas automáticas (`python -m pytest -q`) |
+| `tests/` | 174 pruebas automáticas (`python -m pytest -q`) |
 | `scripts/` | Generador de las demos, evaluador y constructor de la web |
 | `web/` | La página de demostración |
 | `data/` | Las dos demos ficticias |

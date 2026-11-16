@@ -4,7 +4,7 @@
   "periodo_desde": "2026-08-01",
   "periodo_hasta": "2026-10-31",
   "meses_del_periodo": 3,
-  "generado_en": "2026-11-15T16:53:31+00:00",
+  "generado_en": "2026-11-16T01:43:52+00:00",
   "version_detector": "1.0.0",
   "archivos_leidos": [
     {
@@ -561,7 +561,7 @@
   ],
   "no_revisado": [],
   "avisos": [
-    "'cotizaciones.xlsx' y 'cotizaciones.csv' traen las mismas filas: usé solo 'cotizaciones.xlsx' para no contar nada dos veces.",
+    "`cotizaciones.xlsx` y `cotizaciones.csv` traen las mismas filas: usé solo `cotizaciones.xlsx` para no contar nada dos veces.",
     "Dejé fuera 14 abonos que no son ventas (aportes de socios, devoluciones, liquidaciones de tarjetas), según tu configuración."
   ]
 }

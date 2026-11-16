@@ -73,6 +73,20 @@ const { chromium } = require("playwright");
   salida.estado_demo = await pagina.textContent("#estado-demo");
   salida.fugas_demo_recalculada = await pagina.locator("#informe-demo .fuga").count();
 
+  // La tabla no puede salirse de su recuadro ni obligar a mover la página hacia el lado, en ningún ancho
+  salida.desbordes = [];
+  for (const ancho of [1440, 1280, 1024, 768, 390]) {
+    await pagina.setViewportSize({ width: ancho, height: 900 });
+    await pagina.waitForTimeout(100);
+    const d = await pagina.evaluate(() => {
+      const caja = document.querySelector("#informe-demo .tabla"), hoja = document.querySelector("#informe-demo").getBoundingClientRect();
+      return { tabla: caja.scrollWidth > caja.clientWidth + 1, pagina: document.documentElement.scrollWidth > window.innerWidth,
+               fuera: [...document.querySelectorAll("#informe-demo *")].filter((e) => e.getBoundingClientRect().right > hoja.right + 1).length };
+    });
+    if (d.tabla || d.pagina || d.fuera) salida.desbordes.push({ ancho, ...d });
+  }
+  await pagina.setViewportSize({ width: 1200, height: 900 });
+
   if (capturas) {
     await pagina.setViewportSize({ width: 390, height: 844 });
     await pagina.screenshot({ path: path.join(capturas, "demo_celular.png"), fullPage: false });

@@ -83,7 +83,7 @@ Palabras que uso: **neto** es el precio sin IVA; **folio** es el número de la f
 Archivos que leí:
 
 - `banco.csv`: cartola o movimientos del banco, 6 filas leídas.
-- `rcv_ventas.csv`: registro de ventas del sii, 1 filas leídas.
+- `rcv_ventas.csv`: registro de Ventas del SII, 1 filas leídas.
 
 ## Lo que no pude revisar
 

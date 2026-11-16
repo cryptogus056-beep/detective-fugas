@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Informe de fugas: Taller Ficticio de Prueba SpA</title>
-<style>body{background:#fff;margin:0 auto;max-width:1040px;padding:1.5rem 1rem 3rem}</style>
+<style>body{background:#fff;margin:0 auto;max-width:1200px;padding:1.5rem 1rem 3rem}</style>
 </head>
 <body>
 <style>
@@ -16,10 +16,18 @@
 .informe .periodo{color:var(--suave);margin:0}
 .informe .resumen{background:var(--papel);border-left:4px solid var(--acento);border-radius:6px;margin:0;padding:.9rem 1rem .9rem 2.2rem}
 .informe .resumen li{margin:.3rem 0}
-.informe table{border-collapse:collapse;width:100%;font-size:.92rem}
+.informe .tabla{overflow-x:auto}
+.informe table{border-collapse:collapse;width:100%;font-size:.9rem}
 .informe th,.informe td{border-bottom:1px solid var(--linea);padding:.55rem .5rem;text-align:left;vertical-align:top}
 .informe th{background:var(--papel);font-weight:600}
+.informe th.monto,.informe td.monto{text-align:right}
 .informe td.monto{white-space:nowrap;font-variant-numeric:tabular-nums}
+.informe td.fuerte{font-weight:600}
+.informe td.que{min-width:15rem}
+.informe td.accion{min-width:11rem}
+.informe td.evid{min-width:9.5rem}
+.informe td .tipo{color:var(--acento);display:block;font-size:.72rem;font-weight:600;letter-spacing:.03em;margin-bottom:.15rem;text-transform:uppercase}
+.informe td small{color:var(--suave);display:block;font-size:.76rem;white-space:normal}
 .informe .nota{color:var(--suave);font-size:.9rem}
 .informe .fuga{border:1px solid var(--linea);border-radius:8px;margin:0 0 1rem;padding:1rem}
 .informe .fuga .tipo{color:var(--acento);font-size:.8rem;font-weight:600;letter-spacing:.03em;text-transform:uppercase}
@@ -32,13 +40,23 @@
   margin:.3rem 0 0;overflow-x:auto;padding:.55rem .7rem;white-space:pre-wrap;word-break:break-word}
 .informe code{background:var(--papel);border-radius:4px;font:.88em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:.05rem .3rem}
 .informe .pie{border-top:1px solid var(--linea);color:var(--suave);margin-top:2rem;padding-top:1rem}
-@media (max-width:760px){
+@media (max-width:1100px){
+  .informe table{font-size:.86rem}
+  .informe th,.informe td{padding:.5rem .35rem}
+  .informe td.que{min-width:11rem}
+  .informe td.accion{min-width:9rem}
+  .informe td.evid{min-width:8rem}
+}
+@media (max-width:900px){
   .informe table,.informe tbody,.informe tr,.informe td{display:block;width:auto}
   .informe thead{display:none}
   .informe tr{border:1px solid var(--linea);border-radius:8px;margin:0 0 .8rem;padding:.4rem .7rem}
   .informe td{border:0;padding:.25rem 0}
   .informe td::before{color:var(--suave);content:attr(data-etiqueta) ": ";font-size:.85rem}
-  .informe td.monto{white-space:normal}
+  .informe th.monto,.informe td.monto{text-align:left;white-space:normal}
+  .informe td.que,.informe td.accion,.informe td.evid{min-width:0}
+  .informe td .tipo{display:inline;margin-right:.3rem}
+  .informe td small{display:inline;margin-left:.3rem}
   .informe .fuga dl{grid-template-columns:1fr}
   .informe .fuga dt{margin-top:.4rem}
 }
@@ -56,14 +74,16 @@
 <li><strong>Si cobras lo pendiente:</strong> no hay cobros pendientes a clientes; lo que encontré se arregla puertas adentro.</li>
 </ol>
 <h2>Fugas encontradas, de mayor a menor impacto mensual</h2>
+<div class="tabla">
 <table>
-<thead><tr><th>N°</th><th>Tipo</th><th>Qué pasó</th><th>Monto del documento o movimiento</th><th>Plata en juego</th><th>Impacto mensual</th><th>Qué tan seguro</th><th>Evidencia</th><th>Acción</th></tr></thead>
+<thead><tr><th>N°</th><th>Qué pasó</th><th class="monto">Monto del documento o movimiento</th><th class="monto">Plata en juego</th><th class="monto">Impacto mensual</th><th>Qué tan seguro</th><th>Evidencia</th><th>Acción</th></tr></thead>
 <tbody>
-<tr><td data-etiqueta="N°">1</td><td data-etiqueta="Tipo">Plata que entró sin boleta ni factura</td><td data-etiqueta="Qué pasó">Abono del 15/09/2026 sin boleta ni factura (DEPOSITO CHEQUE CLIENTE TALLER)</td><td data-etiqueta="Monto del documento o movimiento" class=monto>$238.000</td><td data-etiqueta="Plata en juego" class=monto>$38.000</td><td data-etiqueta="Impacto mensual" class=monto>$19.000 (promedio mensual)</td><td data-etiqueta="Qué tan seguro">Media: confirma antes</td><td data-etiqueta="Evidencia"><code>banco.csv</code> fila 6, 15/09/2026, $238.000</td><td data-etiqueta="Acción">Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura (nota interna N01).</td></tr>
-<tr><td data-etiqueta="N°">2</td><td data-etiqueta="Tipo">Plata que entró sin boleta ni factura</td><td data-etiqueta="Qué pasó">Abono del 04/08/2026 sin boleta ni factura (DEPOSITO EN EFECTIVO SUCURSAL CENTRO)</td><td data-etiqueta="Monto del documento o movimiento" class=monto>$120.000</td><td data-etiqueta="Plata en juego" class=monto>$19.160</td><td data-etiqueta="Impacto mensual" class=monto>$9.580 (promedio mensual)</td><td data-etiqueta="Qué tan seguro">Media: confirma antes</td><td data-etiqueta="Evidencia"><code>banco.csv</code> fila 2, 04/08/2026, $120.000</td><td data-etiqueta="Acción">Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura (nota interna N02).</td></tr>
-<tr><td data-etiqueta="N°">3</td><td data-etiqueta="Tipo">Plata que entró sin boleta ni factura</td><td data-etiqueta="Qué pasó">Abono del 28/09/2026 sin boleta ni factura (ABONO REMESA VENTA MOSTRADOR SEMANA 39)</td><td data-etiqueta="Monto del documento o movimiento" class=monto>$96.500</td><td data-etiqueta="Plata en juego" class=monto>$15.408</td><td data-etiqueta="Impacto mensual" class=monto>$7.704 (promedio mensual)</td><td data-etiqueta="Qué tan seguro">Media: confirma antes</td><td data-etiqueta="Evidencia"><code>banco.csv</code> fila 7, 28/09/2026, $96.500</td><td data-etiqueta="Acción">Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura (nota interna N03).</td></tr>
+<tr><td data-etiqueta="N°">1</td><td data-etiqueta="Qué pasó" class="que"><span class="tipo">Plata que entró sin boleta ni factura</span>Abono del 15/09/2026 sin boleta ni factura (DEPOSITO CHEQUE CLIENTE TALLER)</td><td data-etiqueta="Monto del documento o movimiento" class="monto">$238.000</td><td data-etiqueta="Plata en juego" class="monto fuerte">$38.000</td><td data-etiqueta="Impacto mensual" class="monto">$19.000<small>promedio mensual</small></td><td data-etiqueta="Qué tan seguro">Media: confirma antes</td><td data-etiqueta="Evidencia" class="evid"><code>banco.csv</code> fila 6, 15/09/2026, $238.000</td><td data-etiqueta="Acción" class="accion">Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura (nota interna N01).</td></tr>
+<tr><td data-etiqueta="N°">2</td><td data-etiqueta="Qué pasó" class="que"><span class="tipo">Plata que entró sin boleta ni factura</span>Abono del 04/08/2026 sin boleta ni factura (DEPOSITO EN EFECTIVO SUCURSAL CENTRO)</td><td data-etiqueta="Monto del documento o movimiento" class="monto">$120.000</td><td data-etiqueta="Plata en juego" class="monto fuerte">$19.160</td><td data-etiqueta="Impacto mensual" class="monto">$9.580<small>promedio mensual</small></td><td data-etiqueta="Qué tan seguro">Media: confirma antes</td><td data-etiqueta="Evidencia" class="evid"><code>banco.csv</code> fila 2, 04/08/2026, $120.000</td><td data-etiqueta="Acción" class="accion">Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura (nota interna N02).</td></tr>
+<tr><td data-etiqueta="N°">3</td><td data-etiqueta="Qué pasó" class="que"><span class="tipo">Plata que entró sin boleta ni factura</span>Abono del 28/09/2026 sin boleta ni factura (ABONO REMESA VENTA MOSTRADOR SEMANA 39)</td><td data-etiqueta="Monto del documento o movimiento" class="monto">$96.500</td><td data-etiqueta="Plata en juego" class="monto fuerte">$15.408</td><td data-etiqueta="Impacto mensual" class="monto">$7.704<small>promedio mensual</small></td><td data-etiqueta="Qué tan seguro">Media: confirma antes</td><td data-etiqueta="Evidencia" class="evid"><code>banco.csv</code> fila 7, 28/09/2026, $96.500</td><td data-etiqueta="Acción" class="accion">Confirma que fue una venta y que no tiene documento; si es así, emite la boleta o factura (nota interna N03).</td></tr>
 </tbody>
 </table>
+</div>
 <p class="nota">&quot;Monto del documento o movimiento&quot; es el total de la factura, cotización, cobro o abono. &quot;Plata en juego&quot; es la parte que pierdes, te deben o arriesgas: a veces es todo el monto y a veces solo el IVA. &quot;Promedio mensual&quot; quiere decir que la fuga pasó una vez y la repartí entre los meses del periodo para poder ordenar la tabla; &quot;cada mes&quot; quiere decir que se repite hasta que la arregles.</p>
 <p class="nota">Palabras que uso: <strong>neto</strong> es el precio sin IVA; <strong>folio</strong> es el número de la factura o boleta; <strong>fecha de corte</strong> es el último día que cubren tus archivos; una <strong>nota de crédito o de débito</strong> es un documento que corrige una factura ya emitida (te la emite tu contador o tu sistema de facturación).</p>
 <h2>Detalle de cada fuga</h2>
@@ -126,7 +146,7 @@
 <p>Archivos que leí:</p>
 <ul>
 <li><code>banco.csv</code>: cartola o movimientos del banco, 6 filas leídas.</li>
-<li><code>rcv_ventas.csv</code>: registro de ventas del sii, 1 filas leídas.</li>
+<li><code>rcv_ventas.csv</code>: registro de Ventas del SII, 1 filas leídas.</li>
 </ul>
 <h2>Lo que no pude revisar</h2>
 <ul>

@@ -182,6 +182,8 @@ def construir(res) -> dict:
         tabla.append({"n": str(n), "id": h.id, "tipo": NOMBRE_SIMPLE[h.tipo], "que": referencia(h),
                       "monto": formato_clp(h.monto_clp), "en_juego": formato_clp(h.impacto_clp),
                       "mensual": _impacto_mensual(h), "seguridad": SEGURIDAD.get(h.confianza, h.confianza),
+                      "mensual_monto": formato_clp(h.impacto_mensual_clp),
+                      "mensual_nota": "cada mes" if h.recurrente else "promedio mensual",
                       "evidencia": evidencia, "accion": h.accion_sugerida})
         lineas = [("Qué pasó", h.descripcion), ("Monto del documento o movimiento", formato_clp(h.monto_clp)),
                   ("Plata en juego", formato_clp(h.impacto_clp)), ("Impacto mensual", _impacto_mensual(h)),
@@ -194,7 +196,8 @@ def construir(res) -> dict:
     archivos = []
     for a in res.archivos_leidos:
         nota = "" if a.get("usado", True) else " No lo usé porque repite a otro archivo."
-        tipo = ROLES[a["rol"]]["titulo"].lower() if a.get("rol") in ROLES else a.get("rol", "")
+        tipo = ROLES[a["rol"]]["titulo"] if a.get("rol") in ROLES else a.get("rol", "")
+        tipo = tipo[:1].lower() + tipo[1:]
         archivos.append(f"`{a['archivo']}`: {tipo}, {a['filas']} filas leídas.{nota}")
     notas = list(res.avisos)
     if res.descartados:
@@ -274,10 +277,18 @@ ESTILO = """
 .informe .periodo{color:var(--suave);margin:0}
 .informe .resumen{background:var(--papel);border-left:4px solid var(--acento);border-radius:6px;margin:0;padding:.9rem 1rem .9rem 2.2rem}
 .informe .resumen li{margin:.3rem 0}
-.informe table{border-collapse:collapse;width:100%;font-size:.92rem}
+.informe .tabla{overflow-x:auto}
+.informe table{border-collapse:collapse;width:100%;font-size:.9rem}
 .informe th,.informe td{border-bottom:1px solid var(--linea);padding:.55rem .5rem;text-align:left;vertical-align:top}
 .informe th{background:var(--papel);font-weight:600}
+.informe th.monto,.informe td.monto{text-align:right}
 .informe td.monto{white-space:nowrap;font-variant-numeric:tabular-nums}
+.informe td.fuerte{font-weight:600}
+.informe td.que{min-width:15rem}
+.informe td.accion{min-width:11rem}
+.informe td.evid{min-width:9.5rem}
+.informe td .tipo{color:var(--acento);display:block;font-size:.72rem;font-weight:600;letter-spacing:.03em;margin-bottom:.15rem;text-transform:uppercase}
+.informe td small{color:var(--suave);display:block;font-size:.76rem;white-space:normal}
 .informe .nota{color:var(--suave);font-size:.9rem}
 .informe .fuga{border:1px solid var(--linea);border-radius:8px;margin:0 0 1rem;padding:1rem}
 .informe .fuga .tipo{color:var(--acento);font-size:.8rem;font-weight:600;letter-spacing:.03em;text-transform:uppercase}
@@ -290,13 +301,23 @@ ESTILO = """
   margin:.3rem 0 0;overflow-x:auto;padding:.55rem .7rem;white-space:pre-wrap;word-break:break-word}
 .informe code{background:var(--papel);border-radius:4px;font:.88em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:.05rem .3rem}
 .informe .pie{border-top:1px solid var(--linea);color:var(--suave);margin-top:2rem;padding-top:1rem}
-@media (max-width:760px){
+@media (max-width:1100px){
+  .informe table{font-size:.86rem}
+  .informe th,.informe td{padding:.5rem .35rem}
+  .informe td.que{min-width:11rem}
+  .informe td.accion{min-width:9rem}
+  .informe td.evid{min-width:8rem}
+}
+@media (max-width:900px){
   .informe table,.informe tbody,.informe tr,.informe td{display:block;width:auto}
   .informe thead{display:none}
   .informe tr{border:1px solid var(--linea);border-radius:8px;margin:0 0 .8rem;padding:.4rem .7rem}
   .informe td{border:0;padding:.25rem 0}
   .informe td::before{color:var(--suave);content:attr(data-etiqueta) ": ";font-size:.85rem}
-  .informe td.monto{white-space:normal}
+  .informe th.monto,.informe td.monto{text-align:left;white-space:normal}
+  .informe td.que,.informe td.accion,.informe td.evid{min-width:0}
+  .informe td .tipo{display:inline;margin-right:.3rem}
+  .informe td small{display:inline;margin-left:.3rem}
   .informe .fuga dl{grid-template-columns:1fr}
   .informe .fuga dt{margin-top:.4rem}
 }
@@ -322,14 +343,27 @@ def cuerpo_html(res) -> str:
     s += [f"<li><strong>{_marcas(etiqueta)}:</strong> {_marcas(texto)}</li>" for etiqueta, texto in m["resumen"]]
     s += ["</ol>", "<h2>Fugas encontradas, de mayor a menor impacto mensual</h2>"]
     if m["tabla"]:
-        columnas = COLUMNAS
-        s += ["<table>", "<thead><tr>" + "".join(f"<th>{t}</th>" for _, t in columnas) + "</tr></thead>", "<tbody>"]
+        titulos = dict(COLUMNAS)
+        orden = [("n", ""), ("que", ""), ("monto", "monto"), ("en_juego", "monto"), ("mensual", "monto"),
+                 ("seguridad", ""), ("evidencia", ""), ("accion", "")]
+        encabezado = "".join(f'<th class="{clase}">{titulos[k]}</th>' if clase else f"<th>{titulos[k]}</th>"
+                             for k, clase in orden)
+        s += ['<div class="tabla">', "<table>", f"<thead><tr>{encabezado}</tr></thead>", "<tbody>"]
         for f in m["tabla"]:
-            celdas = "".join(
-                f'<td data-etiqueta="{t}"{" class=monto" if k in ("monto", "en_juego", "mensual") else ""}>{_marcas(f[k])}</td>'
-                for k, t in columnas)
-            s.append(f"<tr>{celdas}</tr>")
-        s += ["</tbody>", "</table>",
+            s.append(
+                "<tr>"
+                f'<td data-etiqueta="{titulos["n"]}">{_marcas(f["n"])}</td>'
+                f'<td data-etiqueta="{titulos["que"]}" class="que"><span class="tipo">{_marcas(f["tipo"])}</span>'
+                f'{_marcas(f["que"])}</td>'
+                f'<td data-etiqueta="{titulos["monto"]}" class="monto">{_marcas(f["monto"])}</td>'
+                f'<td data-etiqueta="{titulos["en_juego"]}" class="monto fuerte">{_marcas(f["en_juego"])}</td>'
+                f'<td data-etiqueta="{titulos["mensual"]}" class="monto">{_marcas(f["mensual_monto"])}'
+                f'<small>{_marcas(f["mensual_nota"])}</small></td>'
+                f'<td data-etiqueta="{titulos["seguridad"]}">{_marcas(f["seguridad"])}</td>'
+                f'<td data-etiqueta="{titulos["evidencia"]}" class="evid">{_marcas(f["evidencia"])}</td>'
+                f'<td data-etiqueta="{titulos["accion"]}" class="accion">{_marcas(f["accion"])}</td>'
+                "</tr>")
+        s += ["</tbody>", "</table>", "</div>",
               f'<p class="nota">{_marcas(NOTA_TABLA)}</p>', f'<p class="nota">{_marcas(GLOSARIO)}</p>']
     else:
         s.append("<p>No encontré fugas con evidencia en los archivos que revisé.</p>")
@@ -363,7 +397,7 @@ def informe_html(res) -> str:
     return ("<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n<meta charset=\"utf-8\">\n"
             "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n"
             f"<title>{titulo}</title>\n"
-            "<style>body{background:#fff;margin:0 auto;max-width:1040px;padding:1.5rem 1rem 3rem}</style>\n"
+            "<style>body{background:#fff;margin:0 auto;max-width:1200px;padding:1.5rem 1rem 3rem}</style>\n"
             f"</head>\n<body>\n{cuerpo_html(res)}</body>\n</html>\n")
 
 

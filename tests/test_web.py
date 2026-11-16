@@ -56,11 +56,11 @@ def test_textos_obligatorios_de_la_pagina(web):
     pagina = (web / "index.html").read_text(encoding="utf-8")
     assert '<html lang="es">' in pagina and "viewport" in pagina
     for texto in ("Detective de Fugas Pyme", "La plata que se pierde no hace ruido: hay que contarla fila por fila.",
-                  "Datos 100% ficticios", "Tus archivos no salen de tu computador", "Usar mis archivos",
-                  "Este informe no reemplaza a tu contador"):
+                  "Datos 100% ficticios", "Tus archivos no salen de tu computador", "Usar mis archivos"):
         assert texto in pagina, texto
     demo = (web / "demo" / "informe_cuerpo.html").read_text(encoding="utf-8")
     assert demo.count('<section class="fuga"') == 12 and "Resumen en 5 líneas" in demo
+    assert demo.count("Este informe no reemplaza a tu contador") == 1
 
 
 def test_privacidad_la_web_no_llama_a_ningun_dominio_fuera_del_cdn_de_pyodide(web):
@@ -168,6 +168,11 @@ def test_navegador_sin_archivo_de_empresa_la_pagina_pregunta_los_datos(navegador
     assert navegador["formulario_oculto_con_config"] is True and navegador["formulario_visible_sin_config"] is True
     assert navegador["titulo_sin_config"] == "Informe de fugas: Mi Pyme de Prueba SpA"
     assert "31/10/2026" in navegador["periodo_sin_config"]
+
+
+def test_navegador_la_tabla_no_se_sale_de_su_recuadro_en_ningun_ancho(navegador):
+    """Regresion: con 9 columnas la tabla quedo mas ancha que el recuadro en pantallas de escritorio."""
+    assert navegador["desbordes"] == []
 
 
 def test_navegador_no_envia_datos_y_lee_excel(navegador):

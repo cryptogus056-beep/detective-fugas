@@ -1,6 +1,6 @@
 # Borrador del post para Skool (Imperio Agéntico · Built with FABLE)
 
-> BORRADOR. No publicado. Los números ya son los reales (actualizados por Fable el 15/11/2026). Solo te falta completar los 4 marcadores de links: `[[LINK_WEB]]`, `[[LINK_VIDEO]]`, `[[LINK_GITHUB]]` y `[[LINK_POST_X]]`.
+> BORRADOR. No publicado. Los números ya son los reales (actualizados por Fable el 15/11/2026). Los links de la web y de GitHub ya están puestos. Solo te falta completar `[[LINK_VIDEO]]` y `[[LINK_POST_X]]`.
 
 ---
 
@@ -23,9 +23,9 @@ Construí con **Claude Fable 5.2** el **Detective de Fugas Pyme**: le pasas los 
 
 ## 2. El resultado
 
-- 🔗 Pruébalo: [[LINK_WEB]]
+- 🔗 Pruébalo: https://detective-fugas-web.vercel.app
 - 🎥 Video de 2 minutos: [[LINK_VIDEO]]
-- 💻 Código abierto: [[LINK_GITHUB]]
+- 💻 Código abierto: https://github.com/cryptogus056-beep/detective-fugas
 
 **La prueba:** armé una pyme ficticia (una empresa de climatización con 3 meses de movimientos) y escondí 12 fugas de 5 tipos, más varias trampas que parecen fuga pero no lo son. Un script aparte compara el resultado con la llave de respuestas.
 
@@ -80,7 +80,7 @@ Al cerrar cada fase: pruebas en verde, PLAN.md actualizado, entrada en BITACORA.
 Antes de cada tarea larga dime en una línea qué vas a hacer.
 ```
 
-**Para usarlo con tus datos:** abre [[LINK_WEB]], aprieta "Usar mis archivos" y arrastra tus CSV. Si tu banco no calza, el README explica cómo crear la plantilla en 2 minutos.
+**Para usarlo con tus datos:** abre https://detective-fugas-web.vercel.app, aprieta "Usar mis archivos" y arrastra tus CSV. Si tu banco no calza, el README explica cómo crear la plantilla en 2 minutos.
 
 ## 4. La moraleja
 

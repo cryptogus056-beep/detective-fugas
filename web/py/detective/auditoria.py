@@ -72,8 +72,8 @@ def _quitar_repetidos(cargados: list, avisos: list) -> list:
         gemelo = next((l for l, c in usados if l.plantilla.rol == lectura.plantilla.rol
                        and Counter(huella(r) for r in c.registros) == contenido), None)
         if gemelo is not None and carga.registros:
-            avisos.append(f"'{gemelo.tabla.nombre}' y '{lectura.tabla.nombre}' traen las mismas filas: usé solo "
-                          f"'{gemelo.tabla.nombre}' para no contar nada dos veces.")
+            avisos.append(f"`{gemelo.tabla.nombre}` y `{lectura.tabla.nombre}` traen las mismas filas: usé solo "
+                          f"`{gemelo.tabla.nombre}` para no contar nada dos veces.")
             continue
         usados.append((lectura, carga))
     return usados
