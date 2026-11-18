@@ -24,6 +24,20 @@ def _plantillas(args):
     return cargar_plantillas(args.plantillas or carpeta_por_defecto())
 
 
+def _sin_hora(texto: str) -> str:
+    return "\n".join(l for l in texto.splitlines() if '"generado_en"' not in l)
+
+
+def escribir_si_cambio(ruta: Path, contenido: str) -> None:
+    """No reescribe un resultado si lo unico distinto es la hora en que se genero.
+
+    Asi, volver a correr la auditoria sobre los mismos archivos no deja cambios falsos en git.
+    """
+    if ruta.exists() and _sin_hora(ruta.read_text(encoding="utf-8")) == _sin_hora(contenido):
+        return
+    ruta.write_text(contenido, encoding="utf-8")
+
+
 def leer_carpeta(carpeta: Path) -> list:
     """Archivos del primer nivel de la carpeta (no entra a subcarpetas)."""
     return [Entrada(ruta.name, ruta.read_bytes()) for ruta in sorted(carpeta.iterdir())
@@ -58,7 +72,7 @@ def cmd_auditar(args) -> int:
     salida = Path(args.salida) if args.salida else Path("salida") / carpeta.resolve().name
     salida.mkdir(parents=True, exist_ok=True)
     for nombre, contenido in archivos_de_salida(res, borradores).items():
-        (salida / nombre).write_text(contenido, encoding="utf-8")
+        escribir_si_cambio(salida / nombre, contenido)
     print(f"Empresa: {res.config.empresa}. Corte: {res.config.fecha_corte.strftime('%d/%m/%Y')}.")
     for a in res.archivos_leidos:
         nota = "" if a["usado"] else " (repetido, no se usó)"

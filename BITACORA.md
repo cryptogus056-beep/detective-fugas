@@ -2,7 +2,7 @@
 
 Aquí queda registrado cada error, corrección y decisión durante la construcción con Claude Fable 5.2. Es la base de la parte "cómo lo hice" del post del concurso.
 
-**Resumen:** Fable corrigió 19 cosas (12 que detectó con sus propias pruebas y relecturas, 5 que encontró el crítico y 2 a partir de lo que vio Gustavo al usar la web publicada: la tabla que se salía de su recuadro y la falta de una guía de uso); las 3 más importantes fueron:
+**Resumen:** Fable corrigió 20 cosas (12 que detectó con sus propias pruebas y relecturas, 5 que encontró el crítico y 3 a partir de lo que vivió Gustavo al usar y publicar la herramienta: la tabla que se salía de su recuadro, la falta de una guía de uso y un archivo de resultados que bloqueaba el git pull); las 3 más importantes fueron:
 
 1. **El informe mezclaba montos.** El crítico (como dueña de pyme) no podía saber cuánta plata era suya: la columna "Monto" a veces era la deuda y a veces el total de un documento cuya pérdida real era otra, y el resumen decía "al mes" para cosas que pasaron una sola vez. Fable separó "monto del documento" de "plata en juego" y reescribió el resumen.
 2. **Los mensajes de cobro envejecían al enviarlos.** Decían "al 31/10 lleva 72 días sin pago" y prometían "le enviaremos la factura esta semana", sin datos para transferir. Ahora no citan fechas que cambian, adjuntan el documento, piden disculpas por la demora y traen entre corchetes lo que el dueño debe completar.
@@ -259,6 +259,13 @@ Formato de cada entrada:
 - Por qué: la página asumía que la persona ya sabía qué archivos descargar, dónde conseguirlos, qué hacer si le faltaba alguno y qué hacer con el informe. Un informe largo sin un "qué hago ahora" no se aprovecha.
 - Qué cambié: `web/index.html` y `web/app.js`: sección "Cómo se usa, en 3 pasos"; "Usar mis archivos" convertido en un asistente de 3 pasos con indicador de avance y una ayuda "¿Qué hago aquí?" en cada paso; una tarjeta por tipo de archivo (para qué sirve, prioridad, cómo conseguirlo con **[sin verificar]** donde corresponde) que se marca con ✓ al subirlo; recuadro "Qué puedo revisar con lo que subiste" que dice qué falta para cada tipo de fuga; plan de acción agrupado por lo que hay que hacer (`detective/informe.py`, `plan_de_accion`), con códigos que llevan al detalle; mensajes de cobro con botón "Copiar mensaje"; guía "¿Cómo leo este informe?"; descargas con nombres y explicación en palabras simples; 10 preguntas frecuentes. Planillas para llenar (`plantillas_para_llenar/`: cotizaciones, licencias y equipo) con dos plantillas nuevas que las reconocen (`equipo_planilla`, `licencias_planilla`). Los archivos no reconocidos ahora se explican sin comandos ni nombres de carpetas.
 - Cómo lo verifiqué: recorrido completo en Chromium a 1440 y 390 px con capturas revisadas: sin errores de consola, sin desborde horizontal, el recuadro pasa de 3 de 5 a 5 de 5 al subir los archivos, las 7 tarjetas se marcan, el plan tiene 4 grupos y el código H01 lleva al detalle. Corrección en el camino: una tabla de ejemplo dentro de una tarjeta abierta estiraba la columna en celular (se arregló con `minmax(0,1fr)`). Pruebas nuevas en `tests/test_guia.py` y `tests/test_web.py`. `python -m pytest -q`: 182 passed.
+
+## 2026-11-17 22:48 · Fase 9 · Corrección: correr el detector bloqueaba el git pull de Gustavo
+
+- Qué pasó: al traer la guía nueva, `git pull` se negó con "Your local changes to salida/demo/hallazgos.json would be overwritten".
+- Por qué: cada vez que alguien corre el detector, `hallazgos.json` se reescribe con la hora nueva en `generado_en`, aunque los hallazgos sean idénticos. Gustavo lo había corrido para comprobar que funcionaba en su Mac.
+- Qué cambié: `detective/__main__.py`: `escribir_si_cambio` no reescribe un resultado si lo único distinto es la hora (la misma regla que ya usaba `scripts/construir_web.py`). Gustavo resolvió el bloqueo con `git checkout -- salida`.
+- Cómo lo verifiqué: prueba `test_volver_a_auditar_lo_mismo_no_deja_cambios_falsos` (corre dos veces con un segundo de diferencia y compara los bytes); después de auditar las dos demos, `git status` no muestra cambios en `salida/`. `python -m pytest -q`: 183 passed. La web publicada con la guía se probó en Chromium real: 0 errores, mismo resultado que la CLI.
 
 ## Crítico
 

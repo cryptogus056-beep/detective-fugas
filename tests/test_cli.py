@@ -83,3 +83,13 @@ def test_modo_agentico_clasificaciones_y_descartes_solo_pueden_quitar(tmp_path, 
                                                                 "Descartado por el verificador de segunda opinión"]
     assert any("H99" in a for a in final["avisos"])
     assert "| 1 |" in (salida / "informe.md").read_text(encoding="utf-8")
+
+
+def test_volver_a_auditar_lo_mismo_no_deja_cambios_falsos(tmp_path, raiz):
+    """Regresion: correr el detector reescribia hallazgos.json con la hora nueva y bloqueaba un git pull."""
+    assert main(["auditar", "--datos", str(raiz / "data" / "demo"), "--salida", str(tmp_path)]) == 0
+    antes = {p.name: p.read_bytes() for p in tmp_path.iterdir()}
+    import time
+    time.sleep(1.1)
+    assert main(["auditar", "--datos", str(raiz / "data" / "demo"), "--salida", str(tmp_path)]) == 0
+    assert {p.name: p.read_bytes() for p in tmp_path.iterdir()} == antes
